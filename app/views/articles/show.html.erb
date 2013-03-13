@@ -1,0 +1,113 @@
+<%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
+
+<!--% if (notice) %
+<div class="control-group">
+  <div class="controls">
+    <div id="notice"><%= notice %></div>
+  </div>
+</div>
+< end -->
+
+<div class="control-group">
+  <%= label_tag(:title, 'レポート名', :class => 'control-label')%>
+  <div class="controls span6">
+    <%=  sanitize(@article.title) %>  
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+    <div style="border: 1px;box-shadow: 0 0 3px;width: 320px; height:240px; text-align: center;line-height:240px;">
+      image
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:theme_id, '記事のテーマ', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.theme.code, :scope => 'theme.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:country_code, '国名別', :class => 'control-label') %>
+  <div class="controls">
+    <!-- todo -->
+    <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:vihicle_id, '移動手段', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:member_id, '人数', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.member.code, :scope => 'member.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:purpose_id, '目的', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.purpose.code, :scope => 'purpose.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:budget_id, '予算', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.budget.code, :scope => 'budget.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:language_id, '言語力', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.language.code, :scope => 'language.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label_tag(:age_id, '年齢', :class => 'control-label') %>
+  <div class="controls">
+     <%= t(@article.age.code, :scope => 'age.code') %>
+  </div>
+</div>
+
+<div class="control-group">
+    <%= label_tag(:entry_program, '特集記事', :class => 'control-label') %>
+    <div class="controls">
+      <% if (@article.entry_program) %>
+      有
+      <% else %>
+      無
+      <% end -%>
+    </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :description, 'レポート本文', :class => 'control-label'%>
+  <div class="controls">
+    <%=  sanitize(@article.description) %>  
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+  <!-- %= f.submit '編集', :class => 'btn btn-inverse' % -->
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+  <%= f.submit '編集', :class => 'btn btn-inverse', :disabled => "disabled" %>
+  </div>
+</div>
+
+<% end -%>

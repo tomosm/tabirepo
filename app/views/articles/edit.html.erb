@@ -1,0 +1,76 @@
+<!-- form_for @article, :html => {:class => 'form-horizontal'} do |f| -->
+<%= form_for @article, :html => {:class => 'form-horizontal'} do |f| %>
+
+<% if @article.errors.any? %>
+  <% @article.errors.full_messages.each do |msg| %>
+<div class="control-group">
+  <div class="controls">
+    <%= msg %>
+  </div>
+</div>
+  <% end -%>
+<% end -%>
+
+
+<div class="control-group">
+  <%= f.label :title, 'レポート名', :class => 'control-label'%>
+  <div class="controls">
+    <%= f.text_field :title, :placeholder => 'レポート名', :class => "span6"%>  
+  </div>
+</div>
+
+<div class="control-group">
+  <!-- todo 修正-->
+  <%= f.label '投稿写真', :class => 'control-label'%>
+  <div class="controls">
+    <%= f.file_field :title %>
+    <!-- button_tag 'アップロード', :type => 'button', :class => 'btn btn-mini btn-danger' -->  
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+    <div style="border: 1px;box-shadow: 0 0 3px;width: 320px; height:240px; text-align: center;line-height:240px;">
+      image
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label '旅のシチュエーション', :class => 'control-label'%>
+  <div class="controls">
+    <%= f.select :theme_id, @themes.collect{|m| [t(m[0], :scope => 'theme.code'), m[1]]}, :prompt => '記事のテーマ' %>
+    <select><option>日本</option></select>
+<!--     f.select :country_code, @countries  todo call api -->
+    <%= f.select :vihicle_id, @vihicles.collect{|m| [t(m[0], :scope => 'vihicle.code'), m[1]]}, :prompt => '移動手段' %>
+    <%= f.select :member_id, @members.collect{|m| [t(m[0], :scope => 'member.code'), m[1]]}, :prompt => '人数' %>
+    <%= f.select :purpose_id, @purposes.collect{|m| [t(m[0], :scope => 'purpose.code'), m[1]]}, :prompt => '目的' %>
+    <%= f.select :budget_id, @budgets.collect{|m| [t(m[0], :scope => 'budget.code'), m[1]]}, :prompt => '予算' %>
+    <%= f.select :language_id, @languages.collect{|m| [t(m[0], :scope => 'language.code'), m[1]]}, :prompt => '言語力' %>
+    <%= f.select :age_id, @ages.collect{|m| [t(m[0], :scope => 'age.code'), m[1]]}, :prompt => '年齢' %>
+  </div>
+</div>
+
+
+<div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <%= f.check_box :entry_program, :class => 'checkbox' %> 特集記事
+      </label>
+    </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :description, 'レポート本文', :class => 'control-label'%>
+  <div class="controls">
+    <%= f.text_area :description, :placeholder => 'レポート本文', :rows => 4, :class => "span6" %>  
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+  <%= f.submit '保存', :class => 'btn btn-inverse' %>
+  </div>
+</div>
+
+<% end -%>

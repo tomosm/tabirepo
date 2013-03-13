@@ -1,0 +1,40 @@
+// Place all the styles related to the Top controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/***************************************************
+           SPECIFIC
+***************************************************/
+/*#worldmap > img {
+  width: 720px;
+}*/
+
+ /*
+.readmore{
+  font-weight:bold;
+  font-size:15px;
+  font-family:Georgia, "Times New Roman", Times, serif;
+  color:#333333;
+}
+
+.readmore a {
+   color:#333333;
+}
+
+.holder_news {
+  width:274px;
+  float:left;
+  border-bottom:1px dotted black;
+  margin-bottom:10px;
+  padding-bottom:12px;
+}   
+*/
+
+
+#contents .article {
+//  float: left;
+  display: inline-block;  
+  *display: inline;  
+  *zoom: 1; 
+  padding: 5px;
+}

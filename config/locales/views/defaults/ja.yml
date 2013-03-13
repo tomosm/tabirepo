@@ -1,0 +1,26 @@
+ja:
+  theme:
+    code:
+      turningpoint: 人生を変えた話
+      heartful: 心温まる話
+      firsttime: 初体験の話
+      dangerous: 危ない話
+      funny: すべらない話
+  vihicle:
+    code:
+      walk: 徒歩
+  member:
+    code:
+      man: 一人旅(男)
+  purpose:
+    code:
+      sightseeing: 観光
+  budget:
+    code:
+      poor: 貧乏旅行（バックパッカー、安宿）
+  language:
+    code:
+      no_english_no_local: 英語×、現地語×
+  age:
+    code:
+      teenager: ～19歳

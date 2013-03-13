@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<html lang="ja">
+  <title>Wakuwaku</title>
+      <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.1/build/cssreset/cssreset-min.css">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/> 
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="holder_content">
+  <!-- <h2 class="concept">世界を歩いて、感じて、考えた。旅話専門ポータルサイト</h2> -->
+  <a href="#" id="top">
+    <%= link_to image_tag('top.png'), '/' %>
+  </a>
+  </div>
+</header>
+<div id="main" class="row">
+  <div id="sidebar" class="span3">
+     <nav>
+        <ul>
+           <li><%= link_to 'About us', '/' %></li>
+           <li><%= link_to 'Index', '/' %></li>
+           <li><%= link_to 'Information', '/' %></li>
+           <li><%= link_to '投稿する', new_article_path %></li>
+           <li><%= link_to '問い合わせ', '/' %></li>
+        </ul>
+     </nav>
+     <aside id="daily_photo">
+        <!-- 写真の大きさはそのままで範囲を切り取る -->
+        <%= image_tag 'picture4.jpg', :size => '150x99', :class => "img-polaroid"  %>
+        <footer>今日のPhoto：ポルトガル</footer>
+     </aside>
+     <div id="ad">
+        <div><a href=""><img src=""></a></div>
+        <div><a href=""><img src=""></a></div>
+        <div><a href=""><img src=""></a></div>
+        <div><a href=""><img src=""></a></div>
+     </div>
+  </div>
+
+  <div id="contents" class="span9">
+    <%= yield %>
+  </div>
+</div>
+<footer>copyright</footer>
+</div>
+</body>
+</html>
