@@ -47,5 +47,9 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+# To upload photo
+gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'fog'
+
+# Authentication
+gem 'devise'
