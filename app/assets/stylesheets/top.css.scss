@@ -37,4 +37,23 @@
   *display: inline;  
   *zoom: 1; 
   padding: 5px;
+  max-width: 210px;
+  // max-height: 200px;
 }
+
+#contents .article img {
+  max-width: 200px;
+  max-height: 150px;
+}
+
+#contents .article header {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#contents .article footer {
+  height: 40px;
+  overflow: hidden;
+}
+

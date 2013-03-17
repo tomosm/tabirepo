@@ -14,14 +14,16 @@ html {
   height:100%;
 }
 
-body{
+body {
   background: transparent;
   height: 100%;
   font-family:Georgia, "Times New Roman", Times, serif;
   font-size: 12px;
 }
 
-body > div.container {
+// body > div.container-fluid {
+body > div.container,
+body > div.container-fluid {
   height: auto;
 }
 
@@ -29,7 +31,8 @@ body > div.container {
               HEADER
 ***************************************************/
 
-div.container > header {
+div.container > header,
+div.container-fluid > header {
   margin-bottom: 15px;
   /*background-color: red;*/
   padding: 5px 10px;
@@ -45,15 +48,18 @@ div.container > header {
               FOOTER
 ***************************************************/
 
-div.container > footer {
+div.container > footer p,
+div.container-fluid > footer p {
   position:relative;
-  height:20px;
+  // height:20px;
+  height: 100px;
+  padding-top : 20px;
   clear:both;
   width:100%;
-  background-color:black;
+  background: url('/assets/background_footer.png') repeat-x scroll left top #222;
   color: white;
   text-align:right;
-  line-height: 20px;
+  // line-height: 20px;
 }
 
 /***************************************************
@@ -155,7 +161,8 @@ nav ul li a.current{
           Main containers
 ***************************************************/
 
-div.container {
+div.container,
+div.container-fluid {
   min-height: 100%;
   height: 100%;
   margin: 10px auto;
@@ -168,12 +175,12 @@ div.container {
         MAIN
 ***************************************************/  
 
-#main {
-  //padding: 0 0 0 10px;
-  //margin: 0 auto;
+// #main {
+//   //padding: 0 0 0 10px;
+//   //margin: 0 auto;
   
-  /*overflow: hidden;*/
-}
+//   /*overflow: hidden;*/
+// }
 
 /*
 #contents {
@@ -227,4 +234,18 @@ div.container {
 
 div.holder_content {
   text-align: center;
+}
+
+/***************************************************
+           VARIABLES
+***************************************************/
+.break-string {
+  // white-space: pre;           /* CSS 2.0 */
+  // white-space: pre-wrap;      /* CSS 2.1 */
+  // white-space: pre-line;      /* CSS 3.0 */
+  // white-space: -pre-wrap;     /* Opera 4-6 */
+  // white-space: -o-pre-wrap;   /* Opera 7 */
+  // white-space: -moz-pre-wrap; /* Mozilla */
+  // white-space: -hp-pre-wrap;  /* HP Printers */
+  word-wrap: break-word;      /* IE 5+ */
 }

@@ -1,38 +1,31 @@
+<%= stylesheet_link_tag    "articles", :media => "all" %>
 <%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
-
-<!--% if (notice) %
-<div class="control-group">
-  <div class="controls">
-    <div id="notice"><%= notice %></div>
-  </div>
-</div>
-< end -->
 
 <div class="control-group">
   <%= label_tag(:title, 'レポート名', :class => 'control-label')%>
-  <div class="controls span6">
+  <div class="controls string-label break-string">
     <%=  sanitize(@article.title) %>  
   </div>
 </div>
 
 <div class="control-group">
-  <div class="controls">
-    <div style="border: 1px;box-shadow: 0 0 3px;width: 320px; height:240px; text-align: center;line-height:240px;">
-      image
-    </div>
+  <div class="controls string-label break-string">
+    <% if @article.photo %>
+      <%=  image_tag(@article.photo.url(:medium), :size => "400x300", :class => "img-polaroid") %>  
+    <% end %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:theme_id, '記事のテーマ', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.theme.code, :scope => 'theme.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:country_code, '国名別', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
     <!-- todo -->
     <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
   </div>
@@ -40,49 +33,49 @@
 
 <div class="control-group">
   <%= label_tag(:vihicle_id, '移動手段', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:member_id, '人数', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.member.code, :scope => 'member.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:purpose_id, '目的', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.purpose.code, :scope => 'purpose.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:budget_id, '予算', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.budget.code, :scope => 'budget.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:language_id, '言語力', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.language.code, :scope => 'language.code') %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label_tag(:age_id, '年齢', :class => 'control-label') %>
-  <div class="controls">
+  <div class="controls string-label break-string">
      <%= t(@article.age.code, :scope => 'age.code') %>
   </div>
 </div>
 
 <div class="control-group">
     <%= label_tag(:entry_program, '特集記事', :class => 'control-label') %>
-    <div class="controls">
+    <div class="controls string-label break-string">
       <% if (@article.entry_program) %>
       有
       <% else %>
@@ -93,20 +86,19 @@
 
 <div class="control-group">
   <%= f.label :description, 'レポート本文', :class => 'control-label'%>
-  <div class="controls">
+  <div class="controls string-label break-string">
     <%=  sanitize(@article.description) %>  
   </div>
 </div>
 
 <div class="control-group">
-  <div class="controls">
-  <!-- %= f.submit '編集', :class => 'btn btn-inverse' % -->
-  </div>
-</div>
-
-<div class="control-group">
-  <div class="controls">
-  <%= f.submit '編集', :class => 'btn btn-inverse', :disabled => "disabled" %>
+  <div class="controls string-label break-string">
+  <!-- <%= f.submit '編集', :class => 'btn btn-inverse' %> -->
+    <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
+    <%= link_to '削除', @article,
+      :confirm => '削除してもよろしいですか？',
+      :method => :delete, 
+      :class => 'btn btn-inverse' %>
   </div>
 </div>
 
