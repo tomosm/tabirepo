@@ -12,7 +12,10 @@
   <% @articles.each do |article| %>
     <article class="article">
       <header><%= article.title %></header>
-      <%= link_to image_tag(article.photo.url(:thumb), :size => "200x150", :class => 'img-polaroid'), article_path(article) %>
+      <div>
+        <!-- <%= link_to image_tag(article.photo.url(:thumb), :size => "200x150", :class => 'img-polaroid'), article_path(article) %> -->
+        <%= link_to image_tag(article.photo.url(:thumb), :class => 'img-polaroid'), article_path(article) %>
+      </div>
       <footer><%= article.description %></footer>
     </article>
   <% end -%>
