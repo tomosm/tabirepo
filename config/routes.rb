@@ -1,4 +1,6 @@
 Wakuwaku::Application.routes.draw do
+  devise_for :users
+
 #  get "top/index"
   resources :articles
 

@@ -53,3 +53,7 @@ gem 'fog'
 
 # Authentication
 gem 'devise'
+
+# facebook
+gem "omniauth"
+gem "omniauth-facebook"
