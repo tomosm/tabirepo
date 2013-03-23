@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Wakuwaku::Application.load_tasks
+TabiRepo::Application.load_tasks

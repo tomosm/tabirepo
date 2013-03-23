@@ -1,7 +1,12 @@
-Wakuwaku::Application.routes.draw do
-  devise_for :users
+TabiRepo::Application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }#do
+  devise_scope :user do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
+    # get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  # end
 
-#  get "top/index"
+  #  get "top/index"
   resources :articles
 
   # The priority is based upon order of creation:
