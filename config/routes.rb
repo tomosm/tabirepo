@@ -1,4 +1,10 @@
 TabiRepo::Application.routes.draw do
+
+  get "/about_us/" => "about_us#index"
+
+  get "/contact/new" => "contact#new"
+  post "/contact/" => "contact#create"
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }#do
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'

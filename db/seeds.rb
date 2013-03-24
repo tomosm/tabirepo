@@ -32,3 +32,5 @@ Language.create(:code => "no_english_no_local")
 Age.delete_all
 Age.create(:code => "teenager")
 
+AboutUs.delete_all
+AboutUs.create(:content => "About Us")

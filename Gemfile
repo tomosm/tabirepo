@@ -28,6 +28,8 @@ group :assets do
   gem 'less-rails'
   gem 'less-rails-bootstrap'
 
+  # for fuelux
+  gem "fuelux-rails"
 end
 
 gem 'jquery-rails'
@@ -57,3 +59,6 @@ gem 'devise'
 # facebook
 gem "omniauth"
 gem "omniauth-facebook"
+
+# logical delete
+gem "acts_as_paranoid"

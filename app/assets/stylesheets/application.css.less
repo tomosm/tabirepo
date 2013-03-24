@@ -48,18 +48,29 @@ div.container-fluid > header {
               FOOTER
 ***************************************************/
 
-div.container > footer p,
-div.container-fluid > footer p {
+div.container > footer,
+div.container-fluid > footer {
   position:relative;
-  // height:20px;
-  height: 100px;
+  // height: 100px;
+  height: 80px;
   padding-top : 20px;
   clear:both;
   width:100%;
   background: url('/assets/background_footer.png') repeat-x scroll left top #222;
+  // line-height: 20px;
+}
+
+div.container > footer p,
+div.container-fluid > footer p {
   color: white;
   text-align:right;
-  // line-height: 20px;
+  margin-right: 5px;
+}
+
+div.container > footer div,
+div.container-fluid > footer div {
+  text-align:right;
+  margin-right: 5px;
 }
 
 /***************************************************

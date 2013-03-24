@@ -1,4 +1,6 @@
 class Article < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessible :age_id, :budget_id, :description, :entry_program, :language_id, :member_id, :purpose_id, :theme_id, :title, :vihicle_id, :photo
   belongs_to :age
   belongs_to :budget

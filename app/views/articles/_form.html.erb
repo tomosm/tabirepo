@@ -2,11 +2,11 @@
 
 <% if @article.errors.any? %>
   <% @article.errors.full_messages.each do |msg| %>
-<div class="control-group">
-  <div class="controls">
-    <%= msg %>
-  </div>
-</div>
+    <div class="control-group">
+      <div class="controls">
+        <%= msg %>
+      </div>
+    </div>
   <% end -%>
 <% end -%>
 
@@ -16,7 +16,7 @@
   <div class="controls">
     <div class="input-prepend">
       <!-- <span class="add-on"><i class="icon-pencil"></i></span> -->
-      <%= f.text_field :title, :placeholder => 'レポート名', :class => "span5" %>  
+      <%= f.text_field :title, :placeholder => 'レポート名', :class => "span6" %>  
     </div>
   </div>
 </div>

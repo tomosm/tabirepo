@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321171525) do
+ActiveRecord::Schema.define(:version => 20130324082119) do
+
+  create_table "about_us", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
+  end
 
   create_table "ages", :force => true do |t|
     t.string   "code"
@@ -35,12 +42,22 @@ ActiveRecord::Schema.define(:version => 20130321171525) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.datetime "deleted_at"
   end
 
   create_table "budgets", :force => true do |t|
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "languages", :force => true do |t|
@@ -86,6 +103,8 @@ ActiveRecord::Schema.define(:version => 20130321171525) do
     t.datetime "updated_at",                             :null => false
     t.integer  "uid"
     t.string   "provider"
+    t.datetime "deleted_at"
+    t.string   "name"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

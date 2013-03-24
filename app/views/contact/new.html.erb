@@ -1,0 +1,50 @@
+<h4>問い合わせ</h4>
+
+<%#-- form で action 指定。routes でも回避可能？ --%>
+<%= form_for @contact, :url => {:action => :create}, :html => {:class => 'form-horizontal'} do |f| %>
+
+<% if @contact.errors.any? %>
+  <% @contact.errors.full_messages.each do |msg| %>
+  <div class="control-group">
+    <div class="controls">
+      <%= msg %>
+    </div>
+  </div>
+  <% end -%>
+<% end -%>
+
+<div class="control-group">
+  <%= f.label :name, '名前', :class => 'control-label' %>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_field :name, :class => "span6" %>
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :email, 'Email', :class => 'control-label' %>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_field :email, :class => "span6" %>
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :content, '内容', :class => 'control-label' %>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_area :content, :rows => 4, :class => "span6" %>
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+    <%= f.submit '送信', :class => 'btn btn-inverse' %>
+    <%= f.button 'リセット', :class => 'btn', :type => "reset" %>
+  </div>
+</div>
+
+<% end -%>

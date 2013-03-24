@@ -52,14 +52,14 @@
     <div id="sidebar" class="span3">
   <!--      <nav class="well sidebar-nav">
           <ul class="nav nav-list">
-             <li class="nav-header"><%= link_to 'About us', '/' %></li> -->
+             <li class="nav-header"><%= link_to 'About us', '/about_us' %></li> -->
      <nav>
         <ul>
-           <li><%= link_to 'About us', '/' %></li>
+           <li><%= link_to 'About us', about_us_path %></li>
            <li><%= link_to 'Index', '/' %></li>
            <li><%= link_to 'Information', '/' %></li>
            <li><%= link_to '投稿する', new_article_path %></li>
-           <li><%= link_to '問い合わせ', '/' %></li>
+           <li><%= link_to '問い合わせ', contact_new_path %></li>
         </ul>
      </nav>
      <aside id="daily_photo">
@@ -88,6 +88,9 @@
   </div>
   <footer>
     <p>&copy; 旅レポ 2013</p>
+    <div>
+      <%= link_to image_tag('logo/jaywalk.jpg', :size=>'120x90'), "http://jay-walk.com/", :target => "blank" %>
+    </div>
   </footer>
 </div>
     <!-- Javascripts
