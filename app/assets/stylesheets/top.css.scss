@@ -30,30 +30,8 @@
 }   
 */
 
+@import "articles.css";
 
-#contents .article {
-//  float: left;
-  display: inline-block;  
-  *display: inline;  
-  *zoom: 1; 
-  padding: 5px;
-  max-width: 210px;
-  // max-height: 200px;
+.contents > div {
+  text-align: right;
 }
-
-#contents .article div {
-  width: 210px;
-  height: 160px;
-}
-
-#contents .article header {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-#contents .article footer {
-  height: 40px;
-  overflow: hidden;
-}
-

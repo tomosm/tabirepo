@@ -4,13 +4,14 @@
 <%= form_for @contact, :url => {:action => :create}, :html => {:class => 'form-horizontal'} do |f| %>
 
 <% if @contact.errors.any? %>
-  <% @contact.errors.full_messages.each do |msg| %>
   <div class="control-group">
-    <div class="controls">
-      <%= msg %>
+    <div class="controls alert alert-block">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <% @contact.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+  <% end -%>
     </div>
   </div>
-  <% end -%>
 <% end -%>
 
 <div class="control-group">
@@ -26,7 +27,7 @@
   <%= f.label :email, 'Email', :class => 'control-label' %>
   <div class="controls">
     <div class="input-prepend">
-      <%= f.text_field :email, :class => "span6" %>
+      <%= f.email_field :email, :autofocus => true, :class => "span6" %>
     </div>
   </div>
 </div>

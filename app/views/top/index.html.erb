@@ -1,11 +1,11 @@
 <%= stylesheet_link_tag    "top", :media => "all" %>
 <div class="holder_content">
   <!-- <h5>読みたい旅話のカテゴリを下から選んでクリック。さあ、世界へ飛び出そう！投稿は左のメニューから選んでね。</h5>  -->
-  <h5>読みたい旅話のカテゴリを下から選んでクリック。さあ、世界へ飛び出そう！投稿は左メニューから選んでね。</h5> 
+  <h4>読みたい旅話のカテゴリを下から選んでクリック。さあ、世界へ飛び出そう！</h4> 
   <%= image_tag 'worldmap.png' %>
 </div>
 
-<section>
+<section class="contents">
 <!--                   <h2>What's new ----- 最新の投稿</h2>
 -->
   <h4>What's new ----- 最新の投稿</h4>
@@ -19,4 +19,7 @@
       <footer><%= article.description %></footer>
     </article>
   <% end -%>
+  <div>
+  <%= link_to "一覧はこちら", articles_path %>
+  </div>
 </section>

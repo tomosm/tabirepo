@@ -25,5 +25,6 @@ class Article < ActiveRecord::Base
   validates :vihicle, :presence => true
   validates_attachment :photo, :presence => true,
   :content_type => { :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] },
-  :size => { :in => 0..1024.kilobytes }
+  # :size => { :in => 0..1024.kilobytes }
+  :size => { :in => 0..10240.kilobytes }
 end

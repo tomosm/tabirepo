@@ -1,6 +1,6 @@
-<%= stylesheet_link_tag    "top", :media => "all" %>
+<%= stylesheet_link_tag    "articles", :media => "all" %>
 <!-- <h4>投稿一覧</h4> -->
-<section>
+<section class="contents">
   <% @articles.each do |article| %>
     <article class="article">
       <header><%= article.title %></header>
@@ -12,3 +12,5 @@
     </article>
   <% end -%>
 </section>
+
+<!-- todo ページング -->

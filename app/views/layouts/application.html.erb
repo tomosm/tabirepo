@@ -39,7 +39,66 @@
   </head>
 
 <body>
-<div class="container">
+<div class="container main">
+     <nav class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+             <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+
+            <!-- Be sure to leave the brand out there if you want it shown -->
+            <a class="brand" href="/">旅レポ</a>
+
+
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse　navbar-responsive-collapse">
+              <ul class="nav">
+                <li><%= link_to '旅レポについて', about_us_path %></li>
+                <li><%= link_to '記事一覧', articles_path %></li>
+                <li><%= link_to '問い合わせ', contact_new_path %></li>
+              </ul>
+              <ul class="nav pull-right">
+                <% if user_signed_in? %>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">アカウント<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to '投稿一覧', "/" %></li>
+                      <li><%= link_to 'プロフィール', "/" %></li>
+                      <li class="divider"></li>
+                      <li><%= link_to 'ログアウト', destroy_user_session_path, :method => :delete %></li>
+                    </ul>
+                  </li>
+                <% else %>
+                  <li><%= link_to 'ログイン', new_user_session_path %></li>
+                <% end -%>
+
+                <!--
+                <form class="navbar-search" action="">
+                  <input class="search-query span2" type="text" placeholder = "search"/>
+                </form>
+              -->
+                <!--
+                <li class="dropdown">
+                  <%# レポーターになる　/ ログイン ＝＞　ログイン後にアカウント %>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">アカウント<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to 'プロフィール', "/" %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to 'ログアウト', "/" %></li>
+                  </ul>
+                </li>-->
+                <%= form_tag('/articles/new', :class => "navbar-search", :method => 'get') do %>
+                  <% submit_tag("記事を掲載する", :class => "btn btn-success btn-small") %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+     </nav>
   <header>
     <div class="holder_content">
     <!-- <h2 class="concept">世界を歩いて、感じて、考えた。旅話専門ポータルサイト</h2> -->
@@ -48,12 +107,20 @@
       </a>
     </div>
   </header>
-  <div id="main" class="row">
-    <div id="sidebar" class="span3">
+  <div class="row">
+<!--     <div id="sidebar" class="span3">
+
+    <div>
+     <aside id="daily_photo">
+        <%= image_tag 'picture4.jpg', :size => '150x99', :class => "img-polaroid"  %>
+        <footer>今日のPhoto：ポルトガル</footer>
+     </aside>
+    </div>
+ -->
   <!--      <nav class="well sidebar-nav">
           <ul class="nav nav-list">
              <li class="nav-header"><%= link_to 'About us', '/about_us' %></li> -->
-     <nav>
+    <!--  <nav>
         <ul>
            <li><%= link_to 'About us', about_us_path %></li>
            <li><%= link_to '投稿一覧', articles_path %></li>
@@ -61,35 +128,50 @@
            <li><%= link_to '投稿する', new_article_path %></li>
            <li><%= link_to '問い合わせ', contact_new_path %></li>
         </ul>
-     </nav>
-     <aside id="daily_photo">
+     </nav> -->
+     <!-- <aside id="daily_photo"> -->
         <!-- 写真の大きさはそのままで範囲を切り取る -->
-        <%= image_tag 'picture4.jpg', :size => '150x99', :class => "img-polaroid"  %>
-        <footer>今日のPhoto：ポルトガル</footer>
-     </aside>
+       <!--  <%= image_tag 'picture4.jpg', :size => '150x99', :class => "img-polaroid"  %>
+        <footer>今日のPhoto：ポルトガル</footer> -->
+<!--      </aside>
      <div id="ad">
         <div><a href=""><img src=""></a></div>
         <div><a href=""><img src=""></a></div>
         <div><a href=""><img src=""></a></div>
         <div><a href=""><img src=""></a></div>
      </div>
-    </div>
+ -->    
+<!-- </div> -->
 
-    <div id="contents" class="span9">
+    <div id="contents" class="span12">
       <% unless notice.blank? %>
-        <p class="notice"><%= notice %></p>
+        <div class="alert alert-block alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p><%= notice %></p>
+        </div>
       <% end %>
       <% unless alert.blank? %>
-        <p class="alert"><%= alert %></p>
+        <div class="alert alert-block alert-error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p><%= alert %></p>
+        </div>
       <% end %>
             <!--  %= bootstrap_flash % -->
       <%= yield %>
     </div>
   </div>
-  <footer>
-    <p>&copy; 旅レポ 2013</p>
-    <div>
+  <footer class="row-fluid">
+    <div id="daily_photo" class="span6">
+      <p>Today's Photos</p>
+      <aside>
+        <%= image_tag 'picture4.jpg', :size => '90x60', :class => "img-polaroid"  %>
+      </aside>
+    </div>
+    <div class="span6">
+    <p class="copyright">&copy; 旅レポ 2013</p>
+    <div class="logo">
       <%= link_to image_tag('logo/jaywalk.jpg', :size=>'120x90'), "http://jay-walk.com/", :target => "blank" %>
+    </div>
     </div>
   </footer>
 </div>
