@@ -2,7 +2,11 @@
 
 class ArticlesController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index]
+
+  def index
+    @articles = Article.all(:order => "created_at DESC")
+  end
 
   def show
     respondOne

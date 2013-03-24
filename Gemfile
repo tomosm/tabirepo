@@ -29,6 +29,7 @@ group :assets do
   gem 'less-rails-bootstrap'
 
   # for fuelux
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem "fuelux-rails"
 end
 

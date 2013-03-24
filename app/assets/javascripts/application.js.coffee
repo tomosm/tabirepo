@@ -14,8 +14,13 @@
 //= require jquery_ujs
 //= require_tree .
 //= require twitter/bootstrap
+# //= require fuelux.js
 $ ->
   $("a[rel=popover]").popover()
   $(".tooltip").tooltip()
   $("a[rel=tooltip]").tooltip()
   # $('#datepicker').datepicker()
+  # $(':checkbox').checkbox()
+  # $(':radio').radio()
+  # $('select').select()
+  # $('.pillbox').pillbox()
