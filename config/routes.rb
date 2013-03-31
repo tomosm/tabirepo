@@ -2,6 +2,7 @@ TabiRepo::Application.routes.draw do
 
   get "/about_us/" => "about_us#index"
 
+  get "/contact/" => "contact#index"
   get "/contact/new" => "contact#new"
   post "/contact/" => "contact#create"
 
@@ -9,11 +10,23 @@ TabiRepo::Application.routes.draw do
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
+
+  resources :profiles, :except => ["create","new"]
+  
+    # resources "users", :except=>["create","new"]
+
     # get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   # end
 
   #  get "top/index"
   resources :articles
+  put "/articles/:id/approve" => "articles#approve"
+  put "/articles/:id/disapprove" => "articles#disapprove"
+  put "/articles/:id/recommend" => "articles#recommend"
+
+  # get "/articles/user/:user_id" => "articles#user" # todo ログインユーザー、または管理者のみ 
+  # get "/articles/unapproved/" => "articles#unapproved" # todo 管理者のみ
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

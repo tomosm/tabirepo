@@ -1,6 +1,12 @@
 # encoding: utf-8
 
 class ContactController < ApplicationController
+  before_filter :authenticate_admin_role, :except => [:new, :create]
+
+  def index
+    @contacts = Contact.page(params[:page]).per(10)
+  end
+
   def new
     @contact = Contact.new
   end

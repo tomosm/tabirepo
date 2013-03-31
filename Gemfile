@@ -63,3 +63,6 @@ gem "omniauth-facebook"
 
 # logical delete
 gem "acts_as_paranoid"
+
+# pager
+gem "kaminari"

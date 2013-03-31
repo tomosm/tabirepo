@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag "contact", :media => "all" %>
+
+<table class="table table-bordered table-hover table">
+  <thead>
+    <th>名前</th>
+    <th>メールアドレス</th>
+    <th>内容</th>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.email %></td>
+        <td><%= simple_format(sanitize(contact.content)) %></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+
+<%= paginate(@contacts) %>

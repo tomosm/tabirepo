@@ -12,30 +12,61 @@
 }
 
 .contents .article {
-//  float: left;
   display: inline-block;  
   *display: inline;  
   *zoom: 1; 
-  padding: 5px;
-  max-width: 210px;
-  // max-height: 200px;
-}
-
-.contents .article div {
-  width: 210px;
-  height: 160px;
-  margin-left:auto;
-  margin-right:auto;
-  text-align: center;
+  width: 220px;
+  margin: 0 10px 10px 0;
+  height: 258px;
+  color: #221919;
+  font-weight: bold;
 }
 
 .contents .article header {
+  padding: 1px 10px;
+}
+
+.contents .article h5 {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  // height: 33px;
+  padding: 10px 10px;
+  margin: 0;
 }
 
 .contents .article footer {
   height: 40px;
   overflow: hidden;
+  color: #AD9C9C;
+  background-color: #F2F0F0;
+  padding: 0px 10px;
+  margin: 0;
 }
+
+.contents .article img {
+  width: 200px;
+  height: 156px;
+  padding: 0 10px;
+}
+
+.contents .article a {
+  color: #444;
+  text-decoration: none;
+}
+
+// .contents .article .icon-location {
+//   vertical-align: middle;
+//   background: url(/assets/common/common-icons.png) no-repeat top left 0 -252px;
+//   width: 8px;
+//   height: 12px;
+// }
+
+// .contents .article .icon-theme {
+//   font-size: 40px;
+//   width: 20px;
+//   height: 20px;
+// }
+// .contents .article .icon-theme.turningpoint {
+//   color: navy;
+// }

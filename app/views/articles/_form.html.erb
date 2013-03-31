@@ -55,9 +55,44 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :description, 'レポート本文', :class => 'control-label'%>
+  <%= f.label :outline, '概要', :class => 'control-label'%>
   <div class="controls">
-    <%= f.text_area :description, :placeholder => 'レポート本文', :rows => 4, :class => "span6" %>  
+    <%= f.text_area :outline, :placeholder => '概要', :rows => 6, :class => "span6" %>  
+  </div>
+</div>
+
+<div id="paragraphs-block">
+<% @paragraphs.each_with_index do |paragraph, i| -%>
+<div class="paragraph">
+  <%= f.fields_for "paragraphs_attributes[]", paragraph do |fp| %>
+    <div class="control-group">
+      <%= fp.label :subtitle, :class => 'control-label' do %>
+      <input type="button" class="remove-paragraph" value="-"/>
+        見出し<%= i + 1 %>
+      <% end -%>
+      <div class="controls">
+        <%= fp.text_field :subtitle, :placeholder => '見出し', :rows => 4, :class => "span6" %>  
+      </div>
+    </div>
+    <div class="control-group">
+      <%= fp.label :sentence, :class => 'control-label' do %>
+        文章<%= i + 1 %>
+      <% end -%>
+      <div class="controls">
+        <%= fp.text_area :sentence, :placeholder => '文章', :rows => 10, :class => "span6" %>  
+      </div>
+    </div>
+    <% if paragraph.persisted? %>
+      <%= fp.hidden_field :id, value: paragraph.id %>
+    <% end %>
+  <% end -%>
+</div>
+<% end -%>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+    <input type="button" id="add-paragraph" value="+"/>
   </div>
 </div>
 
@@ -72,5 +107,7 @@
   <% end %>
   </div>
 </div>
+
+<%= f.hidden_field :user_id, :value => current_user.id %>
 
 <% end -%>

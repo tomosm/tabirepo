@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -33,4 +35,11 @@ Age.delete_all
 Age.create(:code => "teenager")
 
 AboutUs.delete_all
-AboutUs.create(:content => "About Us")
+AboutUs.create(:content => "ここに旅レポについて書く")
+
+# admin user
+# User.create(
+#   :email => 'tabirepo-analytics@gmail.com', 
+#   :password => 'password',
+#   :user_type => "1"
+#   )

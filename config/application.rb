@@ -71,5 +71,6 @@ module TabiRepo
     # config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost", :fog_port => "3000"}
     # config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}
     # config.assets.paths << "#{Rails.root}/public"
+
    end
 end

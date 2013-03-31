@@ -1,105 +1,70 @@
 <%= stylesheet_link_tag    "articles", :media => "all" %>
 <%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
 
-<div class="control-group">
-  <%= label_tag(:title, 'レポート名', :class => 'control-label')%>
-  <div class="controls string-label break-string">
-    <%=  sanitize(@article.title) %>  
-  </div>
-</div>
-
-<div class="control-group">
-  <div class="controls string-label break-string">
-    <% if @article.photo %>
-      <%=  image_tag(@article.photo.url(:medium), :size => "400x300", :class => "img-polaroid") %>  
-    <% end %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:theme_id, '記事のテーマ', :class => 'control-label') %>
-  <div class="controls string-label break-string">
-     <%= t(@article.theme.code, :scope => 'theme.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:country_code, '国名別', :class => 'control-label') %>
-  <div class="controls string-label break-string">
-    <!-- todo -->
+<div>
+     <h3><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
     <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:vihicle_id, '移動手段', :class => 'control-label') %>
-  <div class="controls string-label break-string">
-     <%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:member_id, '人数', :class => 'control-label') %>
-  <div class="controls string-label break-string">
+    
+     <h5>&nbsp;(&nbsp;<%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
+    &nbsp;/&nbsp;
      <%= t(@article.member.code, :scope => 'member.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:purpose_id, '目的', :class => 'control-label') %>
-  <div class="controls string-label break-string">
+    &nbsp;/&nbsp;
      <%= t(@article.purpose.code, :scope => 'purpose.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:budget_id, '予算', :class => 'control-label') %>
-  <div class="controls string-label break-string">
+    &nbsp;/&nbsp;
      <%= t(@article.budget.code, :scope => 'budget.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= label_tag(:language_id, '言語力', :class => 'control-label') %>
-  <div class="controls string-label break-string">
+    &nbsp;/&nbsp;
      <%= t(@article.language.code, :scope => 'language.code') %>
+    &nbsp;/&nbsp;
+     <%= t(@article.age.code, :scope => 'age.code') %></h5>
+    &nbsp;)&nbsp;
+
+    todo ユーザー名
+</div>
+<div>
+    <% if @article.photo %>
+      <%=  image_tag(@article.photo.url(:medium), :size => "560x420") %>  
+    <% end %>
+</div>
+<div>
+    <h3 style="color: red;"> <%=  sanitize(@article.title) %> </h3>
+    <p><%=  simple_format(sanitize(@article.outline)) %></p>
+</div>
+
+<% @article.paragraphs.each do |paragraph| %>
+  <div>
+    <h4 style="border-bottom: 1px dashed;">◆<%=  sanitize(paragraph.subtitle) %> </h4>
+    <p><%=  simple_format(sanitize(paragraph.sentence)) %></p>
+
   </div>
-</div>
+<% end -%>
 
-<div class="control-group">
-  <%= label_tag(:age_id, '年齢', :class => 'control-label') %>
-  <div class="controls string-label break-string">
-     <%= t(@article.age.code, :scope => 'age.code') %>
-  </div>
-</div>
-
-<div class="control-group">
-    <%= label_tag(:entry_program, '特集記事', :class => 'control-label') %>
-    <div class="controls string-label break-string">
-      <% if (@article.entry_program) %>
-      有
-      <% else %>
-      無
-      <% end -%>
-    </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :description, 'レポート本文', :class => 'control-label'%>
-  <div class="controls string-label break-string">
-    <%=  sanitize(@article.description) %>  
-  </div>
-</div>
-
-<div class="control-group">
-  <div class="controls string-label break-string">
-  <!-- <%= f.submit '編集', :class => 'btn btn-inverse' %> -->
+<hr>
+<div style="float:right;">
+<% if user_signed_in? && current_user.admin? %>
+  <% if !@article.recommended? %>
+    <%= link_to 'オススメ', article_path(@article) + "/recommend",
+      :method => :put, 
+      :class => 'btn btn-warning' %>
+  <% end -%>
+  <% if @article.approved? %>
+    <%= link_to '取消', article_path(@article) + "/disapprove",
+      :method => :put, 
+      :class => 'btn btn-danger' %>
+  <% else %>
+    <%= link_to '承認', article_path(@article) + "/approve",
+      :method => :put, 
+      :class => 'btn btn-success' %>
+  <% end -%>
+<% end -%>
+<% if @article.write_by?(current_user) %>
     <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
+<% end -%>
+<% if (user_signed_in? && current_user.admin?) || @article.write_by?(current_user) %>
     <%= link_to '削除', @article,
       :confirm => '削除してもよろしいですか？',
       :method => :delete, 
-      :class => 'btn btn-inverse' %>
-  </div>
+      :class => 'btn' %>
+<% end -%>
 </div>
 
 <% end -%>

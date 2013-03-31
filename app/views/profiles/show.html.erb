@@ -1,0 +1,46 @@
+<%= stylesheet_link_tag "profiles", :media => "all" %>
+<%= form_for @profile, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
+
+<div class="control-group">
+  <%= label_tag(:name, '名前', :class => 'control-label')%>
+  <div class="controls string-label break-string">
+    <%=  sanitize(@profile.name) %>  
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :email, 'メールアドレス', :class => 'control-label'%>
+  <div class="controls string-label break-string">
+    <%=  sanitize(@profile.email) %>  
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :provider, 'ソーシャル', :class => 'control-label'%>
+  <div class="controls string-label break-string">
+    <%=  sanitize(@profile.provider) %>  
+  </div>
+</div>
+
+<% if @profile.admin? %>
+<div class="control-group">
+  <%= f.label :user_type, 'ユーザー種別', :class => 'control-label'%>
+  <div class="controls string-label break-string">
+    管理者
+  </div>
+</div>
+<% end -%>
+
+<div class="control-group">
+  <div class="controls string-label break-string">
+    <% if current_user.id == @profile.id %>
+      <%= link_to '編集', edit_profile_path(@profile), :class => 'btn btn-inverse' %>
+    <% end -%>
+    <%= link_to '削除', {:controller => "profiles", :id => @profile.id},
+      :confirm => '削除してもよろしいですか？',
+      :method => :delete, 
+      :class => 'btn' %>
+  </div>
+</div>
+
+<% end -%>

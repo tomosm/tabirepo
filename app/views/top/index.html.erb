@@ -6,20 +6,61 @@
 </div>
 
 <section class="contents">
-<!--                   <h2>What's new ----- 最新の投稿</h2>
--->
   <h4>What's new ----- 最新の投稿</h4>
   <% @articles.each do |article| %>
-    <article class="article">
-      <header><%= article.title %></header>
-      <div>
-        <!-- <%= link_to image_tag(article.photo.url(:thumb), :size => "200x150", :class => 'img-polaroid'), article_path(article) %> -->
-        <%= link_to image_tag(article.photo.url(:thumb), :class => 'img-polaroid'), article_path(article) %>
-      </div>
-      <footer><%= article.description %></footer>
+    <article class="article photo">
+        <%= link_to(article_path(article)) do %>
+        <%#= article.country.code %>
+          <!-- <span class="icon-location"></span><h5>日本</h5> -->
+
+<!-- todo 国 -->
+<!-- todo partial -->
+          <header>日本
+            <% if article.recommended? %>
+              <span class="badge badge-warning" style="float:right;">オススメ</span>
+            <% end -%>
+          </header>
+          <%= image_tag(article.photo.url(:thumb)) %>
+          <h5>
+            <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
+          </h5>
+          <footer><%= article.title %></footer>
+        <% end -%> 
     </article>
   <% end -%>
   <div>
-  <%= link_to "一覧はこちら", articles_path %>
+    <%= link_to "一覧はこちら", articles_path %>
+  </div>
+</section>
+
+<section class="contents">
+  <h4>良く読まれている記事</h4>
+  <div>
+    <%= link_to "一覧はこちら", articles_path %>
+  </div>
+</section>
+
+<section class="contents">
+  <h4>編集部おすすめ</h4>
+  <% @recommended_articles.each do |article| %>
+    <article class="article photo">
+        <%= link_to(article_path(article)) do %>
+        <%#= article.country.code %>
+          <!-- <span class="icon-location"></span><h5>日本</h5> -->
+          <header>日本
+            <% if article.recommended? %>
+              <span class="badge badge-warning" style="float:right;">オススメ</span>
+            <% end -%>
+          </header>
+          <%= image_tag(article.photo.url(:thumb)) %>
+          <h5>
+            <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
+          </h5>
+          <footer><%= article.title %></footer>
+        <% end -%> 
+    </article>
+  <% end -%>
+  <div>
+    <%= link_to "一覧はこちら", articles_path %>
   </div>
 </section>

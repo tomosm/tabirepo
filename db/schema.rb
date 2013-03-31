@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324082119) do
+ActiveRecord::Schema.define(:version => 20130331155858) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20130324082119) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
-    t.text     "description"
+    t.text     "outline"
     t.integer  "theme_id"
     t.integer  "vihicle_id"
     t.integer  "member_id"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(:version => 20130324082119) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "deleted_at"
+    t.boolean  "approved"
+    t.integer  "user_id"
+    t.boolean  "recommended"
   end
 
   create_table "budgets", :force => true do |t|
@@ -72,10 +75,33 @@ ActiveRecord::Schema.define(:version => 20130324082119) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "paragraphs", :force => true do |t|
+    t.integer  "article_id"
+    t.string   "subtitle"
+    t.string   "sentence"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "profiles", :force => true do |t|
+    t.text     "photo"
+    t.text     "about"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
   create_table "purposes", :force => true do |t|
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "socials", :force => true do |t|
+    t.text     "link"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "provider"
   end
 
   create_table "themes", :force => true do |t|
@@ -105,6 +131,9 @@ ActiveRecord::Schema.define(:version => 20130324082119) do
     t.string   "provider"
     t.datetime "deleted_at"
     t.string   "name"
+    t.string   "gender"
+    t.string   "user_type"
+    t.integer  "social_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
