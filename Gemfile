@@ -66,3 +66,6 @@ gem "acts_as_paranoid"
 
 # pager
 gem "kaminari"
+
+# web server
+gem "unicorn"
