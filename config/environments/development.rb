@@ -39,7 +39,8 @@ TabiRepo::Application.configure do
   # 1. Ensure you have defined default url options in your environments files. Here
   #    is an example of default_url_options appropriate for a development environment
   #    in config/environments/development.rb:
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'tabirepo.tk' }
+  # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => 'smtp.gmail.com',
