@@ -46,7 +46,7 @@ TabiRepo::Application.configure do
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :user_name => 'murakami@eviry.com',
-    :password => '1WorkAbroadNY'
+    :user_name => 'tabirepo.analytics@gmail.com',
+    :password => 'PE9593Yk'
   }
 end
