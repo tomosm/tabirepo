@@ -39,7 +39,7 @@ AboutUs.create(:content => "ここに旅レポについて書く")
 
 # admin user
 # User.create(
-#   :email => 'tabirepo-analytics@gmail.com', 
-#   :password => 'password',
+#   :email => 'tabirepo.analytics@gmail.com', 
+#   :password => 'PE9593Yk',
 #   :user_type => "1"
 #   )

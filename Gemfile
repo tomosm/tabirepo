@@ -69,3 +69,6 @@ gem "kaminari"
 
 # web server
 gem "unicorn"
+
+# graph
+gem "gruff"

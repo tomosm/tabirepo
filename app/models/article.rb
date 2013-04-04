@@ -12,7 +12,7 @@ class Article < ActiveRecord::Base
   belongs_to :vihicle
 
   has_many :paragraphs
-  accepts_nested_attributes_for :paragraphs
+  accepts_nested_attributes_for :paragraphs, :allow_destroy => true
 
   # belongs_to :user
   # has_attached_file :photo, :styles => {:large => "640x480>", :medium => "300x300>", :thumb => "100x100>"}
