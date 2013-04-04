@@ -72,3 +72,5 @@ gem "unicorn"
 
 # graph
 gem "gruff"
+
+gem "rmagick" 
