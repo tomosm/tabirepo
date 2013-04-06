@@ -1,39 +1,45 @@
 # encoding: utf-8
 
 class ArticlesController < ApplicationController
-  require "device_region"
-  
-  VIEW_LOG_COOKEI_KEY = "TABI_REPO"
+  require 'analytics/device_region'
+  require 'analytics/article_logger_filter'
+  include ArticleLoggerFilter
 
-  before_filter :authenticate_user!, :except => [:index, :show]
-  before_filter :put_analytics_view_log, :only => [:show]
+  layout "page", :only => [:show]
+
+  before_filter :check_user_login, :except => [:search, :show]
 
   def index
-
-# before_filter
-# todo ログインユーザー、または管理者のみ 
-# todo 管理者のみ
-    # todo 未承認
-
-      if (self.authenticate_admin_role)
-        @articles = Article.page(params[:page]).per(12)
-      elsif (params[:user_id])
+      if (self.user_login?)
+        # if (params[:user_id] == current_user.id.to_s)
+        #   @articles = Article.where('user_id = :user_id', {:user_id => params[:user_id]}).page(params[:page]).per(12)
+        # elsif (!params[:user_id] && self.admin_role?)
+        #   @articles = Article.page(params[:page]).per(12)
+        # else
+        #   redirect_to "/"
+        # end
         @articles = Article.where('user_id = :user_id', {:user_id => params[:user_id]}).page(params[:page]).per(12)
       else
-        @articles = Article.where('approved = :approved', {:approved => true}).page(params[:page]).per(12)
+        # @articles = Article.where('approved = :approved', {:approved => true}).page(params[:page]).per(12)
+        @articles = []
       end
+  end
 
-    # if (params[:approved] == "0")
-    #   @articles = Article.where('approved <> :approved', {:approved => 1}).page(params[:page]).per(12)
-    # else
-    #   if (current_user.admin?)
-    #     @articles = Article.page(params[:page]).per(12)
-    #   elsif (params[:user_id])
-    #     @articles = Article.where('user_id = :user_id', {:user_id => params[:user_id]}).page(params[:page]).per(12)
-    #   else
-    #     @articles = Article.where('approved = :approved', {:approved => 1}).page(params[:page]).per(12)
-    #   end
-    # end 
+  def search
+    findCodes
+    @articles = Article.where('approved = :approved', {:approved => true})
+    @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless params[:title].empty?
+    @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless params[:theme_id].empty?
+    # todo 国別
+    @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless params[:vihicle_id].empty?
+    @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless params[:member_id].empty?
+    @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless params[:purpose_id].empty?
+    @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless params[:budget_id].empty?
+    @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless params[:language_id].empty?
+    @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless params[:age_id].empty?
+    @articles = @articles.page(params[:page]).per(12)
+
+    render :layout => "search"
   end
 
   def show
@@ -168,39 +174,6 @@ class ArticlesController < ApplicationController
       redirect_to "/", notice: '記事は存在しません'
     else
       redirect_to articles_path
-    end
-  end
-
-  # for analytics
-  def put_analytics_view_log
-    begin
-      article = Article.find(params[:id])
-      # 記事と同じユーザー、あるいは管理者はカウントしない
-      if (current_user && (current_user.id == article.user_id || current_user.admin?))
-        return;
-      end
-
-      today = Date.today.to_time.to_i
-      analytics_article = AnalyticsArticle.new({
-        :article_id => article.id,
-        :date => today,
-        :deviceregion => DeviceRegion.getValue(request.env["HTTP_USER_AGENT"])
-        });
-
-      realCookieKey = VIEW_LOG_COOKEI_KEY + article.id.to_s
-      if (cookies[realCookieKey]) 
-        if (cookies[realCookieKey].to_i < Date.today.prev_day.to_time.to_i)
-          # repeater
-          analytics_article.visitorregion = AnalyticsArticle::VISITOR_REGION_REPEATER
-          cookies[realCookieKey] = today
-          analytics_article.save
-        end
-      else
-        # new
-        analytics_article.visitorregion = AnalyticsArticle::VISITOR_REGION_NEW
-        cookies[realCookieKey] = today
-        analytics_article.save
-      end
     end
   end
 

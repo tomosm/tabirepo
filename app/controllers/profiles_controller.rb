@@ -2,7 +2,8 @@
 
 class ProfilesController < ApplicationController
 
-  before_filter :authenticate_admin_role, :except => [:show, :edit, :update, :destroy]
+  before_filter :check_user_login
+  before_filter :check_admin_user, :except => [:show, :edit, :update, :destroy]
 
   def index
     # @profiles = Profile.page(params[:page]).per(10).order(:id)
@@ -11,21 +12,29 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    respondOne
+    if current_user?
+      respondOne
+    else
+      redirect_to "/"
+    end
   end
 
   def edit
-    respondOne
+    if current_user?
+      respondOne
+    else
+      redirect_to "/"
+    end
   end
 
   def update
     begin
-      @profile = Profile.find(params[:id])
+      @profile = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid profile error#{params[:id]}"
       redirect_to "/", notice: 'プロフィールは存在しません'
     else
-      if @profile.update_attributes(params[:profile])
+      if @profile.update_attributes(params[:user])
         redirect_to profile_path(@profile)
       else
         render action: 'edit'
@@ -33,17 +42,52 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def destroy
+  def password
+    if current_user?
+      respondOne
+    else
+      redirect_to "/"
+    end
+  end
+
+  def update_password
     begin
-      @profile = Profile.find(params[:id])
+      @profile = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid profile error#{params[:id]}"
-      redirect_to profiles_path, notice: 'プロフィールは存在しません'
+      redirect_to "/", notice: 'プロフィールは存在しません'
     else
-      @profile.destroy
-      # admin なら profiles_path
-      # admin でないならcookieから削除してtopへ
-      redirect_to profiles_path
+      if params[:user][:password] == params[:user][:password_confirmation]
+        @profile.password = params[:user][:password]
+        @profile.password_confirmation = params[:user][:password_confirmation]
+        if @profile.update_attributes(params[:user])
+          redirect_to profile_path(@profile), notice: 'パスワードを変更しました'
+        else
+          render action: 'password'
+        end
+      else
+        redirect_to "/profiles/" + @profile.id.to_s + "/edit/password", alert: 'パスワードが異なります'
+      end
+    end
+  end
+
+  def destroy
+    if current_user?
+      begin
+        @profile = User.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        logger.error "Access invalid profile error#{params[:id]}"
+        redirect_to profiles_path, notice: 'プロフィールは存在しません'
+      else
+        @profile.destroy
+        if (self.admin_role?)
+          redirect_to profiles_path, notice: @profile.name + 'を削除しました'
+        else
+          redirect_to "/", notice: '退会しました'
+        end
+      end
+    else
+      redirect_to "/"
     end
   end
 
@@ -60,6 +104,10 @@ class ProfilesController < ApplicationController
         # format.json {render json:@article}
       end
     end
+  end
+
+  def current_user?
+    current_user && current_user.id.to_s == params[:id]
   end
 
 end

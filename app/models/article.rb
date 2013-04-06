@@ -16,7 +16,8 @@ class Article < ActiveRecord::Base
 
   # belongs_to :user
   # has_attached_file :photo, :styles => {:large => "640x480>", :medium => "300x300>", :thumb => "100x100>"}
-  has_attached_file :photo, :styles => {:medium => "560x420>", :thumb => "200x156>"},
+  # has_attached_file :photo, :styles => {:medium => "560x420>", :thumb => "200x156>"},
+  has_attached_file :photo, :styles => {:medium => "560x420>", :thumb => "160x120>"},
   :url  => "/development/articles/:id/:style/:basename.:extension",
   :path => ":rails_root/public/development/articles/:id/:style/:basename.:extension" 
 

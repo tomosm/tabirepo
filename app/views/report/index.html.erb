@@ -1,1 +1,8 @@
-<%= high_chart("chart", @chart) %>
+<div class="row">
+  <div id="sidebar" class="span3">
+    <%= render :partial => 'sidemenu' %>
+  </div>
+  <div id="contents" class="span9">
+    <%= high_chart("chart", @chart) %>
+  </div>
+</div>

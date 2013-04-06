@@ -1,2 +1,55 @@
-<h1>Profiles#edit</h1>
-<p>Find me in app/views/profiles/edit.html.erb</p>
+<%= stylesheet_link_tag "profiles", :media => "all" %>
+<%= form_for @profile, :html => {:class => 'form-horizontal'}, :url => {:controller => "profiles", :id => @profile.id, :action => "update"} do |f| %>
+
+<% if @profile.errors.any? %>
+  <div class="control-group">
+    <div class="controls alert alert-block">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <% @profile.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+  <% end -%>
+    </div>
+  </div>
+<% end -%>
+
+<div class="control-group">
+  <%= f.label :name, '名前', :class => 'control-label'%>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_field :name, :placeholder => '名前', :class => "span6" %>  
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :email, 'メールアドレス', :class => 'control-label'%>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_field :email, :placeholder => 'メールアドレス', :class => "span6" %>  
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :provider, 'ソーシャル', :class => 'control-label'%>
+  <div class="controls string-label break-string">
+    <%=  sanitize(@profile.provider) %>  
+  </div>
+</div>
+
+<% if @profile.admin? %>
+<div class="control-group">
+  <%= f.label :user_type, 'ユーザー種別', :class => 'control-label'%>
+  <div class="controls string-label break-string">
+    管理者
+  </div>
+</div>
+<% end -%>
+
+<div class="control-group">
+  <div class="controls">
+    <%= f.submit :class => 'btn btn-inverse' %>
+  </div>
+</div>
+
+<% end -%>

@@ -1,35 +1,9 @@
 <%= stylesheet_link_tag    "articles", :media => "all" %>
 <!-- <h4>投稿一覧</h4> -->
 <section class="contents">
-
-<!-- todo topと共通 -->
-
-  <% @articles.each do |article| %>
-    <article class="article photo">
-        <%= link_to(article_path(article)) do %>
-        <%#= article.country.code %>
-          <!-- <span class="icon-location"></span><h5>日本</h5> -->
-          <header>日本
-          <% if article.recommended? %>
-            <span class="badge badge-warning" style="float:right;">オススメ</span>
-          <% end -%>
-          <% if user_signed_in? && current_user.admin? %>
-            <% if article.approved? %>
-              <span class="badge badge-success" style="float:right;">承認</span>
-            <% else %>
-              <span class="badge badge-important" style="float:right;">確認中</span>
-            <% end -%>
-          <% end -%>
-          </header>
-          <%= image_tag(article.photo.url(:thumb)) %>
-          <h5>
-            <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
-          </h5>
-          <footer><%= article.title %></footer>
-        <% end -%> 
-    </article>
-  <% end -%>
-
+  <div class="articles-container">
+    <%= render :partial => 'shared/articles/list', :locals => {:articles => @articles, :admin_page => true} %>
+  </div>
 </section>
 
 <!-- , :class => "pagination pagination-centered" -->

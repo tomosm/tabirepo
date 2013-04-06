@@ -1,6 +1,7 @@
-<%= stylesheet_link_tag    "articles", :media => "all" %>
+<%= stylesheet_link_tag "articles", :media => "all" %>
 <%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
 
+<div class="reading">
 <div>
      <h3><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
     <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
@@ -15,12 +16,11 @@
     &nbsp;/&nbsp;
      <%= t(@article.language.code, :scope => 'language.code') %>
     &nbsp;/&nbsp;
-     <%= t(@article.age.code, :scope => 'age.code') %></h5>
-    &nbsp;)&nbsp;
+     <%= t(@article.age.code, :scope => 'age.code') %>
+     <span><%= current_user.name %></span></h5>
 
-    todo ユーザー名
 </div>
-<div>
+<div class="image-container">
     <% if @article.photo %>
       <%=  image_tag(@article.photo.url(:medium), :size => "560x420") %>  
     <% end %>
@@ -39,7 +39,7 @@
 <% end -%>
 
 <hr>
-<div style="float:right;">
+<div style="float:right;margin:5px;">
 <% if user_signed_in? && current_user.admin? %>
   <% if !@article.recommended? %>
     <%= link_to 'オススメ', article_path(@article) + "/recommend",
@@ -68,3 +68,4 @@
 </div>
 
 <% end -%>
+</div>

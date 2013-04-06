@@ -1,66 +1,35 @@
 <%= stylesheet_link_tag    "top", :media => "all" %>
 <div class="holder_content">
-  <!-- <h5>読みたい旅話のカテゴリを下から選んでクリック。さあ、世界へ飛び出そう！投稿は左のメニューから選んでね。</h5>  -->
   <h4>読みたい旅話のカテゴリを下から選んでクリック。さあ、世界へ飛び出そう！</h4> 
   <%= image_tag 'worldmap.png' %>
 </div>
 
 <section class="contents">
   <h4>What's new ----- 最新の投稿</h4>
-  <% @articles.each do |article| %>
-    <article class="article photo">
-        <%= link_to(article_path(article)) do %>
-        <%#= article.country.code %>
-          <!-- <span class="icon-location"></span><h5>日本</h5> -->
-
-<!-- todo 国 -->
-<!-- todo partial -->
-          <header>日本
-            <% if article.recommended? %>
-              <span class="badge badge-warning" style="float:right;">オススメ</span>
-            <% end -%>
-          </header>
-          <%= image_tag(article.photo.url(:thumb)) %>
-          <h5>
-            <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
-          </h5>
-          <footer><%= article.title %></footer>
-        <% end -%> 
-    </article>
-  <% end -%>
-  <div>
-    <%= link_to "一覧はこちら", articles_path %>
+  <div class="articles-container">
+    <%= render :partial => 'shared/articles/list', :locals => {:articles => @articles} %>
+  </div>
+  <div class="link">
+    <%= link_to "記事一覧はこちら", search_articles_path %>
   </div>
 </section>
 
 <section class="contents">
   <h4>人気の記事</h4>
-  <div>
-    <%= link_to "一覧はこちら", articles_path %>
+  <div class="articles-container">
+    <%= render :partial => 'shared/articles/list', :locals => {:articles => @popular_articles} %>
+  </div>
+  <div class="link">
+    <%= link_to "記事一覧はこちら", search_articles_path %>
   </div>
 </section>
 
 <section class="contents">
   <h4>編集部おすすめ</h4>
-  <% @recommended_articles.each do |article| %>
-    <article class="article photo">
-        <%= link_to(article_path(article)) do %>
-        <%#= article.country.code %>
-          <!-- <span class="icon-location"></span><h5>日本</h5> -->
-          <header>日本
-            <% if article.recommended? %>
-              <span class="badge badge-warning" style="float:right;">オススメ</span>
-            <% end -%>
-          </header>
-          <%= image_tag(article.photo.url(:thumb)) %>
-          <h5>
-            <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
-          </h5>
-          <footer><%= article.title %></footer>
-        <% end -%> 
-    </article>
-  <% end -%>
-  <div>
-    <%= link_to "一覧はこちら", articles_path %>
+  <div class="articles-container">
+    <%= render :partial => 'shared/articles/list', :locals => {:articles => @recommended_articles} %>
+  </div>
+  <div class="link">
+    <%= link_to "記事一覧はこちら", search_articles_path %>
   </div>
 </section>

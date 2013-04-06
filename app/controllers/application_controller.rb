@@ -1,9 +1,29 @@
 class ApplicationController < ActionController::Base
+  require 'analytics/device_region'
+  require 'analytics/visitor_logger_filter'
+  include VisitorLoggerFilter
+
   protect_from_forgery
 
   # check auth admin role
-  def authenticate_admin_role
+  def admin_role?
       current_user && current_user.admin?
+  end
+
+  def check_admin_user
+      if !admin_role?
+        redirect_to "/"
+      end
+  end
+
+  def check_user_login
+      if !current_user
+        redirect_to "/"
+      end
+  end
+
+  def user_login?
+      !!current_user
   end
 
 end

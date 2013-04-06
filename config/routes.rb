@@ -4,6 +4,8 @@ TabiRepo::Application.routes.draw do
 #  get "/report/graph" => "report#graph"
 
   get "/about_us/" => "about_us#index"
+  get "/about_us/edit" => "about_us#edit"
+  post "/about_us/" => "about_us#update"
 
   get "/contact/" => "contact#index"
   get "/contact/new" => "contact#new"
@@ -15,6 +17,9 @@ TabiRepo::Application.routes.draw do
   end
 
   resources :profiles, :except => ["create","new"]
+  get "/profiles/:id/edit/password" => "profiles#password"
+  put "/profiles/:id/password" => "profiles#update_password"
+
   
     # resources "users", :except=>["create","new"]
 
@@ -22,7 +27,11 @@ TabiRepo::Application.routes.draw do
   # end
 
   #  get "top/index"
-  resources :articles
+  resources :articles do
+    collection do
+      get :search
+    end
+  end
   put "/articles/:id/approve" => "articles#approve"
   put "/articles/:id/disapprove" => "articles#disapprove"
   put "/articles/:id/recommend" => "articles#recommend"

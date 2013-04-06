@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   # attr_accessible :uid # 認証プロバイダ内のユーザーID
   # attr_accessible :title, :body
 
+  validates :name, :presence => true
+  # validates :password, :presence => true
+
   has_one :social#, :profile
   has_many :articles
 

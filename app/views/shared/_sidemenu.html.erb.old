@@ -1,0 +1,57 @@
+  <div id="sidebar" class="span3">
+
+<!--     <div>
+   <aside id="daily_photo">
+      <%= image_tag 'picture4.jpg', :size => '150x99', :class => "img-rounded photo"  %>
+      <footer>今日のPhoto：ポルトガル</footer>
+   </aside>
+  </div>
+-->
+     <!-- <nav class="well sidebar-nav"> -->
+        <!-- <ul class="nav nav-list"> -->
+           <!-- <li class="nav-header"><%= link_to 'About us', '/about_us' %></li> -->
+<ul class="nav">
+  <li><%= link_to '旅レポについて', about_us_path %></li>
+  <li><%= link_to '問い合わせ', contact_new_path %></li>
+</ul>
+<ul class="nav pull-right">
+  <% if user_signed_in? && current_user.admin? %>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理メニュー<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to '記事一覧', articles_path %></li>
+        <li><%= link_to 'ユーザー一覧', profiles_path %></li>
+        <li><%= link_to '問い合わせ一覧', contact_path %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'レポート', report_path %></li>
+        <li><%= link_to '各種設定', "/" %></li>
+      </ul>
+    </li>
+  <% end -%>
+  <% if user_signed_in? %>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">アカウント<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to '投稿履歴', articles_path + "?user_id=" + current_user.id.to_s %></li>
+        <li><%= link_to 'プロフィール', profile_path(current_user.id) %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, :method => :delete %></li>
+      </ul>
+    </li>
+  <% else %>
+    <li><%= link_to 'ログイン', new_user_session_path %></li>
+  <% end -%>
+
+<%# todo 検索　メニューを外部化　記事の承認　%>
+
+  <!--
+  <form class="navbar-search" action="">
+    <input class="search-query span2" type="text" placeholder = "search"/>
+  </form>
+-->
+  <%= form_tag('/articles/new', :class => "navbar-search", :method => 'get') do %>
+    <% submit_tag("記事を投稿する", :class => "btn btn-success btn-small") %>
+  <% end %>
+</ul>
+</div>
+

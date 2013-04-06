@@ -6,6 +6,21 @@
 @import "variables";
 @import "bootstrap_and_overrides.css";
 
+/**************************************************
+            Override styles
+***************************************************/
+
+/* bootswatch.less */
+.nav-tabs {
+  & > li > a {
+    background-color: transparent;
+  }
+
+  & > li.active > a,
+  & > li.active > a:hover {
+    background-color: transparent;
+  }
+}
 
 /**************************************************
             Global styles
@@ -37,13 +52,14 @@ div.container > header,
 div.container-fluid > header {
   margin-bottom: 15px;
   /*background-color: red;*/
-  padding: 5px 10px;
+  // padding: 5px 10px;
+  padding: 0 10px;
 }
 
 .concept {
   text-align: right;
   color: green;
-  font-size: 12px;
+  // font-size: 12px;
 }
 
 /**************************************************

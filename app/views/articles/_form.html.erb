@@ -98,9 +98,7 @@
 
 <div class="control-group">
   <div class="controls">
-  <!-- <%= f.submit '投稿', :class => 'btn btn-inverse' %> -->
-  <% case action_name %>
-  <% when 'new' %>
+  <% if f.object.new_record? %>
     <%= f.submit '投稿', :class => 'btn btn-inverse' %>
   <% else %>
     <%= f.submit :class => 'btn btn-inverse' %>

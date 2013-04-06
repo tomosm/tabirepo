@@ -1,15 +1,16 @@
 # encoding: utf-8
 
 class ReportController < ApplicationController
+  layout 'admin'
 
   def index
     # @analytics_articles = AnalyticsArticle.group(:article_id).group(:date).group(:deviceregion).group(:visitorregion).includes(:article).all
     @analytics_articles_date = AnalyticsArticle
       .group(:date).all
     @analytics_articles_new = AnalyticsArticle
-      .where(:visitorregion => AnalyticsArticle::VISITOR_REGION_NEW).group(:date).count(:date)
+      .count_by_date(AnalyticsVisitor::VISITOR_REGION_NEW)
     @analytics_articles_repeater = AnalyticsArticle
-      .where(:visitorregion => AnalyticsArticle::VISITOR_REGION_REPEATER).group(:date).count(:date)
+      .count_by_date(AnalyticsVisitor::VISITOR_REGION_REPEATER)
 
 
     @categories = []

@@ -11,13 +11,20 @@
   margin-right:auto;
 }
 
+.contents div.articles-container {
+  padding-left: 60px;
+}
+
 .contents .article {
   display: inline-block;  
   *display: inline;  
   *zoom: 1; 
-  width: 220px;
-  margin: 0 10px 10px 0;
-  height: 258px;
+  // width: 220px;
+  width: 180px;
+  // margin: 0 10px 10px 0;
+  margin: 0 20px 20px 0;
+  // height: 258px;
+  height: 222px;
   color: #221919;
   font-weight: bold;
 }
@@ -45,14 +52,24 @@
 }
 
 .contents .article img {
-  width: 200px;
-  height: 156px;
+  // width: 200px;
+  width: 160px;
+  height: 120px;
   padding: 0 10px;
 }
 
 .contents .article a {
   color: #444;
   text-decoration: none;
+}
+
+div.reading {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+div.reading div.image-container {
+  text-align: center;
 }
 
 // .contents .article .icon-location {
