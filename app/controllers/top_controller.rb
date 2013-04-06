@@ -7,9 +7,9 @@ class TopController < ApplicationController
     @recommended_articles = Article.where("approved = :approved AND recommended = :recommended", {:approved => true, :recommended => true}).limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
     # アクセスがないと人気順に表示されないので注意！
-    analytics_article_id_list_by_popular_article = AnalyticsArticle.find_by_popular_article();
+    reader_article_id_list_by_popular_article = Reader.find_by_popular_article();
     @popular_articles = Article.where("id IN (:article_id_list) AND approved = :approved", 
-      {:article_id_list => analytics_article_id_list_by_popular_article.keys, :approved => true})
+      {:article_id_list => reader_article_id_list_by_popular_article.keys, :approved => true})
     .limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
   end

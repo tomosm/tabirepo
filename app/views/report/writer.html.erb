@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "report", :media => "all" %>
+<div class="row">
+  <div id="sidebar" class="span3">
+    <%= render :partial => 'sidemenu' %>
+  </div>
+  <div id="contents" class="span9">
+    <div class="chart">
+      <%= high_chart("chart", @chart) %>
+    </div>
+    <table class="table table-bordered table-hover table">
+      <thead>
+        <th>ライター名</th>
+        <th>全て</th>
+        <th>新規</th>
+        <th>リピート</th>
+      </thead>
+      <tbody>
+        <% @reports.each do |report| %>
+          <tr>
+            <td><%= report[:writer_name] %></td>
+            <td><%= report[:count_all] %></td>
+            <td><%= report[:count_newer] %></td>
+            <td><%= report[:count_repeater] %></td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+  </div>
+</div>

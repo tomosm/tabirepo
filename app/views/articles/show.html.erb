@@ -2,70 +2,77 @@
 <%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
 
 <div class="reading">
-<div>
-     <h3><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
-    <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
-    
-     <h5>&nbsp;(&nbsp;<%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
-    &nbsp;/&nbsp;
-     <%= t(@article.member.code, :scope => 'member.code') %>
-    &nbsp;/&nbsp;
-     <%= t(@article.purpose.code, :scope => 'purpose.code') %>
-    &nbsp;/&nbsp;
-     <%= t(@article.budget.code, :scope => 'budget.code') %>
-    &nbsp;/&nbsp;
-     <%= t(@article.language.code, :scope => 'language.code') %>
-    &nbsp;/&nbsp;
-     <%= t(@article.age.code, :scope => 'age.code') %>
-     <span><%= current_user.name %></span></h5>
-
-</div>
-<div class="image-container">
-    <% if @article.photo %>
-      <%=  image_tag(@article.photo.url(:medium), :size => "560x420") %>  
-    <% end %>
-</div>
-<div>
-    <h3 style="color: red;"> <%=  sanitize(@article.title) %> </h3>
-    <p><%=  simple_format(sanitize(@article.outline)) %></p>
-</div>
-
-<% @article.paragraphs.each do |paragraph| %>
-  <div>
-    <h4 style="border-bottom: 1px dashed;">◆<%=  sanitize(paragraph.subtitle) %> </h4>
-    <p><%=  simple_format(sanitize(paragraph.sentence)) %></p>
+  <div class="header clearfix">
+       <h3 class="pull-left"><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
+      <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
+      
+       <h5 class="pull-left"><%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
+      /
+       <%= t(@article.member.code, :scope => 'member.code') %>
+      /
+       <%= t(@article.purpose.code, :scope => 'purpose.code') %>
+      /
+       <%= t(@article.budget.code, :scope => 'budget.code') %>
+      /
+       <%= t(@article.language.code, :scope => 'language.code') %>
+      /
+       <%= t(@article.age.code, :scope => 'age.code') %>
+       <h5 class="pull-right"><%= @article.user.name %></h5></h5>
 
   </div>
-<% end -%>
 
-<hr>
-<div style="float:right;margin:5px;">
-<% if user_signed_in? && current_user.admin? %>
-  <% if !@article.recommended? %>
-    <%= link_to 'オススメ', article_path(@article) + "/recommend",
-      :method => :put, 
-      :class => 'btn btn-warning' %>
+  <div class="image-container">
+      <% if @article.photo %>
+        <%=  image_tag(@article.photo.url(:medium), :size => "640x480") %>  
+      <% end %>
+  </div>
+  <div class="outline">
+      <h3><%= sanitize(@article.title) %></h3>
+      <p><%= simple_format(sanitize(@article.outline)) %></p>
+  </div>
+
+  <% @article.paragraphs.each do |paragraph| %>
+    <div class="paragraph">
+      <h4>◆<%= sanitize(paragraph.subtitle) %></h4>
+      <p><%= simple_format(sanitize(paragraph.sentence)) %></p>
+    </div>
   <% end -%>
-  <% if @article.approved? %>
-    <%= link_to '取消', article_path(@article) + "/disapprove",
-      :method => :put, 
-      :class => 'btn btn-danger' %>
-  <% else %>
-    <%= link_to '承認', article_path(@article) + "/approve",
-      :method => :put, 
-      :class => 'btn btn-success' %>
-  <% end -%>
-<% end -%>
-<% if @article.write_by?(current_user) %>
-    <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
-<% end -%>
-<% if (user_signed_in? && current_user.admin?) || @article.write_by?(current_user) %>
-    <%= link_to '削除', @article,
-      :confirm => '削除してもよろしいですか？',
-      :method => :delete, 
-      :class => 'btn' %>
-<% end -%>
+
+  <div class="image-container">
+      <% if @article.photo %>
+        <%=  image_tag(@article.photo.url(:medium), :size => "640x480") %>  
+      <% end %>
+  </div>
+
+  <div class="footer">
+    <div>
+    <% if user_signed_in? && current_user.admin? %>
+      <% if !@article.recommended? %>
+        <%= link_to 'オススメ', article_path(@article) + "/recommend",
+          :method => :put, 
+          :class => 'btn btn-warning' %>
+      <% end -%>
+      <% if @article.approved? %>
+        <%= link_to '取消', article_path(@article) + "/disapprove",
+          :method => :put, 
+          :class => 'btn btn-danger' %>
+      <% else %>
+        <%= link_to '承認', article_path(@article) + "/approve",
+          :method => :put, 
+          :class => 'btn btn-success' %>
+      <% end -%>
+    <% end -%>
+    <% if @article.write_by?(current_user) %>
+        <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
+    <% end -%>
+    <% if (user_signed_in? && current_user.admin?) || @article.write_by?(current_user) %>
+        <%= link_to '削除', @article,
+          :confirm => '削除してもよろしいですか？',
+          :method => :delete, 
+          :class => 'btn' %>
+    <% end -%>
+    </div>
+  </div>
 </div>
 
 <% end -%>
-</div>

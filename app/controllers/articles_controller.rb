@@ -1,13 +1,16 @@
 # encoding: utf-8
 
 class ArticlesController < ApplicationController
+  # devise の認証filter
+  before_filter :authenticate_user!, :except => [:search, :show]
+
   require 'analytics/device_region'
   require 'analytics/article_logger_filter'
   include ArticleLoggerFilter
 
   layout "page", :only => [:show]
 
-  before_filter :check_user_login, :except => [:search, :show]
+  # before_filter :check_user_login, :except => [:search, :show]
 
   def index
       if (self.user_login?)
@@ -18,7 +21,7 @@ class ArticlesController < ApplicationController
         # else
         #   redirect_to "/"
         # end
-        @articles = Article.where('user_id = :user_id', {:user_id => params[:user_id]}).page(params[:page]).per(12)
+        @articles = Article.where('user_id = :user_id', {:user_id => current_user.id}).page(params[:page]).per(12)
       else
         # @articles = Article.where('approved = :approved', {:approved => true}).page(params[:page]).per(12)
         @articles = []
@@ -28,15 +31,15 @@ class ArticlesController < ApplicationController
   def search
     findCodes
     @articles = Article.where('approved = :approved', {:approved => true})
-    @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless params[:title].empty?
-    @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless params[:theme_id].empty?
+    @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
+    @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless !params[:theme_id] || params[:theme_id].empty?
     # todo 国別
-    @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless params[:vihicle_id].empty?
-    @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless params[:member_id].empty?
-    @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless params[:purpose_id].empty?
-    @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless params[:budget_id].empty?
-    @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless params[:language_id].empty?
-    @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless params[:age_id].empty?
+    @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless !params[:vihicle_id] || params[:vihicle_id].empty?
+    @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless !params[:member_id] || params[:member_id].empty?
+    @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless !params[:purpose_id] || params[:purpose_id].empty?
+    @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless !params[:budget_id] || params[:budget_id].empty?
+    @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless !params[:language_id] || params[:language_id].empty?
+    @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless !params[:age_id] || params[:age_id].empty?
     @articles = @articles.page(params[:page]).per(12)
 
     render :layout => "search"
@@ -44,6 +47,7 @@ class ArticlesController < ApplicationController
 
   def show
     begin
+      # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"

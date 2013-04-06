@@ -24,10 +24,12 @@ $ ->
 
     paragraphIndex = $("#paragraphs-block").children().length + 1
 
-    matches = $("#paragraphs-block").last().find("textarea").attr("id").match(/attributes_(.*)_sentence/i)
-    attributesIndex = ""
-    if matches and matches.length == 2
-      attributesIndex = (parseInt(matches[1]) + 1)
+    attributesIndex = 1
+    textarea_id = $("#paragraphs-block").last().find("textarea").attr("id")
+    if textarea_id
+      matches = textarea_id.match(/attributes_(.*)_sentence/i)
+      if matches and matches.length == 2
+        attributesIndex = (parseInt(matches[1]) + 1)
 
     paragraphHTML = '<div class="paragraph"><div class="control-group">
       <label for="article_paragraphs_attributes__subtitle" class="control-label">

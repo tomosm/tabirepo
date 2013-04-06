@@ -1,7 +1,9 @@
 TabiRepo::Application.routes.draw do
 
-  get "/report/" => "report#index"
-#  get "/report/graph" => "report#graph"
+  get "/report/visitor" => "report#visitor"
+  get "/report/article" => "report#article"
+  get "/report/writer" => "report#writer"
+  get "/report/date" => "report#date"
 
   get "/about_us/" => "about_us#index"
   get "/about_us/edit" => "about_us#edit"

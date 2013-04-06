@@ -17,7 +17,7 @@ module VisitorLoggerFilter
       end
 
       today = Date.today.to_time.to_i
-      analytics_visitor = AnalyticsVisitor.new({
+      visitor = Visitor.new({
         :date => today,
         :deviceregion => DeviceRegion.getValue(request.env["HTTP_USER_AGENT"])
         });
@@ -26,15 +26,15 @@ module VisitorLoggerFilter
       if (cookies[real_tracking_cookie_key]) 
         if (cookies[real_tracking_cookie_key].to_i < Date.today.prev_day.to_time.to_i)
           # repeater
-          analytics_visitor.visitorregion = AnalyticsVisitor::VISITOR_REGION_REPEATER
+          visitor.visitorregion = Visitor::VISITOR_REGION_REPEATER
           cookies[real_tracking_cookie_key] = today
-          analytics_visitor.save
+          visitor.save
         end
       else
         # new
-        analytics_visitor.visitorregion = AnalyticsVisitor::VISITOR_REGION_NEW
+        visitor.visitorregion = Visitor::VISITOR_REGION_NEW
         cookies[real_tracking_cookie_key] = today
-        analytics_visitor.save
+        visitor.save
       end
     end
   end
