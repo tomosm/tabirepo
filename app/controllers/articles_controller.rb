@@ -175,6 +175,11 @@ class ArticlesController < ApplicationController
   def put_analytics_view_log
     begin
       article = Article.find(params[:id])
+      # 記事と同じユーザー、あるいは管理者はカウントしない
+      if (current_user && (current_user.id == article.user_id || current_user.admin?))
+        return;
+      end
+
       today = Date.today.to_time.to_i
       analytics_article = AnalyticsArticle.new({
         :article_id => article.id,
