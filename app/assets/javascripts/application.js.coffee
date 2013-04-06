@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require_tree .
 //= require twitter/bootstrap
+//= require highcharts 
+//= require exporting 
 # //= require fuelux.js
 $ ->
   $("a[rel=popover]").popover()

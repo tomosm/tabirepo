@@ -71,6 +71,7 @@ gem "kaminari"
 gem "unicorn"
 
 # graph
-gem "gruff"
+gem "lazy_high_charts"
+# gem "gruff"
+# gem "rmagick" 
 
-gem "rmagick" 
