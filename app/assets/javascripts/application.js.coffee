@@ -26,3 +26,7 @@ $ ->
   # $(':radio').radio()
   # $('select').select()
   # $('.pillbox').pillbox()
+  $.fn.disable = ->
+    $this = $(this)
+    $this.css("display", "none")
+    return $this

@@ -13,6 +13,7 @@
 
 .contents div.articles-container {
   padding-left: 60px;
+  // height: 222px;
 }
 
 .contents .article {
@@ -22,11 +23,14 @@
   // width: 220px;
   width: 180px;
   // margin: 0 10px 10px 0;
-  margin: 0 20px 20px 0;
+  // margin: 0 20px 20px 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
   // height: 258px;
   height: 222px;
   color: #221919;
   font-weight: bold;
+  vertical-align: top;
 }
 
 .contents .article header {
@@ -83,8 +87,12 @@ div.reading div.footer div {
   margin: 5px;
 }
 
-div.reading div.header h3, div.reading div.header h5 {
+div.reading div.header h3, div.reading div.header h6 {
   line-height: 30px;
+}
+
+div.reading div.header h3 {
+  padding-right: 10px;
 }
 
 div.reading div.image-container {

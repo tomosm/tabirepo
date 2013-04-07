@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    if current_user?
+    if current_user? || admin_role?
       respondOne
     else
       redirect_to "/"
@@ -79,11 +79,14 @@ class ProfilesController < ApplicationController
         logger.error "Access invalid profile error#{params[:id]}"
         redirect_to profiles_path, notice: 'プロフィールは存在しません'
       else
-        @profile.destroy
-        if (self.admin_role?)
-          redirect_to profiles_path, notice: @profile.name + 'を削除しました'
+        if @profile.destroy
+          if (self.admin_role?)
+            redirect_to profiles_path, notice: @profile.name + 'を削除しました'
+          else
+            redirect_to "/", notice: '退会しました'
+          end
         else
-          redirect_to "/", notice: '退会しました'
+          redirect_to "/", alert: 'エラーが発生しました'
         end
       end
     else

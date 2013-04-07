@@ -1,7 +1,11 @@
 <!-- <h2>Sign in</h2> -->
-<h4>ログイン</h4>
-
+<!-- <h4>ログイン</h4>
+ -->
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
+
+<div class="control-group">
+  <h4 class="control-label">ログイン</h4>
+</div>
 
 <div class="control-group">
   <%= f.label :email, :class => 'control-label'%>

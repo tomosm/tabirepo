@@ -6,7 +6,7 @@
     <%= form_tag :search_articles, method: :get do %>
     <%= text_field_tag :title, params[:title], :placeholder => "レポート名" %>
     <%= select_tag :theme_id, options_for_select(@themes.collect{|m| [t(m[0], :scope => 'theme.code'), m[1]]}, params[:theme_id]), :prompt => '記事のテーマ？' %>
-    <select><option>日本</option></select>
+    <%= select_tag :country_id, options_for_select(@countries.collect{|m| [t(m[0], :scope => 'country.code'), m[1]]}, params[:country_id]), :prompt => '国？' %>
     <%= select_tag :vihicle_id, options_for_select(@vihicles.collect{|m| [t(m[0], :scope => 'vihicle.code'), m[1]]}, params[:vihicle_id]), :prompt => '移動手段？' %>
     <%= select_tag :member_id, options_for_select(@members.collect{|m| [t(m[0], :scope => 'member.code'), m[1]]}, params[:member_id]), :prompt => '人数？' %>
     <%= select_tag :purpose_id, options_for_select(@purposes.collect{|m| [t(m[0], :scope => 'purpose.code'), m[1]]}, params[:purpose_id]), :prompt => '目的？' %>

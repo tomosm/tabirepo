@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406154014) do
+ActiveRecord::Schema.define(:version => 20130407063749) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(:version => 20130406154014) do
     t.boolean  "approved"
     t.integer  "user_id"
     t.boolean  "recommended"
+    t.string   "country_code"
+    t.integer  "country_id"
   end
 
   create_table "budgets", :force => true do |t|
@@ -98,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130406154014) do
     t.string   "sentence"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "profiles", :force => true do |t|

@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    findCodes
+    find_codes
     @articles = Article.where('approved = :approved', {:approved => true})
     @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
     @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless !params[:theme_id] || params[:theme_id].empty?
@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    findCodes
+    find_codes
     @article = Article.new
     # @paragraphs = Array.new(1) {Paragraph.new}
     @paragraphs = []
@@ -76,30 +76,35 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    paragraphs = params[:article][:paragraphs]
+    params[:article].delete(:paragraphs)
+
     @article = Article.new(params[:article])
     if @article.save
+      save_paragraphs(@article.id, paragraphs)
       # redirect_to article_path(:id => @article.id), notice: '投稿しました'
-      redirect_to article_path(:id => @article.id)
+      redirect_to article_path(:id => @article.id), notice: '投稿しました'
     else
-      findCodes
+      find_codes
     # @paragraphs = Array.new(1) {Paragraph.new}
     # @paragraphs = []
     # @article.paragraphs = @paragraphs
 
-    @paragraphs = @article.paragraphs
+      @paragraphs = @article.paragraphs
+      # add_paragraph_objects(paragraphs, @paragraphs)
 
       render action: 'new'
     end
   end
 
   def edit
-    findCodes
+    find_codes
     begin
       @article = Article.find(params[:id])
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
-      if !@paragraphs || @paragraphs.length == 0
-        @paragraphs = []
-      end
+      # if !@paragraphs || @paragraphs.length == 0
+      #   @paragraphs = []
+      # end
       # @paragraphs.add(Paragraph.new)
       # @article.paragraphs = @paragraphs
     rescue ActiveRecord::RecordNotFound
@@ -115,19 +120,27 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    paragraphs = params[:article][:paragraphs]
+    params[:article].delete(:paragraphs)
+
     begin
       @article = Article.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
       redirect_to "/", notice: '記事は存在しません'
     else
-      @article.update_attributes(:approved => false, :recommended => false)
+      params[:article][:approved] = false
+      params[:article][:recommended] = false
+      # transaction 必要
       if @article.update_attributes(params[:article])
-        redirect_to article_path(@article)
+        save_paragraphs(params[:id], paragraphs)
+        redirect_to article_path(@article), notice: '更新しました'
       else
-        findCodes
+        find_codes
 
         @paragraphs = @article.paragraphs
+        # add_paragraph_objects(paragraphs, @paragraphs)
+  
         render action: 'edit'
       end
     end
@@ -140,8 +153,16 @@ class ArticlesController < ApplicationController
       logger.error "Access invalid article error#{params[:id]}"
       redirect_to "/", notice: '記事は存在しません'
     else
-      redirect_to articles_path
-      # redirect_to "/"  # 一覧があればそちらへ飛ばしたほうがよい
+      if @article.destroy
+        # if (self.admin_role?)
+        #   redirect_to articles_path, notice: @article.title + 'を削除しました'
+        # else
+        #   redirect_to articles_path, notice: @article.title + 'を削除しました'
+        # end
+        redirect_to articles_path, notice: @article.title + 'を削除しました'
+      else
+        redirect_to articles_path, alert: 'エラーが発生しました'
+      end
     end
   end
 
@@ -182,8 +203,9 @@ class ArticlesController < ApplicationController
   end
 
   private
-  def findCodes
+  def find_codes
     @themes = Theme.all.collect {|model| [model.code, model.id]}
+    @countries = [["日本", 1]]
     # @countries = Theme.all.collect {|model| [model.code, model.id]}
     @vihicles = Vihicle.all.collect {|model| [model.code, model.id]}
     @members = Member.all.collect {|model| [model.code, model.id]}
@@ -192,6 +214,36 @@ class ArticlesController < ApplicationController
     @languages = Language.all.collect {|model| [model.code, model.id]}
     @ages = Age.all.collect {|model| [model.code, model.id]}
   end
+
+  def save_paragraphs(article_id, paragraphs)
+    if paragraphs
+      if paragraphs.class == Array
+        paragraphs.each do |paragraph|
+          Paragraph.save_by_article(article_id, paragraph)
+        end
+      elsif paragraphs.class == HashWithIndifferentAccess
+        paragraphs.keys.each do |index|
+          Paragraph.save_by_article(article_id, paragraphs[index])
+        end
+      end
+    end
+  end
+
+  # def add_paragraph_objects(paragraphs_params, paragraphs_objects)
+  #   if (paragraphs_params) 
+  #     if paragraphs_params.class == Array
+  #       paragraphs_params.each do |paragraph_param|
+  #         # if !paragraph_param.id || paragraph_param.empty?
+  #           paragraphs_objects << Paragraph.new(paragraph_param)
+  #       end
+  #     elsif paragraphs_params.class == HashWithIndifferentAccess
+  #       paragraphs_params.keys.each do |index|
+  #         # if !paragraph_param.id || paragraph_param.empty?
+  #           paragraphs_objects << Paragraph.new(paragraphs_params[index])
+  #       end
+  #     end
+  #   end
+  # end
 
   # def respondOne
   #   begin

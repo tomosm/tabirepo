@@ -90,12 +90,12 @@ class ReportController < ApplicationController
     @newer = []
     @repeater = []
     @reader_user.each do |user|
-      @categories << reader_user_name[user.user_id].name
+      @categories << (reader_user_name[user.user_id] != nil ? reader_user_name[user.user_id].name : reader_user_name[user.user_id])
       @all << (@reader_all[user.user_id] || 0)
       @newer << (@reader_new[user.user_id] || 0)
       @repeater << (@reader_repeater[user.user_id] || 0)
       @reports << {
-        :writer_name => reader_user_name[user.user_id].name,
+        :writer_name => (reader_user_name[user.user_id] ? reader_user_name[user.user_id].name : reader_user_name[user.user_id]),
         :count_all => (@reader_all[user.user_id] || 0),
         :count_newer => (@reader_new[user.user_id] || 0),
         :count_repeater => (@reader_repeater[user.user_id] || 0)

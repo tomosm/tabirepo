@@ -75,3 +75,5 @@ gem "lazy_high_charts"
 # gem "gruff"
 # gem "rmagick" 
 
+# country select
+# gem "country-select"

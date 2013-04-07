@@ -6,7 +6,7 @@
        <h3 class="pull-left"><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
       <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
       
-       <h5 class="pull-left"><%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
+       <h6 class="pull-left"><%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
       /
        <%= t(@article.member.code, :scope => 'member.code') %>
       /
@@ -16,8 +16,8 @@
       /
        <%= t(@article.language.code, :scope => 'language.code') %>
       /
-       <%= t(@article.age.code, :scope => 'age.code') %>
-       <h5 class="pull-right"><%= @article.user.name %></h5></h5>
+       <%= t(@article.age.code, :scope => 'age.code') %></h6>
+       <h6 class="pull-right"><%= @article.user.name %></h6>
 
   </div>
 

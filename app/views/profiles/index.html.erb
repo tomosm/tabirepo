@@ -5,6 +5,7 @@
     <th>名前</th>
     <th>メールアドレス</th>
     <th>ソーシャル？写真？</th>
+    <th>種別</th>
   </thead>
   <tbody>
     <% @profiles.each do |profile| %>
@@ -13,6 +14,7 @@
         <td><%= profile.name %></td>
         <td><%= profile.email %></td>
         <td><%= profile.provider %></td>
+        <td><%= profile.user_type %></td>
         <input type="hidden" name="profile_id" value="<%= profile.id %>" />
       </tr>
     <% end -%>
