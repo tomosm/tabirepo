@@ -11,6 +11,7 @@ gem 'sqlite3', :group => [:development, :test]
 group :production do
   gem 'thin'
   gem 'pg'
+  gem 'mysql2'
 end
 
 # Gems used only for assets and not required
@@ -23,6 +24,8 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
 
   # for this app.
   gem 'less-rails'
@@ -31,7 +34,6 @@ group :assets do
   # for fuelux
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem "fuelux-rails"
-end
 
 gem 'jquery-rails'
 
