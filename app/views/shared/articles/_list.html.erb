@@ -3,26 +3,27 @@
       <%= link_to(article_path(article)) do %>
       <%#= article.country.code %>
         <!-- <span class="icon-location"></span><h5>日本</h5> -->
-
-<!-- todo 国 -->
-<!-- todo partial -->
-        <header>日本
+        <header><%= article.country.value %>
           <% if article.recommended? %>
-            <span class="badge badge-warning" style="float:right;">オススメ</span>
+            <!-- <span class="badge badge-warning" style="float:right;">オススメ</span> -->
+            <%= image_tag("articles/ribbon-indigo.png", :class => "ribbon recommendation") %>
           <% end -%>
           <% if local_assigns.has_key? :admin_page %>
             <% if user_signed_in? && current_user.admin? %>
               <% if article.approved? %>
-                <span class="badge badge-success" style="float:right;">承認</span>
+                <!-- span class="label label-success" style="float:right;"承認/span-->
               <% else %>
-                <span class="badge badge-important" style="float:right;">確認中</span>
+                <!-- span class="label label-important" style="float:right;"確認中/span -->
+                <div class="label label-inverse disapproval">未承認</div>
               <% end -%>
             <% end -%>
           <% end -%>
         </header>
-        <%= image_tag(article.photo.url(:thumb)) %>
+        <div>
+          <%= image_tag(article.image.file.url(:thumb)) %>
+        </div>
         <h5>
-          <span class="icon-theme turningpoint">●</span><%= t(article.theme.code, :scope => 'theme.code') %>
+          <span class="icon-theme" style="color: <%= article.theme.color %>;">●</span><%= article.theme.value %>
         </h5>
         <footer><%= article.title %></footer>
       <% end -%> 

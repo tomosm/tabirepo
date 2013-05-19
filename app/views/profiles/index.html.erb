@@ -13,7 +13,11 @@
         <%# profile.user.name --%>
         <td><%= profile.name %></td>
         <td><%= profile.email %></td>
-        <td><%= profile.provider %></td>
+        <td>
+          <% if profile.signed_by_facebook? %>
+            <%= image_tag('social/facebook_16.png') %>
+          <% end -%>
+        </td>
         <td><%= profile.user_type %></td>
         <input type="hidden" name="profile_id" value="<%= profile.id %>" />
       </tr>

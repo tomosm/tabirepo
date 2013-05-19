@@ -1,7 +1,26 @@
-<p>Hello <%= @resource.email %>!</p>
+<pre>
+こんにちわ！<%= @resource.email %>様!
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+いつも旅レポをご利用いただきありがとうございます。
+不正ログインを検知したためアカウントがロックされております。  
 
-<p>Click the link below to unlock your account:</p>
+アカウントのロックを解除するには以下のURLにアクセスして下さい。
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+<%= link_to 'ロック解除', unlock_url(@resource, :unlock_token => @resource.unlock_token) %>
+
+ご不明点やご意見がございます場合は、 info@tabirepo.com よりお問い合わせください。
+
+今後とも旅レポをよろしくお願いいたします。
+
+旅レポ チーム一同
+
+--------------------
+本メールは自動送信メールです。返信をしないようお願いいたします。
+お心当たりがない場合は、そのまま削除してください。
+--------------------
+旅レポは、あなたの旅の体験を世界に発信するお手伝いをします。
+
+＜旅のワクワクを世界中へ発信するポータルサイト＞
+tabirepo -旅レポ-
+http://tabirepo.com/
+</pre>

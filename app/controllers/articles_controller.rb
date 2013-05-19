@@ -1,8 +1,12 @@
 # encoding: utf-8
 
 class ArticlesController < ApplicationController
+  SEARCH_ARTICLES_SIZE = 12
+
+  before_filter protect_from_forgery, :except => [:fileupload]
+
   # devise の認証filter
-  before_filter :authenticate_user!, :except => [:search, :show]
+  before_filter :authenticate_user!, :except => [:search, :show, :fileupload]
 
   require 'analytics/device_region'
   require 'analytics/article_logger_filter'
@@ -33,14 +37,18 @@ class ArticlesController < ApplicationController
     @articles = Article.where('approved = :approved', {:approved => true})
     @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
     @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless !params[:theme_id] || params[:theme_id].empty?
-    # todo 国別
+    @articles = @articles.where('country_id = :country_id', {:country_id => params[:country_id].to_i}) unless !params[:country_id] || params[:country_id].empty?
     @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless !params[:vihicle_id] || params[:vihicle_id].empty?
     @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless !params[:member_id] || params[:member_id].empty?
     @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless !params[:purpose_id] || params[:purpose_id].empty?
     @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless !params[:budget_id] || params[:budget_id].empty?
     @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless !params[:language_id] || params[:language_id].empty?
     @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless !params[:age_id] || params[:age_id].empty?
-    @articles = @articles.page(params[:page]).per(12)
+
+    # todo popular はあとで
+    @articles = @articles.where('recommended = :recommended', {:recommended => params[:recommended].to_i}) unless !params[:recommended] || params[:recommended].empty?
+
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
 
     render :layout => "search"
   end
@@ -49,13 +57,16 @@ class ArticlesController < ApplicationController
     begin
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
+      @related_articles = Article.find(params[:id])
+      @shoveler_articles = Article.find(params[:id])
+
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
       redirect_to "/", notice: '記事は存在しません'
       # redirect_to article_url, notice: '記事は存在しません'
     else
-      if (false)
-      # if (!current_user.admin? && @article.user_id != params[:id] && !@article.approved?)
+      # if (false)
+      if (!current_user.admin? && @article.user_id != params[:id] && !@article.approved?)
         redirect_to "/", notice: '記事は存在しません'
       else
         respond_to do |format|
@@ -69,6 +80,12 @@ class ArticlesController < ApplicationController
   def new
     find_codes
     @article = Article.new
+
+    # @image = Image.new
+    # @article.image = @image
+    # @url = @image.file.url(:medium) if @image.file
+    # @url = "/development/images/39/medium.jpg"
+
     # @paragraphs = Array.new(1) {Paragraph.new}
     @paragraphs = []
     @article.paragraphs = @paragraphs
@@ -86,6 +103,9 @@ class ArticlesController < ApplicationController
       redirect_to article_path(:id => @article.id), notice: '投稿しました'
     else
       find_codes
+
+      image = Image.find(params[:article][:image_id])
+      @url = image.file.url(:medium) if image
     # @paragraphs = Array.new(1) {Paragraph.new}
     # @paragraphs = []
     # @article.paragraphs = @paragraphs
@@ -97,10 +117,27 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def fileupload
+    # if (params[:image_id])
+    #   @image = Image.find(params[:image_id])
+    #   @image.update_attributes(:file => params[:qqfile])
+    # else
+    #   @image = Image.new(:file => params[:qqfile])
+    #   @image.save
+    # end
+      @image = Image.new(:file => params[:qqfile])
+      @image.save
+
+    respond_to do |format|
+      format.json {render json: ActiveSupport::JSON.encode({"url" => @image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(@image.to_json)})}
+    end
+  end
+
   def edit
     find_codes
     begin
       @article = Article.find(params[:id])
+      @url = @article.image.file.url(:medium)
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
       # if !@paragraphs || @paragraphs.length == 0
       #   @paragraphs = []
@@ -202,17 +239,38 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def disrecommend
+    begin
+      @article = Article.find(params[:id])
+      @article.update_attributes(:recommended => false)
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Access invalid article error#{params[:id]}"
+      redirect_to "/", notice: '記事は存在しません'
+    else
+      redirect_to articles_path
+    end
+  end
+
   private
   def find_codes
-    @themes = Theme.all.collect {|model| [model.code, model.id]}
-    @countries = [["日本", 1]]
-    # @countries = Theme.all.collect {|model| [model.code, model.id]}
-    @vihicles = Vihicle.all.collect {|model| [model.code, model.id]}
-    @members = Member.all.collect {|model| [model.code, model.id]}
-    @purposes = Purpose.all.collect {|model| [model.code, model.id]}
-    @budgets = Budget.all.collect {|model| [model.code, model.id]}
-    @languages = Language.all.collect {|model| [model.code, model.id]}
-    @ages = Age.all.collect {|model| [model.code, model.id]}
+    # @themes = Theme.all.collect {|model| [model.code, model.id]}
+    # # @countries = [["日本", 1]]
+    # @countries = Country.all.collect {|model| [model.code, model.id]}
+    # @vihicles = Vihicle.all.collect {|model| [model.code, model.id]}
+    # @members = Member.all.collect {|model| [model.code, model.id]}
+    # @purposes = Purpose.all.collect {|model| [model.code, model.id]}
+    # @budgets = Budget.all.collect {|model| [model.code, model.id]}
+    # @languages = Language.all.collect {|model| [model.code, model.id]}
+    # @ages = Age.all.collect {|model| [model.code, model.id]}
+    @themes = Theme.all.collect {|model| [model.value, model.id]}
+    # @countries = [["日本", 1]]
+    @countries = Country.all.collect {|model| [model.value, model.id]}
+    @vihicles = Vihicle.all.collect {|model| [model.value, model.id]}
+    @members = Member.all.collect {|model| [model.value, model.id]}
+    @purposes = Purpose.all.collect {|model| [model.value, model.id]}
+    @budgets = Budget.all.collect {|model| [model.value, model.id]}
+    @languages = Language.all.collect {|model| [model.value, model.id]}
+    @ages = Age.all.collect {|model| [model.value, model.id]}
   end
 
   def save_paragraphs(article_id, paragraphs)

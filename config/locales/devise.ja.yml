@@ -33,6 +33,7 @@ ja:
 #      timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'アカウントがアクティベートされていません。'
 #      inactive: 'Your account was not activated yet.'
+      not_found_in_database: "メールアドレスかパスワードが違います。"
     sessions:
       signed_in: 'ログインしました。'
 #      signed_in: 'Signed in successfully.'
@@ -79,7 +80,8 @@ ja:
       send_paranoid_instructions: 'アカウントが見つかった場合、アカウントの凍結解除方法を数分以内にメールでご連絡します。'
 #      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
     omniauth_callbacks:
-      success: '%{kind} アカウントによる個人認証に成功しました。'
+      success: '%{kind} アカウントでログインしました。'
+      # success: '%{kind} アカウントによる個人認証に成功しました。'
 #      success: 'Successfully authenticated from %{kind} account.'
       failure: '%{kind} アカウントによる個人認証に失敗しました（%{reason}）。'
 #      failure: 'Could not authenticate you from %{kind} because "%{reason}".'

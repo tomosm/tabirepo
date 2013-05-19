@@ -1,6 +1,6 @@
 class TopController < ApplicationController
-  TOP_NEWS_SIZE = 6
-  TOP_NEWS_SIZE_OF_RECOMMENDATION = 3
+  TOP_NEWS_SIZE = 4
+  TOP_NEWS_SIZE_OF_RECOMMENDATION = 4
 
   def index
     @articles = Article.where("approved = :approved", {:approved => true}).limit(TOP_NEWS_SIZE)

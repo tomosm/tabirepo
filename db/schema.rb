@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130413160728) do
+ActiveRecord::Schema.define(:version => 20130422161125) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "articles", :force => true do |t|
@@ -47,12 +48,14 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.integer  "user_id"
     t.boolean  "recommended"
     t.integer  "country_id"
+    t.integer  "image_id"
   end
 
   create_table "budgets", :force => true do |t|
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "contacts", :force => true do |t|
@@ -64,16 +67,34 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.datetime "deleted_at"
   end
 
+  create_table "countries", :force => true do |t|
+    t.string   "code"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "deleted_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "languages", :force => true do |t|
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "members", :force => true do |t|
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "paragraphs", :force => true do |t|
@@ -97,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "readers", :force => true do |t|
@@ -119,6 +141,8 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
+    t.string   "color"
   end
 
   create_table "users", :force => true do |t|
@@ -145,6 +169,9 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.string   "gender"
     t.string   "user_type"
     t.integer  "social_id"
+    t.string   "link"
+    t.string   "image_url"
+    t.text     "bio"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -155,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20130413160728) do
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "value"
   end
 
   create_table "visitors", :force => true do |t|

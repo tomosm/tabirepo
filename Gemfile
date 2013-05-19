@@ -54,7 +54,9 @@ gem 'jquery-rails'
 
 # To upload photo
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
-gem 'fog'
+# gem 'fog'
+gem 'aws-sdk'
+# gem 'aws-s3'
 
 # Authentication
 gem 'devise'
@@ -79,3 +81,6 @@ gem "lazy_high_charts"
 
 # country select
 # gem "country-select"
+
+
+# gem "jquery-fileupload-rails"

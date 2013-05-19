@@ -1,5 +1,24 @@
-<p>Welcome <%= @email %>!</p>
+<pre>
+旅レポへライター登録いただきありがとうございます。
+メールアドレスの登録を完了するには以下のURLにアクセスして下さい。
 
-<p>You can confirm your account email through the link below:</p>
+<%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+メールアドレスが確認されると記事投稿・プロフィールの機能をご利用いただけます。
+ご不明点やご意見がございます場合は、 info@tabirepo.com よりお問い合わせください。
+
+
+今後とも旅レポをよろしくお願いいたします。
+
+旅レポ チーム一同
+
+--------------------
+本メールは自動送信メールです。返信をしないようお願いいたします。
+お心当たりがない場合は、そのまま削除してください。
+--------------------
+旅レポは、あなたの旅の体験を世界に発信するお手伝いをします。
+
+＜旅のワクワクを世界中へ発信するポータルサイト＞
+tabirepo -旅レポ-
+http://tabirepo.com/
+</pre>

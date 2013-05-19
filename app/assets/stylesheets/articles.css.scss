@@ -12,7 +12,8 @@
 }
 
 .contents div.articles-container {
-  padding-left: 60px;
+  // padding-left: 60px;
+  padding-left: 45px;
   // height: 222px;
 }
 
@@ -21,13 +22,18 @@
   *display: inline;  
   *zoom: 1; 
   // width: 220px;
-  width: 180px;
+
+  // width: 180px;
+  width: 200px;
+  // width: 220px;
   // margin: 0 10px 10px 0;
   // margin: 0 20px 20px 0;
   margin-right: 20px;
   margin-bottom: 20px;
   // height: 258px;
-  height: 222px;
+  // height: 222px;
+  // height: 222px;
+  height: 237px;
   color: #221919;
   font-weight: bold;
   vertical-align: top;
@@ -55,11 +61,20 @@
   margin: 0;
 }
 
-.contents .article img {
+.contents .article div {
   // width: 200px;
-  width: 160px;
-  height: 120px;
+  // width: 160px;
+  // max-?
+  width: 180px;
+  height: 135px;
   padding: 0 10px;
+  text-align: center;
+}
+
+.contents .article img {
+  text-align: center;
+  max-width: auto;
+  max-height: auto;
 }
 
 .contents .article a {
@@ -95,9 +110,21 @@ div.reading div.header h3 {
   padding-right: 10px;
 }
 
-div.reading div.image-container {
+div.image-container {
+  margin-right: auto;
+  margin-left: auto;
   text-align: center;
+  width: 640px;
+  height: 480px;
+}
+
+div.image-container.top {
   padding: 30px;
+  clear: both;
+}
+
+div.image-container.bottom {
+  padding-top: 10px;
 }
 
 div.reading div.outline {
@@ -118,6 +145,63 @@ div.reading p {
 
 div.reading div.paragraph h4 {
   border-bottom: 1px dashed;
+}
+
+div#file-image {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+img.article-photo {
+  max-width: auto;
+  max-height: auto;
+  line-height: 480px;
+}
+
+article.article.photo {
+  position: relative;
+}
+
+article.article.photo img.ribbon {
+  position: absolute;
+  top: -5px; 
+  // max-width: 20px;
+  max-height: 43px;
+}
+
+article.article.photo img.ribbon.new {
+  left: 140px;
+}
+
+article.article.photo img.ribbon.hot {
+  left: 160px;
+}
+
+article.article.photo img.ribbon.recommendation {
+  left: 180px;
+}
+
+article.article.photo div.disapproval {
+  position: absolute;
+  width: 180px;
+  height: 237px;
+  line-height: 237px;
+  top: 0;
+  left: 0;
+  opacity:0.8;
+  filter: alpha(opacity=80);        /* ie lt 8 */
+  -ms-filter: "alpha(opacity=80)";  /* ie 8 */
+  -moz-opacity:0.8;                 /* FF lt 1.5, Netscape */
+  -khtml-opacity: 0.8;              /* Safari 1.x */
+}
+
+div.header div.ribbon img {
+  max-height: 100px;
+}
+
+div.search-area.horizontal label {
+  display: inline-block;
 }
 
 // .contents .article .icon-location {

@@ -18,7 +18,7 @@
   <%= f.label :name, '名前', :class => 'control-label' %>
   <div class="controls">
     <div class="input-prepend">
-      <%= f.text_field :name, :class => "span6" %>
+      <%= f.text_field :name, :class => "span7", :required => "required" %>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
   <%= f.label :email, 'メールアドレス', :class => 'control-label' %>
   <div class="controls">
     <div class="input-prepend">
-      <%= f.email_field :email, :autofocus => true, :class => "span6" %>
+      <%= f.email_field :email, :autofocus => true, :class => "span7", :required => "required" %>
     </div>
   </div>
 </div>
@@ -36,7 +36,7 @@
   <%= f.label :content, '内容', :class => 'control-label' %>
   <div class="controls">
     <div class="input-prepend">
-      <%= f.text_area :content, :rows => 4, :class => "span6" %>
+      <%= f.text_area :content, :rows => 4, :class => "span7", :required => "required" %>
     </div>
   </div>
 </div>

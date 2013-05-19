@@ -11,20 +11,23 @@
 # // GO AFTER THE REQUIRES BELOW.
 # //
 //= require jquery
-//= require jquery_ujs
-//= require_tree .
+# //= require jquery_ujs
+# //= require_tree .
 //= require twitter/bootstrap
-//= require highcharts 
-//= require exporting 
-# //= require fuelux.js
+# //= require highcharts 
+# //= require exporting 
+//= require fuelux
+//= require fuelux/checkbox
+//= require jquery.fineuploader-3.4.1.min
+
 $ ->
   $("a[rel=popover]").popover()
   $(".tooltip").tooltip()
   $("a[rel=tooltip]").tooltip()
   # $('#datepicker').datepicker()
-  # $(':checkbox').checkbox()
+  $(':checkbox').checkbox()
   # $(':radio').radio()
-  # $('select').select()
+  $('select').select()
   # $('.pillbox').pillbox()
   $.fn.disable = ->
     $this = $(this)

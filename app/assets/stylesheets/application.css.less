@@ -5,6 +5,8 @@
 @import "bootswatch";
 @import "variables";
 @import "bootstrap_and_overrides.css";
+@import 'fuelux';
+@import 'fineuploader-3.4.1.css';
 
 /**************************************************
             Override styles
@@ -53,11 +55,14 @@ div.container-fluid > header {
   margin-bottom: 15px;
   /*background-color: red;*/
   // padding: 5px 10px;
-  padding: 0 10px;
+  // padding: 0 10px;
 }
 
 .concept {
-  text-align: right;
+  position: absolute;
+  // top: 180px;
+  left: 460px;
+  // text-align: right;
   color: green;
   // font-size: 12px;
 }
@@ -230,6 +235,9 @@ div.main {
   margin-left: 200px;
 }*/
 
+#contents section h4 {
+  padding-left: 10px;
+}
 
 /**************************************************
         INTRO
@@ -276,6 +284,20 @@ div.main {
 
 div.holder_content {
   text-align: center;
+  position: relative;
+}
+
+div.holder_content div.top {
+  // width: 920px;
+  width: 940px;
+  height: 300px;
+}
+
+div.holder_content div.top img {
+  max-width: 100%;
+  max-height: 100%;
+  // vertical-align: middle;
+  // text-align: center;
 }
 
 .photo {
@@ -283,6 +305,30 @@ div.holder_content {
   -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
           box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 }
+
+// /***************************************************
+//            clearfix
+// ***************************************************/
+// .clearfix:after {
+//     content: ".";
+//     display: block;
+//     clear: both;
+//     height: 0;
+//     visibility: hidden;
+// }
+
+// .clearfix {
+//     zoom: 100%;
+//     *zoom: 100%;
+// }
+
+// * html .clearfix {
+//     height: 1px;
+//     /*\*//*/
+//     height: auto;
+//     overflow: hidden;
+//     /**/
+// }
 
 /***************************************************
            VARIABLES
@@ -296,4 +342,30 @@ div.holder_content {
   // white-space: -moz-pre-wrap; /* Mozilla */
   // white-space: -hp-pre-wrap;  /* HP Printers */
   word-wrap: break-word;      /* IE 5+ */
+}
+
+
+/***************************************************
+           DEVISE
+***************************************************/
+div.fb-login {
+  background-image: url("social/facebook_signin.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  width: 150px;
+  height: 23px;
+}
+
+div.fb-login:hover {
+  background-position: 0 -24px;
+}
+
+/***************************************************
+           BOOTSTRAP
+***************************************************/
+.form-horizontal .control-label {
+    width: 250px;
+}
+.form-horizontal .controls {
+    margin-left: 270px;
 }

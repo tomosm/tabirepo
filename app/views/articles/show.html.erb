@@ -3,27 +3,37 @@
 
 <div class="reading">
   <div class="header clearfix">
-       <h3 class="pull-left"><%= t(@article.theme.code, :scope => 'theme.code') %></h3>
+       <h3 class="pull-left"><%= @article.theme.value %></h3>
       <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
-      
-       <h6 class="pull-left"><%= t(@article.vihicle.code, :scope => 'vihicle.code') %>
-      /
-       <%= t(@article.member.code, :scope => 'member.code') %>
-      /
-       <%= t(@article.purpose.code, :scope => 'purpose.code') %>
-      /
-       <%= t(@article.budget.code, :scope => 'budget.code') %>
-      /
-       <%= t(@article.language.code, :scope => 'language.code') %>
-      /
-       <%= t(@article.age.code, :scope => 'age.code') %></h6>
-       <h6 class="pull-right"><%= @article.user.name %></h6>
 
+      <!-- todo 国？ -->
+
+       <h6 class="pull-left">
+        <%= @article.country.value %>
+      /
+        <%= @article.vihicle.value %>
+      /
+       <%= @article.member.value %>
+      /
+       <%= @article.purpose.value %>
+      /
+       <%= @article.budget.value %>
+      /
+       <%= @article.language.value %>
+      /
+       <%= @article.age.value %></h6>
+       <!-- <h6 class="pull-right"><%#= @article.user.name %></h6> -->
+       <div class="ribbon pull-right">
+          <% if @article.recommended? %>
+            <%= image_tag("articles/ribbon-indigo.png") %>
+          <% end -%>
+      </div>
   </div>
 
-  <div class="image-container">
+  <div class="image-container top">
       <% if @article.photo %>
-        <%=  image_tag(@article.photo.url(:medium), :size => "640x480") %>  
+        <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
+        <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
       <% end %>
   </div>
   <div class="outline">
@@ -38,22 +48,31 @@
     </div>
   <% end -%>
 
-  <div class="image-container">
+  <div class="image-container bottom">
       <% if @article.photo %>
-        <%=  image_tag(@article.photo.url(:medium), :size => "640x480") %>  
+        <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
+        <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
       <% end %>
   </div>
 
   <div class="footer">
-    <div>
+    <div class="writer-container">
+      ライター情報
+    </div>
+
     <% if user_signed_in? && current_user.admin? %>
+    <div>
       <% if !@article.recommended? %>
         <%= link_to 'オススメ', article_path(@article) + "/recommend",
           :method => :put, 
           :class => 'btn btn-warning' %>
+      <% else %>
+        <%= link_to 'オススメ取消', article_path(@article) + "/disrecommend",
+          :method => :put, 
+          :class => 'btn btn-danger' %>
       <% end -%>
       <% if @article.approved? %>
-        <%= link_to '取消', article_path(@article) + "/disapprove",
+        <%= link_to '承認取消', article_path(@article) + "/disapprove",
           :method => :put, 
           :class => 'btn btn-danger' %>
       <% else %>
@@ -70,8 +89,8 @@
           :confirm => '削除してもよろしいですか？',
           :method => :delete, 
           :class => 'btn' %>
-    <% end -%>
     </div>
+    <% end -%>
   </div>
 </div>
 
