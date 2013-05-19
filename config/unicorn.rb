@@ -19,7 +19,7 @@
 # pid '/tmp/unicorn.pid'
 
 listen '/projects/tabirepo/tmp/sockets/unicorn.sock'
-pid '/projects/tabirepo/tmp/pids/nginx.pid'
+pid '/projects/tabirepo/tmp/pids/unicorn.pid'
 
 
 
