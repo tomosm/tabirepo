@@ -12,6 +12,10 @@
 #stderr_path "/projects/tabirepo/shared/log/unicorn.log"
 #stdout_path "/projects/tabirepo/shared/log/unicorn.log"
 
+# # ログ
+# stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
+# stdout_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
+ 
 #listen '/projects/tabirepo/shared/sockets/unicorn.sock'
 #pid '/projects/tabirepo/shared/pids/unicorn.pid'
 
@@ -21,5 +25,6 @@
 listen '/projects/tabirepo/tmp/sockets/unicorn.sock'
 pid '/projects/tabirepo/tmp/pids/unicorn.pid'
 
-
+# ダウンタイムなくす
+preload_app true
 
