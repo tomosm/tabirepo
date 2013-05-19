@@ -46,7 +46,7 @@ TabiRepo::Application.configure do
     :address => 'smtp.tabi-repo.net',
     :port => 587,
     :authentication => :plain,
-    :user_name => 'analytics@tabi-repo.net',
+    :user_name => 'support@tabi-repo.net',
     :password => '7NSAAEAA'
   }
 end
