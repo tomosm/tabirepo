@@ -15,8 +15,11 @@
 #listen '/projects/tabirepo/shared/sockets/unicorn.sock'
 #pid '/projects/tabirepo/shared/pids/unicorn.pid'
 
-listen '/tmp/unicorn.sock'
-pid '/tmp/unicorn.pid'
+# listen '/tmp/unicorn.sock'
+# pid '/tmp/unicorn.pid'
+
+listen '/projects/tabirepo/tmp/sockets/unicorn.sock'
+pid '/projects/tabirepo/tmp/pids/nginx.pid'
 
 
 
