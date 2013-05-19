@@ -12,6 +12,7 @@ group :production do
   gem 'thin'
   gem 'pg'
   gem 'mysql2'
+  gem 'google-analytics-rails'
 end
 
 # Gems used only for assets and not required

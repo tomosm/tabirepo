@@ -83,5 +83,6 @@ TabiRepo::Application.configure do
     :password => '7NSAAEAA'
   }
 
+  GA.tracker = "UA-41053119-1"
   
 end
