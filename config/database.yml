@@ -20,7 +20,7 @@ test:
 
 production:
   adapter: mysql2 
-  database: tabirepo_production
+  database: tabirepo_core
   username: tabirepo
   password: ped0urwQmpiz2lDghui[ 
   host: 127.0.0.1

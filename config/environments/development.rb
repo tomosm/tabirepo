@@ -43,10 +43,19 @@ TabiRepo::Application.configure do
   # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => 'smtp.tabi-repo.net',
+    # :enable_starttls_auto => true,
+    # :address => 'smtp.live.com',
+    # :port => 587,
+    # # :port => 25,
+    # :authentication => :plain,
+    # :domain => 'tabi-repo.net',
+    # :user_name => 'support@tabi-repo.net',
+    # :password => '7NSAAEAA',
+    # :openssl_verify_mode => 'none' # Only use this option for a self-signed and/or wildcard certificate
+    :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :user_name => 'support@tabi-repo.net',
-    :password => '7NSAAEAA'
+    :user_name => 'tabirepo.analytics@gmail.com',
+    :password => 'PE9593Yk'
   }
 end
