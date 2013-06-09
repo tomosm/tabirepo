@@ -85,7 +85,8 @@ $ ->
       $('#file-image').removeClass('alert-info')
                       # .addClass('alert-success')
                       # .html('<img src="' + responseJSON.url + '" alt="' + fileName + '">')
-      $("#file-image").children("img").attr("src", responseJSON.url)
+      $("#file-image").children("img").attr("src", responseJSON.url).css("display", "")
+      $("#file-image").children("span.article-photo").css("display", "none")
       $("#file-image").find("#article_image_id").attr("value", responseJSON.image.id)
                       # .append('<input type="hidden" id="'+  +'" value="'+  +'" />')
     # else

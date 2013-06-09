@@ -22,3 +22,5 @@
 
 /public/development
 .sass-cache
+public/assets/*
+

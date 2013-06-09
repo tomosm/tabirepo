@@ -33,7 +33,8 @@
         <% if @url %>
           <%=  image_tag(@url, :class => "article-photo") %>  
         <% else %>
-          <img class="article-photo" src="" alt="NO IMAGE">
+          <span class="article-photo">NO IMAGE</span>
+          <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
         <% end -%>
         <%= f.hidden_field :image_id -%> 
         <%#= f.fields_for :image do |fimage| --%>

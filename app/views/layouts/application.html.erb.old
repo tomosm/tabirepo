@@ -76,7 +76,7 @@
            <li><%= link_to '投稿一覧', articles_path %></li>
            <li><%= link_to 'Information', '/' %></li>
            <li><%= link_to '投稿する', new_article_path %></li>
-           <li><%= link_to '問い合わせ', contact_new_path %></li>
+           <li><%= link_to 'お問い合わせ', contact_new_path %></li>
         </ul>
  -->
      </nav>
