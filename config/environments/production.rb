@@ -88,8 +88,10 @@ TabiRepo::Application.configure do
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :user_name => 'tabirepo.analytics@gmail.com',
-    :password => 'PE9593Yk'
+    # :user_name => 'tabirepo.analytics@gmail.com',
+    # :password => 'PE9593Yk'
+    :user_name => 'admin@tabi-repo.net',
+    :password => '7NSAAEAA'
   }
 
   GA.tracker = "UA-41053119-1"

@@ -97,7 +97,12 @@ div.reading div.footer {
   border-top: 2px solid;
 }
 
-div.reading div.footer div {
+// div.reading div.footer div {
+//   float: right;
+//   margin: 5px;
+// }
+
+div.reading div.footer div.toolbar {
   float: right;
   margin: 5px;
 }

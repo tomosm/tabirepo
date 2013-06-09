@@ -56,12 +56,9 @@
   </div>
 
   <div class="footer">
-    <div class="writer-container">
-      ライター情報
-    </div>
-
+    <div class="toolbar">
     <% if user_signed_in? && current_user.admin? %>
-    <div>
+    <!-- <div> -->
       <% if !@article.recommended? %>
         <%= link_to 'オススメ', article_path(@article) + "/recommend",
           :method => :put, 
@@ -80,6 +77,7 @@
           :method => :put, 
           :class => 'btn btn-success' %>
       <% end -%>
+    <!-- </div> -->
     <% end -%>
     <% if @article.write_by?(current_user) %>
         <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
@@ -89,8 +87,39 @@
           :confirm => '削除してもよろしいですか？',
           :method => :delete, 
           :class => 'btn' %>
-    </div>
     <% end -%>
+    </div>
+
+    <div class="writer-container">
+      <div>
+        <div><%=  image_tag(@article.user.image_url + "&type=large", :alt => "AUTHOR") %></div>
+        <div><%= @article.user.name %></div>
+      </div>
+      <div><%= @article.user.bio %></div>
+    </div>
+
+    <div class="articles-suggestion">
+      <section class="contents">
+        <h4>この記事を見た後に読んでいるのは！？</h4>
+        <div class="articles-container">
+          <%= render :partial => 'shared/articles/list', :locals => {:articles => @shoveler_articles} %>
+        </div>
+        <div class="link">
+          <%= link_to "記事一覧はこちら", search_articles_path %>
+        </div>
+      </section>
+
+      <section class="contents">
+        <h4>関連記事</h4>
+        <div class="articles-container">
+          <%= render :partial => 'shared/articles/list', :locals => {:articles => @related_articles} %>
+        </div>
+        <div class="link">
+          <%= link_to "記事一覧はこちら", search_articles_path %>
+        </div>
+      </section>
+    </div>
+
   </div>
 </div>
 

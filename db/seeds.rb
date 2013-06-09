@@ -338,7 +338,8 @@ AboutUs.create(:content => "ここに旅レポについて書く")
 
 # admin user
 # User.create(
-#   :email => 'tabirepo.analytics@gmail.com', 
-#   :password => 'PE9593Yk',
+    :user_name => 'admin@tabi-repo.net',
+    :password => '7NSAAEAA'
+#   :email => 'admin@tabi-repo.net', 
 #   :user_type => "1"
 #   )

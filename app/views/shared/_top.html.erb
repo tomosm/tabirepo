@@ -2,7 +2,22 @@
   <div class="holder_content">
     <h4 class="concept">世界を歩いて、感じて、考えた。旅話専門ポータルサイト</h4>
     <div class="top">
-      <%= image_tag('top.png') %>
+      <div id="top_carousel" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li data-target="#top_carousel" data-slide-to="0" class="active"></li>
+          <li data-target="#top_carousel" data-slide-to="1"></li>
+          <li data-target="#top_carousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          <div class="active item"><%= image_tag('top.png') %></div>
+          <div class="item"><%= image_tag('top.png') %></div>
+          <div class="item"><%= image_tag('top.png') %></div>
+        </div>
+      <!-- Carousel nav -->
+      <!-- <a class="carousel-control left" href="#top_carousel" data-slide="prev">&lsaquo;</a> -->
+      <!-- <a class="carousel-control right" href="#top_carousel" data-slide="next">&rsaquo;</a> -->
+      </div>
     </div>
   </div>
 </header>

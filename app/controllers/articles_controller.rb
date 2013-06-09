@@ -57,8 +57,8 @@ class ArticlesController < ApplicationController
     begin
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
-      @related_articles = Article.find(params[:id])
-      @shoveler_articles = Article.find(params[:id])
+      @related_articles = Article.where('theme_id = :theme_id', {:theme_id => @article.theme_id})
+      @shoveler_articles = Article.where('theme_id = :theme_id', {:theme_id => @article.theme_id});
 
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
       # redirect_to article_url, notice: '記事は存在しません'
     else
       # if (false)
-      if (!current_user.admin? && @article.user_id != params[:id] && !@article.approved?)
+      if (!current_user.admin? && @article.user_id != current_user.id && !@article.approved?)
         redirect_to "/", notice: '記事は存在しません'
       else
         respond_to do |format|
