@@ -29,7 +29,8 @@
 <div class="control-group">
     <div class="controls">
       <label class="checkbox" for="user_remember_me">
-        <%= f.check_box :remember_me, :class => 'checkbox' %> <%= :remember_me %>  
+        <%= f.check_box :remember_me, :class => 'checkbox' %> ログイン状態を保持する   
+        <!-- <%= f.check_box :remember_me, :class => 'checkbox' %> <%= :remember_me %>   -->
         <!-- <%= f.check_box :remember_me, :class => 'checkbox' %> <%= f.label :remember_me %>   -->
       </label>
     </div>
@@ -39,9 +40,18 @@
 
 <div class="control-group">
   <div class="controls">
-    <%= f.submit "Sign in", :class => 'btn btn-inverse' %>
+    <!-- <%= f.submit "Sign in", :class => 'btn btn-inverse' %> -->
+    <%= f.submit "ログイン", :class => 'btn btn-inverse' %>
+
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <%= link_to "ライター登録", new_registration_path(resource_name), :class => 'btn btn-success' %>
+  <% end -%>
+
+  <br/>
+  <br/>
+
     <%#--= link_to "Facebook", user_omniauth_authorize_path(:facebook) %>
-<%= render "devise/shared/links" %>
+<%= render "devise/shared/simple_links" %>
   </div>
 </div>
 

@@ -13,4 +13,4 @@ $ ->
   $("img.funny").css("cursor", "pointer").click ->
     location.href = "articles/search?theme_id=5"
   # $("#top_carousel").carousel('cycle').carousel({interval: 2000})
-  $("#top_carousel").carousel('cycle').carousel({interval: 5000, pause: false})
+  # $("#top_carousel").carousel('cycle').carousel({interval: 5000, pause: false})

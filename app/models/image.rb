@@ -7,21 +7,26 @@ class Image < ActiveRecord::Base
     # if Rails.env == 'development'
     if Rails.env == 'production'
       {
+        # todo s3
         :styles => {:medium => "640x480>", :thumb => "180x135>", :smartfon => "480x360>"},
-        :storage => :s3,
-        :s3_credentials => "#{Rails.root}/config/s3.yml",
+        :url  => "/production/images/:id/:style.:extension",
+        :path => ":rails_root/public/production/images/:id/:style.:extension" 
+
+  #       :styles => {:medium => "640x480>", :thumb => "180x135>", :smartfon => "480x360>"},
+  #       :storage => :s3,
+  #       :s3_credentials => "#{Rails.root}/config/s3.yml",
 
 
-  # :bucket => "tabirepo.tk",
-  # :access_key_id => "AKIAJJS7KV3CHQE5OZOQ",
-  # :secret_access_key => "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",
-  # :s3_host_name => "s3-website-ap-northeast-1.amazonaws.com",
+  # # :bucket => "tabirepo.tk",
+  # # :access_key_id => "AKIAJJS7KV3CHQE5OZOQ",
+  # # :secret_access_key => "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",
+  # # :s3_host_name => "s3-website-ap-northeast-1.amazonaws.com",
 
 
-        # :s3_permissions => :private,
-        # :s3_permissions => "piace777",
-        :path => ":attachment/:id/:style.:extension"#,
-        # :bucket => 'paperclip.tabirepo.com'
+  #       # :s3_permissions => :private,
+  #       # :s3_permissions => "piace777",
+  #       :path => ":attachment/:id/:style.:extension"#,
+  #       # :bucket => 'paperclip.tabirepo.com'
       }
     else
       {

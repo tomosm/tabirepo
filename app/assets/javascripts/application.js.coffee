@@ -33,3 +33,5 @@ $ ->
     $this = $(this)
     $this.css("display", "none")
     return $this
+
+  $("#top_carousel").carousel('cycle').carousel({interval: 5000, pause: false})
