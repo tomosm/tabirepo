@@ -338,8 +338,8 @@ AboutUs.create(:content => "ここに旅レポについて書く")
 
 # admin user
 # User.create(
-    :user_name => 'admin@tabi-repo.net',
-    :password => '7NSAAEAA'
+#    :user_name => 'admin@tabi-repo.net',
+#    :password => '7NSAAEAA'
 #   :email => 'admin@tabi-repo.net', 
 #   :user_type => "1"
 #   )
