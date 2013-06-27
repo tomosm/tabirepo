@@ -53,12 +53,15 @@ class ArticlesController < ApplicationController
     render :layout => "search"
   end
 
+  # todo top_controller にも定義が重複している。
+  TOP_NEWS_SIZE = 4
+
   def show
     begin
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
-      @related_articles = Article.where('theme_id = :theme_id', {:theme_id => @article.theme_id})
-      @shoveler_articles = Article.where('theme_id = :theme_id', {:theme_id => @article.theme_id});
+      @related_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+      @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
 
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"

@@ -90,13 +90,17 @@
     <% end -%>
     </div>
 
+    <div class="clearfix"></div>
+
     <div class="writer-container">
-      <div>
-        <div><%=  image_tag(@article.user.image_url + "&type=large", :alt => "AUTHOR") %></div>
+      <div class="span3"><%= link_to image_tag(@article.user.image_url + "&type=large", :alt => "AUTHOR") , '/profiles/' + @article.user.id.to_s %></div>
+      <div class="span6">
         <div><%= @article.user.name %></div>
+        <div><%= @article.user.bio %></div>
       </div>
-      <div><%= @article.user.bio %></div>
     </div>
+
+    <div class="clearfix" style="margin: 50px 0;"></div>
 
     <div class="articles-suggestion">
       <section class="contents">

@@ -18,6 +18,14 @@
               <% end -%>
             <% end -%>
           <% end -%>
+          <% if user_signed_in? && current_user.id == article.user.id %>
+            <% if article.approved? %>
+              <!-- span class="label label-success" style="float:right;"承認/span-->
+            <% else %>
+              <!-- span class="label label-important" style="float:right;"確認中/span -->
+              <div class="label label-inverse disapproval">未承認</div>
+            <% end -%>
+          <% end -%>
         </header>
         <div>
           <%= image_tag(article.image.file.url(:thumb)) %>

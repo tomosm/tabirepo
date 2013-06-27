@@ -11,6 +11,10 @@
   margin-right:auto;
 }
 
+.contents div.link {
+  text-align: right;
+}
+
 .contents div.articles-container {
   // padding-left: 60px;
   padding-left: 45px;
@@ -207,6 +211,19 @@ div.header div.ribbon img {
 
 div.search-area.horizontal label {
   display: inline-block;
+}
+
+div.writer-container {
+  margin: 25px;
+  // border-top: 2px solid;
+  // padding: 5px;
+  // margin: 5px 0;
+}
+
+div.articles-suggestion {
+// div.writer-container {
+  // border-top: 2px solid;
+  // border-bottom: 2px solid;
 }
 
 // .contents .article .icon-location {
