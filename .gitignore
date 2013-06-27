@@ -21,6 +21,9 @@
 /Gemfile.lock
 
 /public/development
+/public/production
+/public/test
+
 .sass-cache
 public/assets/*
 
