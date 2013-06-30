@@ -33,7 +33,9 @@
 <div class="control-group">
   <%= f.label :provider, 'ソーシャル', :class => 'control-label'%>
   <div class="controls string-label break-string">
-    <%=  sanitize(@profile.provider) %>  
+    <% if @profile.signed_by_facebook? %>
+      <%= link_to image_tag('social/facebook_32.png'), @profile.link, :target => "_blank" %>
+    <% end -%>
   </div>
 </div>
 
@@ -45,6 +47,15 @@
   </div>
 </div>
 <% end -%>
+
+<div class="control-group">
+  <%= label_tag(:bio, '自己紹介', :class => 'control-label')%>
+  <div class="controls">
+    <div class="input-prepend">
+      <%= f.text_area :bio, :placeholder => '自己紹介', :class => "span7", :required => "required", :rows => 15 %>  
+    </div>
+  </div>
+</div>
 
 <div class="control-group">
   <div class="controls">
