@@ -95,8 +95,8 @@
     <div class="writer-container">
       <div class="span3"><%= link_to image_tag(@article.user.image_url + "&type=large", :alt => "AUTHOR") , '/profiles/' + @article.user.id.to_s %></div>
       <div class="span6">
-        <div><%= @article.user.name %></div>
-        <div><%= @article.user.bio %></div>
+        <p><%= @article.user.name %></p>
+        <p><%= simple_format(sanitize(@article.user.bio)) %></p>
       </div>
     </div>
 

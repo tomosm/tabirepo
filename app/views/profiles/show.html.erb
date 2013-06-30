@@ -42,7 +42,7 @@
 <div class="control-group">
   <%= label_tag(:bio, '自己紹介', :class => 'control-label')%>
   <div class="controls string-label break-string">
-    <%=  sanitize(@profile.bio) %>  
+    <p><%= simple_format(sanitize(@profile.bio)) %></p>
   </div>
 </div>
 
