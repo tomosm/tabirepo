@@ -103,7 +103,7 @@ class ArticlesController < ApplicationController
     if @article.save
       save_paragraphs(@article.id, paragraphs)
       # redirect_to article_path(:id => @article.id), notice: '投稿しました'
-      redirect_to article_path(:id => @article.id), notice: '投稿しました'
+      redirect_to article_path(:id => @article.id), notice: '編集部により記事が承認されたのちに、旅レポに記事が公開されます'
     else
       find_codes
 
