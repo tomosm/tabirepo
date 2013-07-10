@@ -107,7 +107,7 @@ $ ->
   # $(".qq-upload-list").hide()
 
   addFuncRemoveParagraph = ($selector) ->
-    $selector.tooltip({title: "見出し削除"}).click ->
+    $selector.tooltip({title: "小見出し削除"}).click ->
       # $(this).parents("div.paragraph").disable()
       $paragraph = $(this).parents("div.paragraph").disable()
       $hiddenDeletedAt = $paragraph.find(":hidden[id*=deleted_at]")
@@ -116,12 +116,12 @@ $ ->
       else
         $paragraph.remove()
 
-  $("#add-paragraph").tooltip({title: "見出し追加"}).click ->
+  $("#add-paragraph").tooltip({title: "小見出し追加"}).click ->
 #     paragraphHTML = '<div class="control-group">
 #       <label for="article_paragraphs_attributes_2_subtitle" class="control-label">
-#         見出し1
+#         小見出し1
 # </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="見出し" name="article[paragraphs_attributes][2][subtitle]" id="article_paragraphs_attributes_2_subtitle" class="span7">  
+#         <input type="text" value="" size="30" rows="4" placeholder="小見出し" name="article[paragraphs_attributes][2][subtitle]" id="article_paragraphs_attributes_2_subtitle" class="span7">  
 #       </div>
 #     </div>
 #     <div class="control-group">
@@ -143,9 +143,9 @@ $ ->
         attributesIndex = (parseInt(matches[1]) + 1)
 #     paragraphHTML = '<div class="paragraph"><div class="control-group">
 #       <label for="article_paragraph_subtitle" class="control-label">
-#         <input type="button" class="remove-paragraph" value="-"/>見出し' + paragraphIndex +  '
+#         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
 # </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="見出し' + paragraphIndex +  '" name="article[paragraph][subtitle]" id="article_paragraph_subtitle" class="span7">  
+#         <input type="text" value="" size="30" rows="4" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraph][subtitle]" id="article_paragraph_subtitle" class="span7">  
 #       </div>
 #     </div>
 #     <div class="control-group">
@@ -158,9 +158,9 @@ $ ->
 
 #     paragraphHTML = '<div class="paragraph"><div class="control-group">
 #       <label for="article_paragraphs_attributes__subtitle" class="control-label">
-#         <input type="button" class="remove-paragraph" value="-"/>見出し' + paragraphIndex +  '
+#         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
 # </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="見出し' + paragraphIndex +  '" name="article[paragraphs_attributes]['+ attributesIndex + '][subtitle]" id="article_paragraphs_attributes__subtitle" class="span7">  
+#         <input type="text" value="" size="30" rows="4" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs_attributes]['+ attributesIndex + '][subtitle]" id="article_paragraphs_attributes__subtitle" class="span7">  
 #       </div>
 #     </div>
 #     <div class="control-group">
@@ -173,9 +173,9 @@ $ ->
 
     paragraphHTML = '<div class="paragraph"><div class="control-group">
       <label for="article_paragraphs__subtitle" class="control-label">
-        <input type="button" class="remove-paragraph" value="-"/>見出し' + paragraphIndex +  '
+        <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
 </label>      <div class="controls">
-        <input type="text" value="" size="30" placeholder="見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">  
+        <input type="text" value="" size="30" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">  
       </div>
     </div>
     <div class="control-group">
