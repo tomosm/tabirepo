@@ -336,10 +336,13 @@ Country.create(:code => 'RUS', :value => 'ロシア連邦')
 AboutUs.delete_all
 AboutUs.create(:content => "ここに旅レポについて書く")
 
+Planning.delete_all
+Planning.create(:name => "特集記事", :start => Date.today.to_s, :end => '9999-12-31')
+
 # admin user
 # User.create(
-#    :user_name => 'admin@tabi-repo.net',
-#    :password => '7NSAAEAA'
-#   :email => 'admin@tabi-repo.net', 
+    # :user_name => 'support@tabi-repo.net',
+    # :password => 'PE9593Yk'
+    # :email => 'support@tabi-repo.net',
 #   :user_type => "1"
 #   )

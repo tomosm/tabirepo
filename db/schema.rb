@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422161125) do
+ActiveRecord::Schema.define(:version => 20130709151742) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(:version => 20130422161125) do
     t.string   "value"
   end
 
+  create_table "article_plannings", :force => true do |t|
+    t.integer  "article_id"
+    t.integer  "planning_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "articles", :force => true do |t|
     t.string   "title"
     t.text     "outline"
@@ -37,12 +44,8 @@ ActiveRecord::Schema.define(:version => 20130422161125) do
     t.integer  "budget_id"
     t.integer  "language_id"
     t.integer  "age_id"
-    t.boolean  "entry_program"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.datetime "deleted_at"
     t.boolean  "approved"
     t.integer  "user_id"
@@ -104,6 +107,15 @@ ActiveRecord::Schema.define(:version => 20130422161125) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
+    t.integer  "image_id"
+  end
+
+  create_table "plannings", :force => true do |t|
+    t.string   "name"
+    t.date     "start"
+    t.date     "end"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles", :force => true do |t|

@@ -97,17 +97,22 @@ class ArticlesController < ApplicationController
 
   def create
     paragraphs = params[:article][:paragraphs]
+    plannings = params[:article][:plannings]
+
     params[:article].delete(:paragraphs)
+    params[:article].delete(:plannings)
+
 
     @article = Article.new(params[:article])
     if @article.save
       save_paragraphs(@article.id, paragraphs)
+      save_article_planning(@article.id, plannings)
       # redirect_to article_path(:id => @article.id), notice: '投稿しました'
       redirect_to article_path(:id => @article.id), notice: '編集部により記事が承認されたのちに、旅レポに記事が公開されます'
     else
       find_codes
 
-      image = Image.find(params[:article][:image_id])
+      image = params[:article][:image_id].blank? ? nil : Image.find(params[:article][:image_id])
       @url = image.file.url(:medium) if image
     # @paragraphs = Array.new(1) {Paragraph.new}
     # @paragraphs = []
@@ -115,6 +120,7 @@ class ArticlesController < ApplicationController
 
       @paragraphs = @article.paragraphs
       # add_paragraph_objects(paragraphs, @paragraphs)
+      @article_plannings = ArticlePlanning.create_list_by_params(plannings)
 
       render action: 'new'
     end
@@ -142,6 +148,7 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
       @url = @article.image.file.url(:medium)
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
+      @article_paragraphs = ArticlePlanning.where("article_id = :article_id", {:article_id => @article.id})
       # if !@paragraphs || @paragraphs.length == 0
       #   @paragraphs = []
       # end
@@ -274,6 +281,7 @@ class ArticlesController < ApplicationController
     @budgets = Budget.all.collect {|model| [model.value, model.id]}
     @languages = Language.all.collect {|model| [model.value, model.id]}
     @ages = Age.all.collect {|model| [model.value, model.id]}
+    @plannings = Planning.where('start <= :select_date AND :select_date <= end', {:select_date => Date.today.to_s})
   end
 
   def save_paragraphs(article_id, paragraphs)
@@ -285,6 +293,20 @@ class ArticlesController < ApplicationController
       elsif paragraphs.class == HashWithIndifferentAccess
         paragraphs.keys.each do |index|
           Paragraph.save_by_article(article_id, paragraphs[index])
+        end
+      end
+    end
+  end
+
+  def save_article_planning(article_id, plannings)
+    if plannings
+      if plannings.class == Array
+        plannings.each do |planning|
+          ArticlePlanning.save_by_article(article_id, paragraph)
+        end
+      elsif plannings.class == HashWithIndifferentAccess
+        plannings.keys.each do |planning_id|
+          ArticlePlanning.save_by_article(article_id, planning_id, plannings[planning_id]["id"])
         end
       end
     end

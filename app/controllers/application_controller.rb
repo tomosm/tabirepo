@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   require 'analytics/device_region'
   require 'analytics/visitor_logger_filter'
+  require 'analytics/todays_photo_filter'
   include VisitorLoggerFilter
+  include TodaysPhotoFilter
 
   protect_from_forgery
 

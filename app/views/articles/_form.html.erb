@@ -60,12 +60,41 @@
 </div>
 
 <div class="control-group">
+  <%= f.label '企画', :class => 'control-label'%>
     <div class="controls">
       <label class="checkbox" for="article_entry_program">
-        <%= f.check_box :entry_program, :class => 'checkbox' %> 特集記事
+<% @plannings.each_with_index do |planning, i| -%>
+  <%= f.fields_for :plannings, planning, :index => planning.id do |fpl| %>
+    <% if @article_plannings %>
+
+
+<%- todo -%>
+
+
+        <%= fpl.check_box :id, :class => 'checkbox', :checked => "" %>
+    <% else -%>
+        <%= fpl.check_box :id, :class => 'checkbox', :checked => "" %>
+    <% end -%>
+        <%= fpl.label :id do %>
+          <%= planning.name %>
+        <% end -%>
+  <% end -%>
+<% end -%>
       </label>
     </div>
 </div>
+
+<!-- 
+<div class="control-group">
+  <%= f.label :plannings, '企画', :class => 'control-label'%>
+    <div class="controls">
+<% @plannings.each_with_index do |planning, i| -%>
+  <%= f.fields_for :plannings, planning, :index => planning.id do |fpl| %>
+        <%= fpl.check_box :id, :class => 'checkbox' %>s
+  <% end -%>
+<% end -%>
+    </div>
+</div> -->
 
 <div class="control-group">
   <%= f.label :outline, '概要', :class => 'control-label'%>

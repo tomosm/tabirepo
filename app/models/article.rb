@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   acts_as_paranoid
   default_scope :order => 'created_at DESC'
 
-  attr_accessible :age_id, :budget_id, :outline, :entry_program, :language_id, :member_id, :purpose_id, :theme_id, :title, :vihicle_id, :country_id, :user_id, :approved, :recommended, :image_id, :photo, :image
+  attr_accessible :age_id, :budget_id, :outline, :language_id, :member_id, :purpose_id, :theme_id, :title, :vihicle_id, :country_id, :user_id, :approved, :recommended, :image_id, :image#, :plannings
   #, :paragraphs_attributes
   belongs_to :age
   belongs_to :budget
@@ -15,12 +15,15 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :image
 
+  # has_many :article_plannings
   has_many :paragraphs
 #  accepts_nested_attributes_for :paragraphs, :allow_destroy => true
 
   # has_attached_file :photo, :styles => {:large => "640x480>", :medium => "300x300>", :thumb => "100x100>"}
   # has_attached_file :photo, :styles => {:medium => "560x420>", :thumb => "200x156>"},
-  has_attached_file :photo
+
+  # has_attached_file :photo
+
   # has_attached_file :photo,
     # :styles => {:medium => "640x480>", :thumb => "180x135>", :smartfon => "480x360>"},
   # has_attached_file :photo, :styles => {:medium => "640x480>", :thumb => "200x150>"},

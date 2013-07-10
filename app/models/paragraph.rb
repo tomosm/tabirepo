@@ -1,9 +1,10 @@
 class Paragraph < ActiveRecord::Base
   acts_as_paranoid
-  attr_accessible :article_id, :sentence, :subtitle, :deleted_at
+  attr_accessible :article_id, :sentence, :subtitle, :deleted_at, :image_id, :image
   default_scope :order => 'id ASC'
 
   belongs_to :articles
+  belongs_to :image
 
   # validates :article_id, :presence => true
   validates :subtitle, :presence => true, :length => {:maximum => 50}

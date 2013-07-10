@@ -2,7 +2,7 @@
   <div id="daily_photo" class="span6">
     <aside>
       <!-- <%= image_tag 'picture4.jpg', :size => '90x60', :class => "photo"  %> -->
-      <%= image_tag 'picture4.jpg', :size => '120x90', :class => "photo"  %>
+      <%= image_tag @todays_photo["path"], :size => @todays_photo["size"], :class => "photo"  %>
     </aside>
     <footer>Today's Photos</footer>
   </div>

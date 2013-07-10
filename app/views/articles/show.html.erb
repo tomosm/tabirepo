@@ -31,7 +31,7 @@
   </div>
 
   <div class="image-container top">
-      <% if @article.photo %>
+      <% if @article.image %>
         <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
         <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
       <% end %>
@@ -44,12 +44,15 @@
   <% @article.paragraphs.each do |paragraph| %>
     <div class="paragraph">
       <h4>◆<%= sanitize(paragraph.subtitle) %></h4>
+      <% if paragraph.image %>
+        <%=  image_tag(paragraph.image.file.url(:medium), :class => "article-photo") %>  
+      <% end -%>
       <p><%= simple_format(sanitize(paragraph.sentence)) %></p>
     </div>
   <% end -%>
 
   <div class="image-container bottom">
-      <% if @article.photo %>
+      <% if @article.image %>
         <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
         <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
       <% end %>
