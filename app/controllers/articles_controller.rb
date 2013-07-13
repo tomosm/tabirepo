@@ -3,10 +3,10 @@
 class ArticlesController < ApplicationController
   SEARCH_ARTICLES_SIZE = 12
 
-  before_filter protect_from_forgery, :except => [:fileupload]
+  before_filter protect_from_forgery, :except => [:fileupload, :fileupload_paragraph]
 
   # devise の認証filter
-  before_filter :authenticate_user!, :except => [:search, :show, :fileupload]
+  before_filter :authenticate_user!, :except => [:search, :show, :fileupload, :fileupload_paragraph]
 
   require 'analytics/device_region'
   require 'analytics/article_logger_filter'
@@ -104,8 +104,8 @@ class ArticlesController < ApplicationController
 
     # @image = Image.new
     # @article.image = @image
-    # @url = @image.file.url(:medium) if @image.file
-    # @url = "/development/images/39/medium.jpg"
+    # @photo_url = @image.file.url(:medium) if @image.file
+    # @photo_url = "/development/images/39/medium.jpg"
 
     # @paragraphs = Array.new(1) {Paragraph.new}
     @paragraphs = []
@@ -130,12 +130,17 @@ class ArticlesController < ApplicationController
       find_codes
 
       image = params[:article][:image_id].blank? ? nil : Image.find(params[:article][:image_id])
-      @url = image.file.url(:medium) if image
+      @photo_url = image.file.url(:medium) if image
     # @paragraphs = Array.new(1) {Paragraph.new}
     # @paragraphs = []
     # @article.paragraphs = @paragraphs
 
+    # TODO エラー時パラグラフが復元されない 
+
       @paragraphs = @article.paragraphs
+
+# todo paragraph images
+
       # add_paragraph_objects(paragraphs, @paragraphs)
       @article_plannings = ArticlePlanning.create_list_by_params(plannings)
 
@@ -151,19 +156,28 @@ class ArticlesController < ApplicationController
     #   @image = Image.new(:file => params[:qqfile])
     #   @image.save
     # end
-      @image = Image.new(:file => params[:qqfile])
-      @image.save
+      image = Image.new(:file => params[:qqfile])
+      image.save
 
     respond_to do |format|
-      format.json {render json: ActiveSupport::JSON.encode({"url" => @image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(@image.to_json)})}
+      format.json {render json: ActiveSupport::JSON.encode({"url" => image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(image.to_json)})}
     end
   end
+
+  # def fileupload_paragraph
+  #     paragraph_image = Image.new(:file => params[:qqfile])
+  #     paragraph_image.save
+
+  #   respond_to do |format|
+  #     format.json {render json: ActiveSupport::JSON.encode({"url" => paragraph_image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(paragraph_image.to_json)})}
+  #   end
+  # end
 
   def edit
     find_codes
     begin
       @article = Article.find(params[:id])
-      @url = @article.image.file.url(:medium)
+      @photo_url = @article.image.file.url(:medium)
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
       @article_paragraphs = ArticlePlanning.where("article_id = :article_id", {:article_id => @article.id})
       # if !@paragraphs || @paragraphs.length == 0

@@ -45,7 +45,7 @@
     <div class="paragraph">
       <h4>◆<%= sanitize(paragraph.subtitle) %></h4>
       <% if paragraph.image %>
-        <%=  image_tag(paragraph.image.file.url(:medium), :class => "article-photo") %>  
+        <div class="image-container small"><%=  image_tag(paragraph.image.file.url(:small), :class => "article-photo") %></div>
       <% end -%>
       <p><%= simple_format(sanitize(paragraph.sentence)) %></p>
     </div>

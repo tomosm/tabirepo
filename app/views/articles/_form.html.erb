@@ -28,10 +28,10 @@
   <div class="controls">
     <div>
       <%#= f.file_field :photo, :required => "required" --%>
-      <div id="fine-uploader"></div>
-      <div id="file-image" class="image-container photo">
-        <% if @url %>
-          <%=  image_tag(@url, :class => "article-photo") %>  
+      <div class="fine-uploader"></div>
+      <div class="file-image image-container photo">
+        <% if @photo_url %>
+          <%=  image_tag(@photo_url, :class => "article-photo") %>  
         <% else %>
           <span class="article-photo">NO IMAGE</span>
           <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
@@ -117,45 +117,23 @@
       </div>
     </div>
     <div class="control-group">
-
-  <%= f.label '投稿写真', :class => 'control-label'%>
-  <div class="controls">
-    <div>
-      <%#= f.file_field :photo, :required => "required" --%>
-      <div id="fine-uploader"></div>
-      <div id="file-image" class="image-container photo">
-        <% if @url %>
-          <%=  image_tag(@url, :class => "article-photo") %>  
-        <% else %>
-          <span class="article-photo">NO IMAGE</span>
-          <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
-        <% end -%>
-        <%= f.hidden_field :image_id -%> 
-        <%#= f.fields_for :image do |fimage| --%>
-          <%#= fimage.hidden_field :id --%>  
-        <%# end --%>
-      </div>
-    </div>
-  </div>
-
       <%= fp.label :image, :class => 'control-label' do %>
-        写真<%= i + 1 %>
+        投稿写真<%= i + 1 %>
       <% end -%>
       <div class="controls">
         <div>
-          <div id="fine-uploader"></div>
-          <div id="file-image" class="image-container photo">
-<!--             <% if @url %>
-              <%=  image_tag(@url, :class => "article-photo") %>  
+          <div class="fine-uploader"></div>
+          <div class="file-image image-container photo">
+          <!-- <div class="photo"> -->
+            <% if paragraph.image && paragraph.image.file %>
+              <%=  image_tag(paragraph.image.file.url(:medium), :class => "article-photo") %>  
             <% else %>
               <span class="article-photo">NO IMAGE</span>
               <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
             <% end -%>
-            <%= f.hidden_field :image_id -%>  -->
+            <%= fp.hidden_field :image_id -%> 
           </div>
         </div>
-
-        <%= fp.text_area :image, :class => "span7" %>  
       </div>
     </div>
     <div class="control-group">

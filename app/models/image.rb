@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
     if Rails.env == 'production'
       {
         # todo s3
-        :styles => {:medium => "640x480>", :thumb => "180x135>", :smartfon => "480x360>"},
+        :styles => {:medium => "640x480>", :thumb => "180x135>", :small => "480x360>"},
         :url  => "/production/images/:id/:style.:extension",
         :path => ":rails_root/public/production/images/:id/:style.:extension" 
 
@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
       }
     else
       {
-        :styles => {:medium => "640x480>", :thumb => "180x135>", :smartfon => "480x360>"},
+        :styles => {:medium => "640x480>", :thumb => "180x135>", :small => "480x360>"},
         :url  => "/development/images/:id/:style.:extension",
         :path => ":rails_root/public/development/images/:id/:style.:extension" 
       }

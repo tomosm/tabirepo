@@ -11,100 +11,52 @@ $ ->
   }
   obj[param] = token
 
-  $("#fine-uploader").fineUploader({
-    request: {
-      params: obj,
-      endpoint: '/fileupload/articles'
-    },
-    multiple: false,
-    validation: {
-      allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
-      sizeLimit: 102400000#,
-      # itemLimit: 1
-    },
-    text: {
-      uploadButton: 'Click or Drop'
-    }#,
-    # showMessage: (message) ->
-      # $('#restricted-fine-uploader').append('<div class="alert alert-error">' + message + '</div>')
-    # callbacks: {
-      # onSubmit: (id, fileName) ->
-      #   $messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>')
-      # onUpload: (id, fileName) ->
-      #   $('#file-' + id).addClass('alert-info')
-      #                   .html('<img src="client/loading.gif" alt="Initializing. Please hold."> ' +
-      #                         'Initializing ' +
-      #                         '“' + fileName + '”')
-      # onProgress: (id, fileName, loaded, total) ->
-      #   if (loaded < total)
-      #     progress = Math.round(loaded / total * 100) + '% of ' + Math.round(total / 1024) + ' kB';
-      #     $('#file-' + id).removeClass('alert-info')
-      #                     .html('<img src="client/loading.gif" alt="In progress. Please hold."> ' +
-      #                           'Uploading ' +
-      #                           '“' + fileName + '” ' +
-      #                           progress)
-      #   else
-      #     $('#file-' + id).addClass('alert-info')
-      #                     .html('<img src="client/loading.gif" alt="Saving. Please hold."> ' +
-      #                           'Saving ' +
-      #                           '“' + fileName + '”')
-      # onComplete: (id, fileName, responseJSON) ->
-      #   if (responseJSON.success)
-      #     $('#file-' + id).removeClass('alert-info')
-      #                     .addClass('alert-success')
-      #                     .html('<i class="icon-ok"></i> ' +
-      #                           'Successfully saved ' +
-      #                           '“' + fileName + '”' +
-      #                           # '<br><img src="img/success.jpg" alt="' + fileName + '">')
-      #                           '<br><img src="' + responseJSON.url + '" alt="' + fileName + '">')
-      #   else
-      #     $('#file-' + id).removeClass('alert-info')
-      #                     .addClass('alert-error')
-      #                     .html('<i class="icon-exclamation-sign"></i> ' +
-      #                           'Error with ' +
-      #                           '“' + fileName + '”: ' +
-      #                           responseJSON.error)
-    # },
-    # onComplete: (id, fileName, responseJSON) ->
-    #   if (responseJSON.success)
-    #     $('#thumbnail-spot').html('<img src="'+responseJSON.src+'" alt="' + fileName + '">')
-    #     var formfield = $(uploader_el).data("form-parameter")
-    #     $('input[name="'+formfield+'"]').attr('value', responseJSON.id)
-    #     console.log($('input[name="'+formfield+'"]'))
-  }).on('complete', (event, id, fileName, responseJSON) ->
-    # obj["image_id"] = null
-    if (responseJSON.success)
-      # $('#file-' + id).removeClass('alert-info')
-      # $('#file-image').removeClass('alert-info')
-      #                 .addClass('alert-success')
-      #                 .html('<i class="icon-ok"></i> ' +
-      #                       'Successfully saved ' +
-      #                       '“' + fileName + '”' +
-      #                       # '<br><img src="img/success.jpg" alt="' + fileName + '">')
-      #                       '<br><img src="' + responseJSON.url + '" alt="' + fileName + '">')
-      $('#file-image').removeClass('alert-info')
-                      # .addClass('alert-success')
-                      # .html('<img src="' + responseJSON.url + '" alt="' + fileName + '">')
-      $("#file-image").children("img").attr("src", responseJSON.url).css("display", "")
-      $("#file-image").children("span.article-photo").css("display", "none")
-      $("#file-image").find("#article_image_id").attr("value", responseJSON.image.id)
-                      # .append('<input type="hidden" id="'+  +'" value="'+  +'" />')
-    # else
-    #   $('#file-image').removeClass('alert-info')
-    #   # $('#file-' + id).removeClass('alert-info')
-    #                   .addClass('alert-error')
-    #                   .html('<i class="icon-exclamation-sign"></i> ' +
-    #                         'Error with ' +
-    #                         '“' + fileName + '”: ' +
-    #                         responseJSON.error)
-#         if (responseJSON.success)
-#           $(this).append('<img src="img/success.jpg" alt="' + fileName + '">')  
-  # ).on('mouseup', (id, fileName) ->
-  #   # obj = {}
-  #   obj["image_id"] = $('#article_image_id').attr('value')
-  )
-  # createUploader()
-  # $(".qq-upload-list").hide()
+  addFuncFileUploader = ($selector) ->
+    $selector.fineUploader({
+      request: {
+        params: obj,
+        endpoint: '/fileupload/articles'
+      },
+      multiple: false,
+      validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
+        sizeLimit: 102400000#,
+        # itemLimit: 1
+      },
+      text: {
+        uploadButton: 'Click or Drop'
+      }
+    }).on('complete', (event, id, fileName, responseJSON) ->
+      if (responseJSON.success)
+        $fileImage = $(this).parent().find("div.image-container");
+        $fileImage.removeClass('alert-info').find("input:hidden").attr("value", responseJSON.image.id)
+        $fileImage.children("img").attr("src", responseJSON.url).css("display", "")
+        $fileImage.children("span.article-photo").css("display", "none")
+    )
+
+  addFuncFileUploader($(".fine-uploader"))
+
+  # $(".fine-uploader").fineUploader({
+  #   request: {
+  #     params: obj,
+  #     endpoint: '/fileupload/articles'
+  #   },
+  #   multiple: false,
+  #   validation: {
+  #     allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
+  #     sizeLimit: 102400000#,
+  #     # itemLimit: 1
+  #   },
+  #   text: {
+  #     uploadButton: 'Click or Drop'
+  #   }
+  # }).on('complete', (event, id, fileName, responseJSON) ->
+  #   if (responseJSON.success)
+  #     $fileImage = $(this).parent().find("div.image-container");
+  #     $fileImage.removeClass('alert-info').find("input:hidden").attr("value", responseJSON.image.id)
+  #     $fileImage.children("img").attr("src", responseJSON.url).css("display", "")
+  #     $fileImage.children("span.article-photo").css("display", "none")
+  # )
 
   addFuncRemoveParagraph = ($selector) ->
     $selector.tooltip({title: "小見出し削除"}).click ->
@@ -117,21 +69,6 @@ $ ->
         $paragraph.remove()
 
   $("#add-paragraph").tooltip({title: "小見出し追加"}).click ->
-#     paragraphHTML = '<div class="control-group">
-#       <label for="article_paragraphs_attributes_2_subtitle" class="control-label">
-#         小見出し1
-# </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="小見出し" name="article[paragraphs_attributes][2][subtitle]" id="article_paragraphs_attributes_2_subtitle" class="span7">  
-#       </div>
-#     </div>
-#     <div class="control-group">
-#       <label for="article_paragraphs_attributes_2_sentence" class="control-label">
-#         文章1
-# </label>      <div class="controls">
-#         <textarea rows="10" placeholder="文章" name="article[paragraphs_attributes][2][sentence]" id="article_paragraphs_attributes_2_sentence" cols="40" class="span7"></textarea>  
-#       </div>
-#     </div>'
-
     paragraphIndex = $("#paragraphs-block").children().length + 1
 
     attributesIndex = ""
@@ -141,43 +78,28 @@ $ ->
       matches = textarea_id.match(/paragraphs_(.*)_sentence/i)
       if matches and matches.length == 2 and !isNaN(parseInt(matches[1]))
         attributesIndex = (parseInt(matches[1]) + 1)
-#     paragraphHTML = '<div class="paragraph"><div class="control-group">
-#       <label for="article_paragraph_subtitle" class="control-label">
-#         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
-# </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraph][subtitle]" id="article_paragraph_subtitle" class="span7">  
-#       </div>
-#     </div>
-#     <div class="control-group">
-#       <label for="article_paragraph_sentence" class="control-label">
-#         文章' + paragraphIndex +  '
-# </label>      <div class="controls">
-#         <textarea rows="10" placeholder="文章' + paragraphIndex +  '" name="article[paragraph][sentence]" id="article_paragraph_sentence" cols="40" class="span7"></textarea>  
-#       </div>
-#     </div></div>'
-
-#     paragraphHTML = '<div class="paragraph"><div class="control-group">
-#       <label for="article_paragraphs_attributes__subtitle" class="control-label">
-#         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
-# </label>      <div class="controls">
-#         <input type="text" value="" size="30" rows="4" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs_attributes]['+ attributesIndex + '][subtitle]" id="article_paragraphs_attributes__subtitle" class="span7">  
-#       </div>
-#     </div>
-#     <div class="control-group">
-#       <label for="article_paragraphs_attributes__sentence" class="control-label">
-#         文章' + paragraphIndex +  '
-# </label>      <div class="controls">
-#         <textarea rows="10" placeholder="文章' + paragraphIndex +  '" name="article[paragraphs_attributes]['+attributesIndex+'][sentence]" id="article_paragraphs_attributes__sentence" cols="40" class="span7"></textarea>  
-#       </div>
-#     </div></div>'
-
-    paragraphHTML = '<div class="paragraph"><div class="control-group">
+    paragraphHTML = '<div class="paragraph">
+    <div class="control-group">
       <label for="article_paragraphs__subtitle" class="control-label">
         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
-</label>      <div class="controls">
+</label>
+      <div class="controls">
         <input type="text" value="" size="30" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">  
       </div>
     </div>
+    <div class="control-group">
+      <label for="article_paragraphs__image" class="control-label">
+        投稿写真' + paragraphIndex + '</label>
+      <div class="controls">
+        <div>
+          <div class="fine-uploader"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display: none;"><span>Drop files here to upload</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div>Click or Drop</div><input type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>Processing dropped files...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div>
+          <div class="file-image image-container photo">
+              <span class="article-photo">NO IMAGE</span>
+              <img style="display: none;" alt="NO IMAGE" src="" class="article-photo">
+            <input id="article_paragraphs__image_id" type="hidden" name="article[paragraphs]['+attributesIndex+'][image_id]">          </div>
+        </div>
+      </div>
+    </div>    
     <div class="control-group">
       <label for="article_paragraphs__sentence" class="control-label">
         文章' + paragraphIndex +  '
@@ -186,6 +108,8 @@ $ ->
       </div>
     </div></div>'
 
-    addFuncRemoveParagraph($("#paragraphs-block").append(paragraphHTML).find("input.remove-paragraph"))
+    $paragraph = $("#paragraphs-block").append(paragraphHTML)
+    addFuncRemoveParagraph($paragraph.find("input.remove-paragraph"))
+    addFuncFileUploader($paragraph.find("div.fine-uploader"))
 
   addFuncRemoveParagraph($("input.remove-paragraph"))

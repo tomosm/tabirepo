@@ -142,6 +142,11 @@ div.image-container.bottom {
   padding-top: 10px;
 }
 
+div.image-container.small {
+  width: 480px;
+  height: 360px;
+}
+
 div.reading div.outline {
   // padding-top: 10px;
   padding-bottom: 10px;
@@ -162,7 +167,7 @@ div.reading div.paragraph h4 {
   border-bottom: 1px dashed;
 }
 
-div#file-image {
+div.file-image {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
