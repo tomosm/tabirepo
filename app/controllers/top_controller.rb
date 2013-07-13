@@ -12,5 +12,10 @@ class TopController < ApplicationController
       {:article_id_list => reader_article_id_list_by_popular_article.keys, :approved => true})
     .limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
+    @theme_turningpoint = Theme.where("code = :code", {:code => "turningpoint"}).first
+    @theme_heartful = Theme.where("code = :code", {:code => "heartful"}).first
+    @theme_firsttime = Theme.where("code = :code", {:code => "firsttime"}).first
+    @theme_dangerous = Theme.where("code = :code", {:code => "dangerous"}).first
+    @theme_funny = Theme.where("code = :code", {:code => "funny"}).first
   end
 end

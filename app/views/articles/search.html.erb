@@ -1,11 +1,10 @@
 <%= stylesheet_link_tag "articles", :media => "all" %>
 
-<div class="row span12">
+<div>
   <div id="sidebar" class="search-area horizontal">
     <h4>記事検索</h4>
 
 <!-- todo リストの左にスペースがあるので調整必要 -->
-
     <%= form_tag :search_articles, method: :get, :class => 'form-horizontal' do %>
       <%= text_field_tag :title, params[:title], :placeholder => "レポート名" %>
       <%= select_tag :theme_id, options_for_select(@themes.collect{|m| [m[0], m[1]]}, params[:theme_id]), :prompt => '記事のテーマ？' %>

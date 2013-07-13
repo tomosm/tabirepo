@@ -7,6 +7,11 @@
   <%= image_tag 'firsttime.png', :class => "firsttime" %>
   <%= image_tag 'dangerous.png', :class => "dangerous" %>
   <%= image_tag 'turningpoint.png', :class => "turningpoint" %>
+  <input type="hidden" value="<%= @theme_turningpoint.id %>" id="theme_turningpoint_id" />
+  <input type="hidden" value="<%= @theme_heartful.id %>" id="theme_heartful_id" />
+  <input type="hidden" value="<%= @theme_firsttime.id %>" id="theme_firsttime_id" />
+  <input type="hidden" value="<%= @theme_dangerous.id %>" id="theme_dangerous_id" />
+  <input type="hidden" value="<%= @theme_funny.id %>" id="theme_funny_id" />
 </div>
 
 <section class="contents">

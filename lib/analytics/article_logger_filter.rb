@@ -17,11 +17,14 @@ module ArticleLoggerFilter
       end
 
       today = Date.today.to_time.to_i
+      last_article_id = last_view(tracking_cookie_key + "_PRE", article.id)
+
       reader = Reader.new({
         :article_id => article.id,
         :date => today,
         :deviceregion => DeviceRegion.getValue(request.env["HTTP_USER_AGENT"])
         });
+      reader.last_article_id = last_article_id unless !last_article_id
 
       real_tracking_cookie_key = tracking_cookie_key + article.id.to_s
       if (cookies[real_tracking_cookie_key]) 
@@ -40,5 +43,10 @@ module ArticleLoggerFilter
     end
   end
 
+  def last_view(real_tracking_cookie_key, article_id)
+    last_article_id = cookies[real_tracking_cookie_key]
+    cookies[real_tracking_cookie_key] = article_id
+    last_article_id
+  end
 
 end

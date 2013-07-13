@@ -1,5 +1,5 @@
 class Reader < ActiveRecord::Base
-  attr_accessible :article_id, :date, :deviceregion, :visitorregion
+  attr_accessible :article_id, :date, :deviceregion, :visitorregion, :last_article_id
   belongs_to :article
 
   def self.find_by_popular_article

@@ -34,7 +34,14 @@ class ArticlesController < ApplicationController
 
   def search
     find_codes
-    @articles = Article.where('approved = :approved', {:approved => true})
+    # @articles = Article.where('approved = :approved', {:approved => true})
+    if (current_user && current_user.admin?)
+    # todo 本当はよくない false とか null などは不要だが@articlesを生成するため
+      @articles = Article
+    else
+      @articles = Article.where('approved = :approved', {:approved => true})
+    end
+
     @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
     @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless !params[:theme_id] || params[:theme_id].empty?
     @articles = @articles.where('country_id = :country_id', {:country_id => params[:country_id].to_i}) unless !params[:country_id] || params[:country_id].empty?
@@ -61,7 +68,18 @@ class ArticlesController < ApplicationController
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
       @related_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
-      @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+      # @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+
+      # @shoveler_articles = Article.joins("LEFT JOIN readers ON articles.id = readers.article_id").where('readers.last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").limit(TOP_NEWS_SIZE)
+
+      next_articles_ids = Reader.where('last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").pluck(:article_id)
+      @shoveler_articles = Article.where('id IN (:articles_ids) AND approved = :approved', {:articles_ids => next_articles_ids, :theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+    # @reader_user = Reader.joins(:article).group(:user_id).select("user_id")
+    # reader_user_name = User.where("id IN (:id_list)", {:id_list => @reader_user.map{|user| user.user_id}.join(",")}).select("id, name").index_by(&:id)
+
+    # @reader_all = Reader.count_by_user
+    # @reader_new = Reader.count_by_user(Visitor::VISITOR_REGION_NEW)
+    # @reader_repeater = Reader.count_by_user(Visitor::VISITOR_REGION_REPEATER)
 
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -69,7 +87,7 @@ class ArticlesController < ApplicationController
       # redirect_to article_url, notice: '記事は存在しません'
     else
       # if (false)
-      if (!current_user.admin? && @article.user_id != current_user.id && !@article.approved?)
+      if (current_user && !current_user.admin? && @article.user_id != current_user.id && !@article.approved?)
         redirect_to "/", notice: '記事は存在しません'
       else
         respond_to do |format|
@@ -101,7 +119,6 @@ class ArticlesController < ApplicationController
 
     params[:article].delete(:paragraphs)
     params[:article].delete(:plannings)
-
 
     @article = Article.new(params[:article])
     if @article.save
@@ -168,7 +185,10 @@ class ArticlesController < ApplicationController
 
   def update
     paragraphs = params[:article][:paragraphs]
+    plannings = params[:article][:plannings]
+
     params[:article].delete(:paragraphs)
+    params[:article].delete(:plannings)
 
     begin
       @article = Article.find(params[:id])
@@ -181,11 +201,13 @@ class ArticlesController < ApplicationController
       # transaction 必要
       if @article.update_attributes(params[:article])
         save_paragraphs(params[:id], paragraphs)
+        save_article_planning(@article.id, plannings)
         redirect_to article_path(@article), notice: '更新しました'
       else
         find_codes
 
         @paragraphs = @article.paragraphs
+        @article_plannings = ArticlePlanning.create_list_by_params(plannings)
         # add_paragraph_objects(paragraphs, @paragraphs)
   
         render action: 'edit'
@@ -299,12 +321,14 @@ class ArticlesController < ApplicationController
   end
 
   def save_article_planning(article_id, plannings)
+require "pp"
     if plannings
-      if plannings.class == Array
-        plannings.each do |planning|
-          ArticlePlanning.save_by_article(article_id, paragraph)
-        end
-      elsif plannings.class == HashWithIndifferentAccess
+      # if plannings.class == Array
+      #   plannings.each do |planning|
+      #     ArticlePlanning.save_by_article(article_id, planning)
+      #   end
+      # elsif plannings.class == HashWithIndifferentAccess
+      if plannings.class == HashWithIndifferentAccess
         plannings.keys.each do |planning_id|
           ArticlePlanning.save_by_article(article_id, planning_id, plannings[planning_id]["id"])
         end

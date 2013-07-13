@@ -31,7 +31,7 @@ class ArticlePlanning < ActiveRecord::Base
 
   private
   def self.checked?(checked)
-    checked != "1"
+    checked == "1"
   end
 
 end

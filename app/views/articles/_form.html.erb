@@ -68,7 +68,7 @@
     <% if @article_plannings %>
 
 
-<%- todo -%>
+<%#-- todo --%>
 
 
         <%= fpl.check_box :id, :class => 'checkbox', :checked => "" %>
@@ -114,6 +114,48 @@
       <% end -%>
       <div class="controls">
         <%= fp.text_field :subtitle, :placeholder => '小見出し' + (i + 1).to_s, :class => "span7" %>  
+      </div>
+    </div>
+    <div class="control-group">
+
+  <%= f.label '投稿写真', :class => 'control-label'%>
+  <div class="controls">
+    <div>
+      <%#= f.file_field :photo, :required => "required" --%>
+      <div id="fine-uploader"></div>
+      <div id="file-image" class="image-container photo">
+        <% if @url %>
+          <%=  image_tag(@url, :class => "article-photo") %>  
+        <% else %>
+          <span class="article-photo">NO IMAGE</span>
+          <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
+        <% end -%>
+        <%= f.hidden_field :image_id -%> 
+        <%#= f.fields_for :image do |fimage| --%>
+          <%#= fimage.hidden_field :id --%>  
+        <%# end --%>
+      </div>
+    </div>
+  </div>
+
+      <%= fp.label :image, :class => 'control-label' do %>
+        写真<%= i + 1 %>
+      <% end -%>
+      <div class="controls">
+        <div>
+          <div id="fine-uploader"></div>
+          <div id="file-image" class="image-container photo">
+<!--             <% if @url %>
+              <%=  image_tag(@url, :class => "article-photo") %>  
+            <% else %>
+              <span class="article-photo">NO IMAGE</span>
+              <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
+            <% end -%>
+            <%= f.hidden_field :image_id -%>  -->
+          </div>
+        </div>
+
+        <%= fp.text_area :image, :class => "span7" %>  
       </div>
     </div>
     <div class="control-group">
