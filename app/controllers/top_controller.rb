@@ -3,7 +3,7 @@ class TopController < ApplicationController
   TOP_NEWS_SIZE_OF_RECOMMENDATION = 4
 
   def index
-    @articles = Article.where("approved = :approved, applied => :applied", {:approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
+    @articles = Article.where("approved = :approved, applied = :applied", {:approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
     @recommended_articles = Article.where("approved = :approved AND recommended = :recommended", {:approved => true, :recommended => true}).limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
     # アクセスがないと人気順に表示されないので注意！
