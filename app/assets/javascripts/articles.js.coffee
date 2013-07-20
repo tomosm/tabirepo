@@ -1,62 +1,10 @@
+//= require common
+
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-  # createUploader = () ->
-  param = $('meta[name="csrf-param"]').attr('content')
-  token = $('meta[name="csrf-token"]').attr('content')
-  # image_id = $('#article_image_id').attr('value')
-  obj = {
-    # type: "Image::Logo"
-  }
-  obj[param] = token
-
-  addFuncFileUploader = ($selector) ->
-    $selector.fineUploader({
-      request: {
-        params: obj,
-        endpoint: '/fileupload/articles'
-      },
-      multiple: false,
-      validation: {
-        allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
-        sizeLimit: 102400000#,
-        # itemLimit: 1
-      },
-      text: {
-        uploadButton: 'Click or Drop'
-      }
-    }).on('complete', (event, id, fileName, responseJSON) ->
-      if (responseJSON.success)
-        $fileImage = $(this).parent().find("div.image-container");
-        $fileImage.removeClass('alert-info').find("input:hidden").attr("value", responseJSON.image.id)
-        $fileImage.children("img").attr("src", responseJSON.url).css("display", "")
-        $fileImage.children("span.article-photo").css("display", "none")
-    )
-
-  addFuncFileUploader($(".fine-uploader"))
-
-  # $(".fine-uploader").fineUploader({
-  #   request: {
-  #     params: obj,
-  #     endpoint: '/fileupload/articles'
-  #   },
-  #   multiple: false,
-  #   validation: {
-  #     allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
-  #     sizeLimit: 102400000#,
-  #     # itemLimit: 1
-  #   },
-  #   text: {
-  #     uploadButton: 'Click or Drop'
-  #   }
-  # }).on('complete', (event, id, fileName, responseJSON) ->
-  #   if (responseJSON.success)
-  #     $fileImage = $(this).parent().find("div.image-container");
-  #     $fileImage.removeClass('alert-info').find("input:hidden").attr("value", responseJSON.image.id)
-  #     $fileImage.children("img").attr("src", responseJSON.url).css("display", "")
-  #     $fileImage.children("span.article-photo").css("display", "none")
-  # )
+  $("div.fine-uploader.imageuploader").imageUploader()
 
   addFuncRemoveParagraph = ($selector) ->
     $selector.tooltip({title: "小見出し削除"}).click ->
@@ -92,10 +40,10 @@ $ ->
         投稿写真' + paragraphIndex + '</label>
       <div class="controls">
         <div>
-          <div class="fine-uploader"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display: none;"><span>Drop files here to upload</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div>Click or Drop</div><input type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>Processing dropped files...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div>
+          <div class="fine-uploader imageuploader"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display: none;"><span>Drop files here to upload</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div>Click or Drop</div><input type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>Processing dropped files...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div>
           <div class="file-image image-container photo">
-              <span class="article-photo">NO IMAGE</span>
-              <img style="display: none;" alt="NO IMAGE" src="" class="article-photo">
+              <span class="upload-file">NO IMAGE</span>
+              <img style="display: none;" alt="NO IMAGE" src="" class="upload-file">
             <input id="article_paragraphs__image_id" type="hidden" name="article[paragraphs]['+attributesIndex+'][image_id]">          </div>
         </div>
       </div>
@@ -110,7 +58,7 @@ $ ->
 
     $paragraph = $("#paragraphs-block").append(paragraphHTML)
     addFuncRemoveParagraph($paragraph.find("input.remove-paragraph"))
-    addFuncFileUploader($paragraph.find("div.fine-uploader"))
+    $paragraph.find("div.fine-uploader.imageuploader").imageUploader()
 
   addFuncRemoveParagraph($("input.remove-paragraph"))
 

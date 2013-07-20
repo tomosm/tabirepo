@@ -22,6 +22,24 @@
 </div>
 
 <div class="control-group">
+  <%= f.label '写真', :class => 'control-label string-label'%>
+  <div class="controls">
+    <div>
+      <div class="fine-uploader photouploader"></div>
+      <div class="file-image image-container profile photo">
+        <% if @profile %>
+          <%=  image_tag(@profile.photo_profile, :class => "upload-file") %>  
+        <% else %>
+          <span class="upload-file">NO IMAGE</span>
+          <img class="upload-file" src="" alt="NO IMAGE" style="display: none;">
+        <% end -%>
+        <%= f.hidden_field :photo_id -%> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
   <%= f.label :email, 'メールアドレス', :class => 'control-label'%>
   <div class="controls">
     <div class="input-prepend">
@@ -29,24 +47,6 @@
     </div>
   </div>
 </div>
-
-<div class="control-group">
-  <%= f.label :provider, 'ソーシャル', :class => 'control-label'%>
-  <div class="controls string-label break-string">
-    <% if @profile.signed_by_facebook? %>
-      <%= link_to image_tag('social/facebook_32.png'), @profile.link, :target => "_blank" %>
-    <% end -%>
-  </div>
-</div>
-
-<% if @profile.admin? %>
-<div class="control-group">
-  <%= f.label :user_type, 'ユーザー種別', :class => 'control-label'%>
-  <div class="controls string-label break-string">
-    管理者
-  </div>
-</div>
-<% end -%>
 
 <div class="control-group">
   <%= label_tag(:bio, '自己紹介', :class => 'control-label')%>

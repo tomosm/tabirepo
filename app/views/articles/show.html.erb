@@ -33,19 +33,19 @@
   <div class="image-container top">
       <% if @article.image %>
         <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
-        <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
+        <%=  image_tag(@article.image.file.url(:medium), :class => "upload-file") %>  
       <% end %>
   </div>
-  <div class="outline">
+  <div class="outline wordbreak">
       <h3><%= sanitize(@article.title) %></h3>
       <p><%= simple_format(sanitize(@article.outline)) %></p>
   </div>
 
   <% @article.paragraphs.each do |paragraph| %>
-    <div class="paragraph">
+    <div class="paragraph wordbreak">
       <h4>◆<%= sanitize(paragraph.subtitle) %></h4>
       <% if paragraph.image %>
-        <div class="image-container small"><%=  image_tag(paragraph.image.file.url(:small), :class => "article-photo") %></div>
+        <div class="image-container small"><%=  image_tag(paragraph.image.file.url(:small), :class => "upload-file") %></div>
       <% end -%>
       <p><%= simple_format(sanitize(paragraph.sentence)) %></p>
     </div>
@@ -54,7 +54,7 @@
   <div class="image-container bottom">
       <% if @article.image %>
         <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
-        <%=  image_tag(@article.image.file.url(:medium), :class => "article-photo") %>  
+        <%=  image_tag(@article.image.file.url(:medium), :class => "upload-file") %>  
       <% end %>
   </div>
 
@@ -96,7 +96,7 @@
     <div class="clearfix"></div>
 
     <div class="writer-container">
-      <div class="span3"><%= link_to image_tag(@article.user.image_url + "&type=large", :alt => "AUTHOR") , '/profiles/' + @article.user.id.to_s %></div>
+      <div class="span3"><%= link_to image_tag(@article.user.photo_profile, :alt => "AUTHOR") , '/profiles/' + @article.user.id.to_s %></div>
       <div class="span6">
         <p><%= @article.user.name %></p>
         <p><%= simple_format(sanitize(@article.user.bio)) %></p>

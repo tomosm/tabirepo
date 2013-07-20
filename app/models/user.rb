@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     :omniauthable#, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :social_id, :name, :user_type, :gender, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :link, :bio, :image_url
+  attr_accessible :social_id, :name, :user_type, :gender, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :link, :bio, :image_url, :photo_id, :photo
   # attr_accessible :provider # facebook等の認証プロバイダ
   # attr_accessible :uid # 認証プロバイダ内のユーザーID
   # attr_accessible :title, :body
@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   has_one :social#, :profile
   has_many :articles
+  belongs_to :photo
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -60,5 +61,22 @@ class User < ActiveRecord::Base
   def signed_by_facebook?
     self.provider && self.provider.to_s.downcase == "facebook"
   end
+
+  def photo_login
+    if self.photo
+      self.photo.file.url(:small)
+    else
+      self.image_url + "&type=square"
+    end
+  end
+
+  def photo_profile
+    if self.photo
+      self.photo.file.url(:medium)
+    else
+      self.image_url + "&type=large"
+    end
+  end
+
 
 end

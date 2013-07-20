@@ -4,7 +4,7 @@
 <% if @article.errors.any? %>
   <div class="control-group">
     <div class="controls alert alert-block">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <button type="button"
   <% @article.errors.full_messages.each do |msg| %>
       <p><%= msg %></p>
   <% end -%>
@@ -22,19 +22,18 @@
   </div>
 </div>
 
-
 <div class="control-group">
   <%= f.label '投稿写真', :class => 'control-label'%>
   <div class="controls">
     <div>
       <%#= f.file_field :photo, :required => "required" --%>
-      <div class="fine-uploader"></div>
+      <div class="fine-uploader imageuploader"></div>
       <div class="file-image image-container photo">
         <% if @photo_url %>
-          <%=  image_tag(@photo_url, :class => "article-photo") %>  
+          <%=  image_tag(@photo_url, :class => "upload-file") %>  
         <% else %>
-          <span class="article-photo">NO IMAGE</span>
-          <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
+          <span class="upload-file">NO IMAGE</span>
+          <img class="upload-file" src="" alt="NO IMAGE" style="display: none;">
         <% end -%>
         <%= f.hidden_field :image_id -%> 
         <%#= f.fields_for :image do |fimage| --%>
@@ -122,14 +121,14 @@
       <% end -%>
       <div class="controls">
         <div>
-          <div class="fine-uploader"></div>
+          <div class="fine-uploader imageuploader"></div>
           <div class="file-image image-container photo">
           <!-- <div class="photo"> -->
             <% if paragraph.image && paragraph.image.file %>
-              <%=  image_tag(paragraph.image.file.url(:medium), :class => "article-photo") %>  
+              <%=  image_tag(paragraph.image.file.url(:medium), :class => "upload-file") %>  
             <% else %>
-              <span class="article-photo">NO IMAGE</span>
-              <img class="article-photo" src="" alt="NO IMAGE" style="display: none;">
+              <span class="upload-file">NO IMAGE</span>
+              <img class="upload-file" src="" alt="NO IMAGE" style="display: none;">
             <% end -%>
             <%= fp.hidden_field :image_id -%> 
           </div>

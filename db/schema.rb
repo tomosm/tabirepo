@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713071023) do
+ActiveRecord::Schema.define(:version => 20130716152716) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(:version => 20130713071023) do
     t.integer  "image_id"
   end
 
+  create_table "photos", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "deleted_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "plannings", :force => true do |t|
     t.string   "name"
     t.date     "start"
@@ -185,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20130713071023) do
     t.string   "link"
     t.string   "image_url"
     t.text     "bio"
+    t.integer  "photo_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

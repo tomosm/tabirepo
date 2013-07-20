@@ -148,21 +148,21 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def fileupload
-    # if (params[:image_id])
-    #   @image = Image.find(params[:image_id])
-    #   @image.update_attributes(:file => params[:qqfile])
-    # else
-    #   @image = Image.new(:file => params[:qqfile])
-    #   @image.save
-    # end
-      image = Image.new(:file => params[:qqfile])
-      image.save
+  # def fileupload
+  #   # if (params[:image_id])
+  #   #   @image = Image.find(params[:image_id])
+  #   #   @image.update_attributes(:file => params[:qqfile])
+  #   # else
+  #   #   @image = Image.new(:file => params[:qqfile])
+  #   #   @image.save
+  #   # end
+  #   image = Image.new(:file => params[:qqfile])
+  #   image.save
 
-    respond_to do |format|
-      format.json {render json: ActiveSupport::JSON.encode({"url" => image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(image.to_json)})}
-    end
-  end
+  #   respond_to do |format|
+  #     format.json {render json: ActiveSupport::JSON.encode({"url" => image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(image.to_json)})}
+  #   end
+  # end
 
   # def fileupload_paragraph
   #     paragraph_image = Image.new(:file => params[:qqfile])

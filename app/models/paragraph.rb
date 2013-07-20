@@ -7,8 +7,10 @@ class Paragraph < ActiveRecord::Base
   belongs_to :image
 
   # validates :article_id, :presence => true
-  validates :subtitle, :presence => true, :length => {:maximum => 50}
-  validates :sentence, :presence => true, :length => {:maximum => 2000}
+  # validates :subtitle, :presence => true, :length => {:maximum => 50}
+  # validates :sentence, :presence => true, :length => {:maximum => 2000}
+  validates :subtitle, :presence => true
+  validates :sentence, :presence => true
 
   def self.save_by_article(article_id, params)
     if (params[:id] && !params[:id].empty?)

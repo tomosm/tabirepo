@@ -60,7 +60,8 @@ class Article < ActiveRecord::Base
     # :url  => "/development/articles/:id/:style/:basename.:extension",
     # :path => ":rails_root/public/development/articles/:id/:style/:basename.:extension" 
 
-  validates :title, :presence => true, :length => {:maximum => 50}
+  # validates :title, :presence => true, :length => {:maximum => 50}
+  validates :title, :presence => true
   # validates_attachment :photo, :presence => true,
   # :content_type => { :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] },
   # # :size => { :in => 0..1024.kilobytes }
@@ -74,7 +75,8 @@ class Article < ActiveRecord::Base
   validates :budget_id, :presence => true
   validates :language_id, :presence => true
   validates :age_id, :presence => true
-  validates :outline, :presence => true, :length => {:maximum => 2000}
+  # validates :outline, :presence => true, :length => {:maximum => 2000}
+  validates :outline, :presence => true
   validates :image_id, :presence => true
 
   def approved?

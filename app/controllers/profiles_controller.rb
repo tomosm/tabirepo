@@ -113,4 +113,13 @@ class ProfilesController < ApplicationController
     current_user && current_user.id.to_s == params[:id]
   end
 
+  # def photoupload
+  #   photo = Photo.new(:file => params[:qqfile])
+  #   photo.save
+
+  #   respond_to do |format|
+  #     format.json {render json: ActiveSupport::JSON.encode({"url" => photo.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(photo.to_json)})}
+  #   end
+  # end
+
 end

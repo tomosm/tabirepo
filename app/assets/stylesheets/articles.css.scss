@@ -147,6 +147,12 @@ div.image-container.small {
   height: 360px;
 }
 
+div.wordbreak p, div.wordbreak h3, div.wordbreak h4 {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 div.reading div.outline {
   // padding-top: 10px;
   padding-bottom: 10px;
@@ -171,12 +177,6 @@ div.file-image {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-}
-
-img.article-photo {
-  max-width: auto;
-  max-height: auto;
-  line-height: 480px;
 }
 
 article.article.photo {

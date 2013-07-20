@@ -39,7 +39,8 @@ TabiRepo::Application.routes.draw do
   put "/articles/:id/recommend" => "articles#recommend"
   put "/articles/:id/disrecommend" => "articles#disrecommend"
 
-  post "/fileupload/articles" => "articles#fileupload"
+  post "/imageupload" => "application#imageupload"
+  post "/photoupload" => "application#photoupload"
   # post "/fileupload/articles/paragraph" => "articles#fileupload_paragraph"
 
   # get "/articles/user/:user_id" => "articles#user" # todo ログインユーザー、または管理者のみ 
