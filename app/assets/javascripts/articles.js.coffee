@@ -73,3 +73,13 @@ $ ->
   topBtn.click ->
     $('body,html').animate({scrollTop: 0}, 500)
     return false
+
+  # info messages
+  $("div.theme img.info").tooltip(({title: "記事のテーマ", placement: "right"}))
+  $("div.countries img.info").tooltip(({title: "国", placement: "right"}))
+  $("div.vihicles img.info").tooltip(({title: "移動手段", placement: "right"}))
+  $("div.members img.info").tooltip(({title: "人数", placement: "right"}))
+  $("div.purposes img.info").tooltip(({title: "目的", placement: "right"}))
+  $("div.budgets img.info").tooltip(({title: "予算", placement: "right"}))
+  $("div.languages img.info").tooltip(({title: "言語力", placement: "right"}))
+  $("div.ages img.info").tooltip(({title: "年齢", placement: "right"}))
