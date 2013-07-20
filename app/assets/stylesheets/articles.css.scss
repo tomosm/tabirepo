@@ -202,19 +202,41 @@ article.article.photo img.ribbon.recommendation {
   left: 180px;
 }
 
-article.article.photo div.disapproval {
+article.article.photo div.history {
   position: absolute;
   width: 180px;
   height: 237px;
   line-height: 237px;
   top: 0;
   left: 0;
+}
+
+article.article.photo div.history.disapproval {
   opacity:0.8;
   filter: alpha(opacity=80);        /* ie lt 8 */
   -ms-filter: "alpha(opacity=80)";  /* ie 8 */
   -moz-opacity:0.8;                 /* FF lt 1.5, Netscape */
   -khtml-opacity: 0.8;              /* Safari 1.x */
+  font-size: 20px;
 }
+
+article.article.photo.applied {
+  opacity:0.1;
+  filter: alpha(opacity=10);        /* ie lt 8 */
+  -ms-filter: "alpha(opacity=10)";  /* ie 8 */
+  -moz-opacity:0.1;                 /* FF lt 1.5, Netscape */
+  -khtml-opacity: 0.1;              /* Safari 1.x */
+}
+
+// article.article.photo.applied > .applied {
+//   opacity: 1;
+//   filter: alpha(opacity=100);        /* ie lt 8 */
+//   -ms-filter: "alpha(opacity=100)";  /* ie 8 */
+//   -moz-opacity:1;                 /* FF lt 1.5, Netscape */
+//   -khtml-opacity: 1;              /* Safari 1.x */
+//   color: red;
+//   font-size: 20px;
+// }
 
 div.header div.ribbon img {
   max-height: 100px;

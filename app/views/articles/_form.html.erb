@@ -169,7 +169,8 @@
     <!-- todo 一時保存？ -->
     <!-- todo 確認画面？ -->
   <% if f.object.new_record? %>
-    <%= f.submit '投稿', :class => 'btn btn-inverse' %>
+    <%= f.submit '一時保存', :class => 'btn btn-inverse', :name => 'save_temporary' %>
+    <%= f.submit '投稿', :class => 'btn btn-danger', :name => 'save' %>
   <% else %>
     <%= f.submit :class => 'btn btn-inverse' %>
     <%= link_to 'キャンセル', article_path(@article), :class => 'btn' %>

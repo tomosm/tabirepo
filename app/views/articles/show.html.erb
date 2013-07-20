@@ -82,6 +82,11 @@
       <% end -%>
     <!-- </div> -->
     <% end -%>
+    <% if !@article.applied? %>
+        <%= link_to '投稿', article_path(@article) + "/apply",
+          :method => :put, 
+          :class => 'btn btn-danger' %>
+    <% end -%>
     <% if @article.write_by?(current_user) %>
         <%= link_to '編集', edit_article_path(@article), :class => 'btn btn-inverse' %>
     <% end -%>

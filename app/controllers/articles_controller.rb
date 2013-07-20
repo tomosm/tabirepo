@@ -35,11 +35,12 @@ class ArticlesController < ApplicationController
   def search
     find_codes
     # @articles = Article.where('approved = :approved', {:approved => true})
+    @articles = Article.where('applied = :applied', {:applied => true})
     if (current_user && current_user.admin?)
     # todo 本当はよくない false とか null などは不要だが@articlesを生成するため
-      @articles = Article
+      # @articles = Article
     else
-      @articles = Article.where('approved = :approved', {:approved => true})
+      @articles = @articles.where('approved = :approved', {:approved => true})
     end
 
     @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
@@ -67,13 +68,13 @@ class ArticlesController < ApplicationController
     begin
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
       @article = Article.find(params[:id])
-      @related_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+      @related_articles = Article.where('theme_id = :theme_id and approved = :approved and applied = :applied', {:theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
       # @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
 
       # @shoveler_articles = Article.joins("LEFT JOIN readers ON articles.id = readers.article_id").where('readers.last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").limit(TOP_NEWS_SIZE)
 
       next_articles_ids = Reader.where('last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").pluck(:article_id)
-      @shoveler_articles = Article.where('id IN (:articles_ids) AND approved = :approved', {:articles_ids => next_articles_ids, :theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
+      @shoveler_articles = Article.where('id IN (:articles_ids) AND approved = :approved AND applied = :applied', {:articles_ids => next_articles_ids, :theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
     # @reader_user = Reader.joins(:article).group(:user_id).select("user_id")
     # reader_user_name = User.where("id IN (:id_list)", {:id_list => @reader_user.map{|user| user.user_id}.join(",")}).select("id, name").index_by(&:id)
 
@@ -101,19 +102,18 @@ class ArticlesController < ApplicationController
   def new
     find_codes
     @article = Article.new
-
-    # @image = Image.new
-    # @article.image = @image
-    # @photo_url = @image.file.url(:medium) if @image.file
-    # @photo_url = "/development/images/39/medium.jpg"
-
-    # @paragraphs = Array.new(1) {Paragraph.new}
     @paragraphs = []
     @article.paragraphs = @paragraphs
     @article
   end
 
   def create
+    notice = "一時保存のため記事を公開する場合は投稿が必要になります"
+    if (params[:name] == 'save')
+      params[:article][:applied] = true
+      notice = "編集部により記事が承認されたのちに、旅レポに記事が公開されます"
+    end
+
     paragraphs = params[:article][:paragraphs]
     plannings = params[:article][:plannings]
 
@@ -125,7 +125,7 @@ class ArticlesController < ApplicationController
       save_paragraphs(@article.id, paragraphs)
       save_article_planning(@article.id, plannings)
       # redirect_to article_path(:id => @article.id), notice: '投稿しました'
-      redirect_to article_path(:id => @article.id), notice: '編集部により記事が承認されたのちに、旅レポに記事が公開されます'
+      redirect_to article_path(:id => @article.id), notice: notice
     else
       find_codes
 
@@ -147,31 +147,6 @@ class ArticlesController < ApplicationController
       render action: 'new'
     end
   end
-
-  # def fileupload
-  #   # if (params[:image_id])
-  #   #   @image = Image.find(params[:image_id])
-  #   #   @image.update_attributes(:file => params[:qqfile])
-  #   # else
-  #   #   @image = Image.new(:file => params[:qqfile])
-  #   #   @image.save
-  #   # end
-  #   image = Image.new(:file => params[:qqfile])
-  #   image.save
-
-  #   respond_to do |format|
-  #     format.json {render json: ActiveSupport::JSON.encode({"url" => image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(image.to_json)})}
-  #   end
-  # end
-
-  # def fileupload_paragraph
-  #     paragraph_image = Image.new(:file => params[:qqfile])
-  #     paragraph_image.save
-
-  #   respond_to do |format|
-  #     format.json {render json: ActiveSupport::JSON.encode({"url" => paragraph_image.file.url(:medium), "success" => true, "image" => ActiveSupport::JSON.decode(paragraph_image.to_json)})}
-  #   end
-  # end
 
   def edit
     find_codes
@@ -297,6 +272,18 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def apply
+    begin
+      @article = Article.find(params[:id])
+      @article.update_attributes(:applied => true)
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Access invalid article error#{params[:id]}"
+      redirect_to "/", notice: '記事は存在しません'
+    else
+      redirect_to articles_path
+    end
+  end
+
   private
   def find_codes
     # @themes = Theme.all.collect {|model| [model.code, model.id]}
@@ -335,7 +322,6 @@ class ArticlesController < ApplicationController
   end
 
   def save_article_planning(article_id, plannings)
-require "pp"
     if plannings
       # if plannings.class == Array
       #   plannings.each do |planning|

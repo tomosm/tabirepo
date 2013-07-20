@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   acts_as_paranoid
   default_scope :order => 'created_at DESC'
 
-  attr_accessible :age_id, :budget_id, :outline, :language_id, :member_id, :purpose_id, :theme_id, :title, :vihicle_id, :country_id, :user_id, :approved, :recommended, :image_id, :image#, :plannings
+  attr_accessible :age_id, :budget_id, :outline, :language_id, :member_id, :purpose_id, :theme_id, :title, :vihicle_id, :country_id, :user_id, :approved, :recommended, :image_id, :image, :applied#, :plannings
   #, :paragraphs_attributes
   belongs_to :age
   belongs_to :budget
@@ -81,6 +81,10 @@ class Article < ActiveRecord::Base
 
   def approved?
     !!self.approved
+  end
+
+  def applied?
+    !!self.applied
   end
 
   def recommended?

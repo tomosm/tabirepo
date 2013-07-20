@@ -38,6 +38,7 @@ TabiRepo::Application.routes.draw do
   put "/articles/:id/disapprove" => "articles#disapprove"
   put "/articles/:id/recommend" => "articles#recommend"
   put "/articles/:id/disrecommend" => "articles#disrecommend"
+  put "/articles/:id/apply" => "articles#apply"
 
   post "/imageupload" => "application#imageupload"
   post "/photoupload" => "application#photoupload"
