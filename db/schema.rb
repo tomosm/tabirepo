@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720093257) do
+ActiveRecord::Schema.define(:version => 20130722162721) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20130720093257) do
   end
 
   create_table "articles", :force => true do |t|
-    t.string   "title"
+    t.text     "title"
     t.text     "outline"
     t.integer  "theme_id"
     t.integer  "vihicle_id"
@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(:version => 20130720093257) do
 
   create_table "paragraphs", :force => true do |t|
     t.integer  "article_id"
-    t.string   "subtitle"
-    t.string   "sentence"
+    t.text     "subtitle"
+    t.text     "sentence"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
