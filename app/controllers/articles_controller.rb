@@ -66,8 +66,10 @@ class ArticlesController < ApplicationController
 
   def show
     begin
+      # @article = Article
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
-      @article = Article.find(params[:id])
+
+      @article = get_article_by_conditions()
       @related_articles = Article.where('theme_id = :theme_id and approved = :approved and applied = :applied', {:theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
       # @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
 
@@ -151,7 +153,8 @@ class ArticlesController < ApplicationController
   def edit
     find_codes
     begin
-      @article = Article.find(params[:id])
+      # @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
       @photo_url = @article.image.file.url(:medium)
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
       @article_paragraphs = ArticlePlanning.where("article_id = :article_id", {:article_id => @article.id})
@@ -180,7 +183,8 @@ class ArticlesController < ApplicationController
     params[:article].delete(:plannings)
 
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
       redirect_to "/", notice: '記事は存在しません'
@@ -206,7 +210,8 @@ class ArticlesController < ApplicationController
 
   def destroy
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
       redirect_to "/", notice: '記事は存在しません'
@@ -226,7 +231,8 @@ class ArticlesController < ApplicationController
 
   def approve
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
       @article.update_attributes(:approved => true)
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -238,7 +244,8 @@ class ArticlesController < ApplicationController
 
   def disapprove
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
       @article.update_attributes(:approved => false)
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -250,7 +257,8 @@ class ArticlesController < ApplicationController
 
   def recommend
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
       @article.update_attributes(:recommended => true)
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -262,7 +270,8 @@ class ArticlesController < ApplicationController
 
   def disrecommend
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
       @article.update_attributes(:recommended => false)
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -274,7 +283,8 @@ class ArticlesController < ApplicationController
 
   def apply
     begin
-      @article = Article.find(params[:id])
+      @article = get_article_by_conditions()
+      # @article = Article.find(params[:id])
       @article.update_attributes(:applied => true)
     rescue ActiveRecord::RecordNotFound
       logger.error "Access invalid article error#{params[:id]}"
@@ -334,6 +344,21 @@ class ArticlesController < ApplicationController
         end
       end
     end
+  end
+
+  def get_article_by_conditions
+    articles = Article.where('id = :id', {:id => params[:id]})
+    if current_user
+      if !current_user.admin?
+        articles = articles.where('(user_id = :user_id) OR (user_id <> :user_id AND approved = :approved)', {:user_id => current_user.id, :approved => true})
+      end
+      articles = articles.where('(user_id = :user_id) OR (user_id <> :user_id AND :applied)', {:user_id => current_user.id, :applied => true})
+    else
+      articles = articles.where('applied = :applied', {:applied => true})
+      articles = articles.where('approved = :approved', {:approved => true})
+    end
+    raise ActiveRecord::RecordNotFound if articles.length == 0
+    articles[0]
   end
 
   # def add_paragraph_objects(paragraphs_params, paragraphs_objects)

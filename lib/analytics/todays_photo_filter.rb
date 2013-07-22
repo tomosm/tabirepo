@@ -16,8 +16,7 @@ module TodaysPhotoFilter
       end
     end
 
-    # @todays_photo = {"path" => "todays/" + file_list[Date.today.to_time.to_i % file_list.length].to_s, "size" => "160x90"}
-    @todays_photo = {"path" => "todays/" + file_list[Date.today.to_time.to_i % file_list.length].to_s}
+    @todays_photo = {"path" => "todays/" + file_list[Date.today.to_s.gsub("-", "").to_i % file_list.length].to_s}
     @todays_photo
   end
 
