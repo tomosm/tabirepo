@@ -22,6 +22,7 @@ class ArticlePlanning < ActiveRecord::Base
   end
 
   def self.create_list_by_params(params)
+    return [] if (!params || params.length == 0)
     list = [];
     params.keys.each do |planning_id|
       list.push(self.new({:article_id => params[:article_id], :planning_id => params[:planning_id]}))
