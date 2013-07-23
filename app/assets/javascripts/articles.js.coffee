@@ -75,11 +75,94 @@ $ ->
     return false
 
   # info messages
-  $("div.theme img.info").tooltip(({title: "記事のテーマ", placement: "right"}))
-  $("div.countries img.info").tooltip(({title: "国", placement: "right"}))
-  $("div.vihicles img.info").tooltip(({title: "移動手段", placement: "right"}))
-  $("div.members img.info").tooltip(({title: "人数", placement: "right"}))
-  $("div.purposes img.info").tooltip(({title: "目的", placement: "right"}))
-  $("div.budgets img.info").tooltip(({title: "予算", placement: "right"}))
-  $("div.languages img.info").tooltip(({title: "言語力", placement: "right"}))
-  $("div.ages img.info").tooltip(({title: "年齢", placement: "right"}))
+#   $("div.theme img.info").popover({title:"記事のテーマ別", content: "
+# <pre>・人生を変えた話<br/>
+#   …旅の中での人との出会いや、事件との遭遇、自然との対峙などにより今後の自分の人生の歩き方に大きく影響を与えた出来事に関する話。その他に、「差別を受けた話」「自分探しの話」「価値観の変化の話」などもここに含まれる。<br/>
+# ・心温まる話<br/>
+#   …旅の中での現地の人や、偶然居合わせた各国の旅行者、もしくは遠い異国で出会った同じ日本人との出会いなどにより、大きく感情に影響を与えた出来事に関する話。その他に、「うれしかった話」「楽しかった話」「泣ける話」「深イイ話」「感動する話」などもここに含まれる。<br/>
+# ・初体験の話<br/>
+#   …旅の中で、それまでに経験したことのない出来事、はじめて体験した出来事などによって、思索をめぐらせたことに関する話。その他に、「カルチャーショックだった話」「ビックリした話」「未知との遭遇をした話」「地域のローカルルールの話」などもここに含まれる。<br/>
+# ・危ない話<br/>
+#   …旅の中で、身の危険や生命の危機に陥った出来事に関する話。その他に「アンダーグラウンドな話」「今だから言えるごめんなさいな話」「ケンカした話」「危険度MAXな話」などもここに含まれる。<br/>
+# ・すべらない話<br/>
+#   …旅の中で見た、聞いた、感じた、体験したなどの出来事で、帰国後に笑い話となっている出来事に関する話。その他に「旅で出会った変な人の話」「ヘンテコな海外の風習の話」などもここに含まれる。<br/>
+# </pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.theme img.info").popover({title:"記事のテーマ別", content: "
+<pre>・人生を変えた話<br/>
+  …旅の中での人との出会いや、事件との遭遇、自然との対峙などにより今後の自分の人生の歩き方に大きく影響を与えた出来事に関する話。<br/>
+・心温まる話<br/>
+  …旅の中での現地の人や、偶然居合わせた各国の旅行者、もしくは遠い異国で出会った同じ日本人との出会いなどにより、大きく感情に影響を与えた出来事に関する話。<br/>
+・初体験の話<br/>
+  …旅の中で、それまでに経験したことのない出来事、はじめて体験した出来事などによって、思索をめぐらせたことに関する話。<br/>
+・危ない話<br/>
+  …旅の中で、身の危険や生命の危機に陥った出来事に関する話。<br/>
+・すべらない話<br/>
+  …旅の中で見た、聞いた、感じた、体験したなどの出来事で、帰国後に笑い話となっている出来事に関する話。<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.countries img.info").popover({title: "国名別（どこの国での話か）", content: "<pre>・該当する国名</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.vihicles img.info").popover({title: "移動手段別（どれを利用している時の話か）", content: "
+<pre>
+・徒歩<br/>
+・自転車<br/>
+・路線バス<br/>
+・乗合バス<br/>
+・タクシー<br/>
+・レンタカー・レンタルバイク<br/>
+・鉄道<br/>
+・飛行機<br/>
+・ボート<br/>
+・船<br/>
+・動物（ラクダ、ゾウなど）<br/>
+・ご当地乗り物（リキシャ、トゥクトゥクなど）<br/>
+・その他<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.members img.info").popover({title: "人数別（何人で旅をした時の話か）", content: "<pre>
+・一人旅（男）<br/>
+・一人旅（女）<br/>
+・二人旅（男×男）<br/>
+・二人旅（女×女）<br/>
+・二人旅（男×女）（カップル、夫婦以外）<br/>
+・カップル、夫婦<br/>
+・グループ旅行（数名）<br/>
+・団体旅行（数十名）<br/>
+・その他<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.purposes img.info").popover({title: "目的別（どんな目的の旅をした時の話か）", content: "<pre>
+・観光<br/>
+・放浪、世界一周<br/>
+・ボランティア<br/>
+・ワーキングホリデー<br/>
+・留学<br/>
+・転勤<br/>
+・永住、移住<br/>
+・ピースボート<br/>
+・その他<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.budgets img.info").popover({title: "予算別（どの程度の予算で旅をした時の話か）", content: "<pre>
+・貧乏旅行（バックパッカー、安宿）<br/>
+・普通旅行（国内旅行と同じ感覚）<br/>
+・豪華旅行（高級ホテル、リゾートなど）<br/>
+・その他<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.languages img.info").popover({title: "語学力別（どの程度外国語を話せる状態で旅をした時の話か…「○＝問題なく会話が通じるレベル」「△＝カタコトで意志が伝わるレベル」「×＝全く話せないレベル」）", content: "<pre>
+・英語×、現地語×<br/>
+・英語×、現地語△<br/>
+・英語×、現地語○<br/>
+・英語△、現地語×<br/>
+・英語△、現地語△<br/>
+・英語△、現地語○<br/>
+・英語○、現地語×<br/>
+・英語○、現地語△<br/>
+・英語○、現地語○<br/>
+・その他<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
+  $("div.ages img.info").popover({title: "年齢別（何歳の時に旅をした時の話か）", content: "<pre>
+・～19歳<br/>
+・20～24歳<br/>
+・25～29歳<br/>
+・30～34歳<br/>
+・35～39歳<br/>
+・40代<br/>
+・50代<br/>
+・60代以上<br/>
+</pre>", trigger: "hover", html: true, placement: "bottom"})
