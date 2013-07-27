@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag "articles", :media => "all" %>
+
+<div class="reading">
+  <div id="sidebar" class="search-area horizontal">
+    <h3><%= @writer.name %>の記事一覧</h3>
+  </div>
+  <div id="contents">
+    <section class="contents">
+      <div class="articles-container">
+        <%= render :partial => 'shared/articles/list', :locals => {:articles => @articles, :admin_page => true} %>
+      </div>
+    </section>
+    <%= paginate(@articles) %>
+  </div>
+  <div class="footer" style="margin-top: 10px;"></div>
+  <%= render :partial => 'shared/users/profile', :locals => {:user => @writer} %>
+</div>
+

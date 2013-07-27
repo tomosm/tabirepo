@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   before_filter protect_from_forgery, :except => [:fileupload, :fileupload_paragraph]
 
   # devise の認証filter
-  before_filter :authenticate_user!, :except => [:search, :show, :fileupload, :fileupload_paragraph]
+  before_filter :authenticate_user!, :except => [:search, :show, :fileupload, :fileupload_paragraph, :writer]
 
   require 'analytics/device_region'
   require 'analytics/article_logger_filter'
@@ -59,6 +59,16 @@ class ArticlesController < ApplicationController
     @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
 
     render :layout => "search"
+  end
+
+  def writer
+    begin
+      @articles = Article.where('user_id = :user_id AND applied = :applied AND approved = :approved', {:user_id => params[:id], :applied => true, :approved => true}).page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+      @writer = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Access invalid user error#{params[:id]}"
+      redirect_to "/", notice: '指定されたライターは存在しません'
+    end
   end
 
   # todo top_controller にも定義が重複している。

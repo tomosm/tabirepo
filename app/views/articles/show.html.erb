@@ -94,15 +94,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="writer-container">
-      <div class="span3"><%= link_to image_tag(@article.user.photo_profile, :alt => "AUTHOR") , '/profiles/' + @article.user.id.to_s %></div>
-      <div class="span6">
-        <p><%= @article.user.name %></p>
-        <p><%= simple_format(sanitize(@article.user.bio)) %></p>
-      </div>
-    </div>
-
-    <div class="clearfix" style="margin: 50px 0;border: 2px dashed #ccc;"></div>
+    <%= render :partial => 'shared/users/profile', :locals => {:user => @article.user} %>
 
     <div class="articles-suggestion">
       <section class="contents">

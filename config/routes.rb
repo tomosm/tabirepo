@@ -33,7 +33,12 @@ TabiRepo::Application.routes.draw do
     collection do
       get :search
     end
+    # collection do
+      # get :writer
+    # end
   end
+  get "/articles/writer/:id" => "articles#writer"
+
   put "/articles/:id/approve" => "articles#approve"
   put "/articles/:id/disapprove" => "articles#disapprove"
   put "/articles/:id/recommend" => "articles#recommend"

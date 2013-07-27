@@ -1,0 +1,9 @@
+<div class="writer-container">
+  <div class="span3"><%= link_to image_tag(user.photo_profile, :alt => "AUTHOR") , '/articles/writer/' + user.id.to_s %></div>
+  <div class="span6">
+    <p><%= user.name %></p>
+    <p><%= simple_format(sanitize(user.bio)) %></p>
+  </div>
+</div>
+
+    <div class="clearfix writer-container-box"></div>
