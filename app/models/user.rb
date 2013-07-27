@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     :omniauthable#, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :social_id, :name, :user_type, :gender, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :link, :bio, :image_url, :photo_id, :photo
+  attr_accessible :social_id, :name, :user_type, :gender, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :link, :bio, :image_url, :photo_id, :photo, :personal
   # attr_accessible :provider # facebook等の認証プロバイダ
   # attr_accessible :uid # 認証プロバイダ内のユーザーID
   # attr_accessible :title, :body
@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
       # social = Social.create(link: auth.raw_info ? auth.raw_info.link : "", provider: auth.provier)
+
       user = User.create(
         name: auth.extra.raw_info.name,
         gender: auth.extra.raw_info.gender,
@@ -35,7 +36,8 @@ class User < ActiveRecord::Base
         password: Devise.friendly_token[0,20],
         link: auth.extra.raw_info.link,
         bio: auth.extra.raw_info.bio,
-        image_url: auth.info.image
+        image_url: auth.info.image,
+        personal: auth
         # social_id: social.id
       )
 

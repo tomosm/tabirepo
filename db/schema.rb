@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722162721) do
+ActiveRecord::Schema.define(:version => 20130727103251) do
 
   create_table "about_us", :force => true do |t|
     t.text     "content"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20130722162721) do
     t.string   "image_url"
     t.text     "bio"
     t.integer  "photo_id"
+    t.text     "personal"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

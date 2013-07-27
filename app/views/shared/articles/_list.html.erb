@@ -11,7 +11,7 @@
       <%= link_to(article_path(article)) do %>
       <%#= article.country.code %>
         <!-- <span class="icon-location"></span><h5>日本</h5> -->
-        <header><%= article.country.value %>
+        <header><%== htmlspace(to_value(article.country)) %>
           <% if article.recommended? %>
             <!-- <span class="badge badge-warning" style="float:right;">オススメ</span> -->
             <%= image_tag("common/ribbon-yellow.png", :class => "ribbon recommendation") %>
@@ -32,10 +32,14 @@
           <% end -%>
         </header>
         <div>
-          <%= image_tag(article.image.file.url(:thumb)) %>
+          <% if article && article.image %>
+            <%= image_tag(article.image.file.url(:thumb)) %>
+          <% else %>
+            <%= noimage_tag(:thumb) %>
+          <% end -%>
         </div>
         <h5>
-          <span class="icon-theme" style="color: <%= article.theme.color %>;">●</span><%= article.theme.value %>
+          <span class="icon-theme" style="color: <%= to_color(article.theme) %>;">●</span><%= to_value(article.theme) %>
         </h5>
         <footer><%= article.title %></footer>
       <% end -%> 

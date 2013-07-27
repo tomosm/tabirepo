@@ -111,7 +111,7 @@ class ArticlesController < ApplicationController
 
   def create
     notice = "一時保存のため記事を公開する場合は投稿が必要になります"
-    if (params[:name] == 'save')
+    if (params[:save])
       params[:article][:applied] = true
       notice = "編集部により記事が承認されたのちに、旅レポに記事が公開されます"
     end
@@ -155,7 +155,7 @@ class ArticlesController < ApplicationController
     begin
       # @article = Article.find(params[:id])
       @article = get_article_by_conditions()
-      @photo_url = @article.image.file.url(:medium)
+      @photo_url = @article && @article.image && @article.image.file.url(:medium) || nil
       @paragraphs = Paragraph.where("article_id = :article_id", {:article_id => @article.id})
       @article_paragraphs = ArticlePlanning.where("article_id = :article_id", {:article_id => @article.id})
       # if !@paragraphs || @paragraphs.length == 0
