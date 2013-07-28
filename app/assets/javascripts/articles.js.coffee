@@ -1,4 +1,5 @@
 //= require common
+//= require 'jquery.icheck'
 
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
@@ -166,3 +167,20 @@ $ ->
 ・50代<br/>
 ・60代以上<br/>
 </pre>", trigger: "hover", html: true, placement: "bottom"})
+
+  # icheck
+  icheck = ->
+    if ($(".icheck-me").length > 0)
+      $(".icheck-me").each ->
+        $el = $(this)
+        skin = if $el.attr('data-skin') != undefined then "_" + $el.attr('data-skin') else ""
+        skin = if $el.attr('data-skin') != undefined then "_" + $el.attr('data-skin') else ""
+        color = if $el.attr('data-color') != undefined then "-" + $el.attr('data-color') else ""
+        opt = {
+          checkboxClass: 'icheckbox' + skin + color
+          radioClass: 'iradio' + skin + color
+          # increaseArea: '20%'
+        }
+        $el.iCheck(opt)
+
+  icheck()

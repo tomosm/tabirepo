@@ -23,7 +23,7 @@ class Paragraph < ActiveRecord::Base
     else
       if (!params[:deleted_at] || params[:deleted_at].empty?)
         params[:article_id] = article_id
-        self.new(params).save
+        self.create(params)
       end
     end
   end

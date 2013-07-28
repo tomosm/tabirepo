@@ -2,9 +2,9 @@ class Reader < ActiveRecord::Base
   attr_accessible :article_id, :date, :deviceregion, :visitorregion, :last_article_id
   belongs_to :article
 
-  def self.find_by_popular_article
-    self.order("count_article_id DESC").group(:article_id).count(:article_id)
-  end
+  # def self.find_by_popular_article
+  #   self.order("count_article_id DESC").group(:article_id).count(:article_id)
+  # end
 
   def self.find_by_popular_user
     self.order("count_user_id DESC").group(:user_id).count(:user_id)

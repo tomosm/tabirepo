@@ -67,25 +67,18 @@
 <div class="control-group">
   <%= f.label '企画', :class => 'control-label'%>
     <div class="controls">
-      <label class="checkbox" for="article_entry_program">
 <% @plannings.each_with_index do |planning, i| -%>
   <%= f.fields_for :plannings, planning, :index => planning.id do |fpl| %>
-    <% if @article_plannings %>
-
-
-<%#-- todo --%>
-
-
-        <%= fpl.check_box :id, :class => 'checkbox', :checked => "" %>
+    <% if join_planning?(@article.plannings, planning) === true %>
+        <%= fpl.check_box :id, :class => 'checkbox icheck-me', :checked => "checked", :"data-skin" => 'square', :"data-color" => 'grey' %>
     <% else -%>
-        <%= fpl.check_box :id, :class => 'checkbox', :checked => "" %>
+        <%= fpl.check_box :id, :class => 'checkbox icheck-me', :checked => "", :"data-skin" => 'square', :"data-color" => 'grey' %>
     <% end -%>
-        <%= fpl.label :id do %>
-          <%= planning.name %>
-        <% end -%>
+    <%= fpl.label :id, :class => "icheck-me-inline" do %>
+      <%= planning.name %>
+    <% end -%>
   <% end -%>
 <% end -%>
-      </label>
     </div>
 </div>
 

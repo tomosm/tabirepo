@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    find_codes
+    find_codes_with_all_plannings
     # @articles = Article.where('approved = :approved', {:approved => true})
     @articles = Article.where('applied = :applied', {:applied => true})
     if (current_user && current_user.admin?)
@@ -43,18 +43,18 @@ class ArticlesController < ApplicationController
       @articles = @articles.where('approved = :approved', {:approved => true})
     end
 
-    @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless !params[:title] || params[:title].empty?
-    @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless !params[:theme_id] || params[:theme_id].empty?
-    @articles = @articles.where('country_id = :country_id', {:country_id => params[:country_id].to_i}) unless !params[:country_id] || params[:country_id].empty?
-    @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless !params[:vihicle_id] || params[:vihicle_id].empty?
-    @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless !params[:member_id] || params[:member_id].empty?
-    @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless !params[:purpose_id] || params[:purpose_id].empty?
-    @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless !params[:budget_id] || params[:budget_id].empty?
-    @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless !params[:language_id] || params[:language_id].empty?
-    @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless !params[:age_id] || params[:age_id].empty?
-
-    # todo popular はあとで
-    @articles = @articles.where('recommended = :recommended', {:recommended => params[:recommended].to_i}) unless !params[:recommended] || params[:recommended].empty?
+    @articles = @articles.where("title LIKE :title ESCAPE '$'", {:title => params[:title].gsub(/%/, "$%").gsub(/_/, "$_") + "%"}) unless params[:title].blank?
+    @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i}) unless params[:theme_id].blank?
+    @articles = @articles.where('country_id = :country_id', {:country_id => params[:country_id].to_i}) unless params[:country_id].blank?
+    @articles = @articles.where('vihicle_id = :vihicle_id', {:vihicle_id => params[:vihicle_id].to_i}) unless params[:vihicle_id].blank?
+    @articles = @articles.where('member_id = :member_id', {:member_id => params[:member_id].to_i}) unless params[:member_id].blank?
+    @articles = @articles.where('purpose_id = :purpose_id', {:purpose_id => params[:purpose_id].to_i}) unless params[:purpose_id].blank?
+    @articles = @articles.where('budget_id = :budget_id', {:budget_id => params[:budget_id].to_i}) unless params[:budget_id].blank?
+    @articles = @articles.where('language_id = :language_id', {:language_id => params[:language_id].to_i}) unless params[:language_id].blank?
+    @articles = @articles.where('age_id = :age_id', {:age_id => params[:age_id].to_i}) unless params[:age_id].blank?
+    @articles = @articles.where('recommended = :recommended', {:recommended => params[:recommended].to_i}) unless params[:recommended].blank?
+    @articles = @articles.with_popular unless params[:popular].blank?
+    @articles = @articles.with_planning(params[:planning_id]) unless params[:planning_id].blank?
 
     @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
 
@@ -154,7 +154,7 @@ class ArticlesController < ApplicationController
 # todo paragraph images
 
       # add_paragraph_objects(paragraphs, @paragraphs)
-      @article_plannings = ArticlePlanning.create_list_by_params(plannings)
+      # @article_plannings = ArticlePlanning.create_list_by_params(plannings)
 
       render action: 'new'
     end
@@ -210,7 +210,7 @@ class ArticlesController < ApplicationController
         find_codes
 
         @paragraphs = @article.paragraphs
-        @article_plannings = ArticlePlanning.create_list_by_params(plannings)
+        # @article_plannings = ArticlePlanning.create_list_by_params(plannings)
         # add_paragraph_objects(paragraphs, @paragraphs)
   
         render action: 'edit'
@@ -306,17 +306,7 @@ class ArticlesController < ApplicationController
 
   private
   def find_codes
-    # @themes = Theme.all.collect {|model| [model.code, model.id]}
-    # # @countries = [["日本", 1]]
-    # @countries = Country.all.collect {|model| [model.code, model.id]}
-    # @vihicles = Vihicle.all.collect {|model| [model.code, model.id]}
-    # @members = Member.all.collect {|model| [model.code, model.id]}
-    # @purposes = Purpose.all.collect {|model| [model.code, model.id]}
-    # @budgets = Budget.all.collect {|model| [model.code, model.id]}
-    # @languages = Language.all.collect {|model| [model.code, model.id]}
-    # @ages = Age.all.collect {|model| [model.code, model.id]}
     @themes = Theme.all.collect {|model| [model.value, model.id]}
-    # @countries = [["日本", 1]]
     @countries = Country.all.collect {|model| [model.value, model.id]}
     @vihicles = Vihicle.all.collect {|model| [model.value, model.id]}
     @members = Member.all.collect {|model| [model.value, model.id]}
@@ -325,6 +315,11 @@ class ArticlesController < ApplicationController
     @languages = Language.all.collect {|model| [model.value, model.id]}
     @ages = Age.all.collect {|model| [model.value, model.id]}
     @plannings = Planning.where('start <= :select_date AND :select_date <= end', {:select_date => Date.today.to_s})
+  end
+
+  def find_codes_with_all_plannings
+    find_codes
+    @plannings = Planning.all.collect {|model| [model.name, model.id]}
   end
 
   def save_paragraphs(article_id, paragraphs)
@@ -370,6 +365,15 @@ class ArticlesController < ApplicationController
     raise ActiveRecord::RecordNotFound if articles.length == 0
     articles[0]
   end
+
+  # def create_plannings_by_params(params)
+  #   return [] if (!params || params.length == 0)
+  #   list = [];
+  #   params.keys.each do |planning_id|
+  #     list.push(self.new({:article_id => params[:article_id], :planning_id => params[:planning_id]}))
+  #   end
+  #   list
+  # end
 
   # def add_paragraph_objects(paragraphs_params, paragraphs_objects)
   #   if (paragraphs_params) 

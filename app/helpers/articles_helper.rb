@@ -1,13 +1,4 @@
 module ArticlesHelper
-  # FIRST_INDEX = 0
-  # def paragraph_index(article)
-  #   index = FIRST_INDEX
-  #   if (article.paragraphs)
-  #     index += article.paragraphs.length
-  #   end
-  #   index
-  # end
-
   def to_value (model) 
     if (model) 
       model.value
@@ -48,6 +39,14 @@ module ArticlesHelper
     end
 
     tags
+  end
+
+  def join_planning?(plannings, target_planning)
+    plannings.each do |planning|
+      if planning.id === target_planning.id
+        return true
+      end
+    end
   end
 
   private 

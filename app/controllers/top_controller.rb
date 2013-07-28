@@ -7,10 +7,8 @@ class TopController < ApplicationController
     @recommended_articles = Article.where("approved = :approved AND recommended = :recommended AND applied = :applied", {:approved => true, :recommended => true, :applied => true}).limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
     # アクセスがないと人気順に表示されないので注意！
-    reader_article_id_list_by_popular_article = Reader.find_by_popular_article();
-    @popular_articles = Article.where("id IN (:article_id_list) AND approved = :approved AND applied = :applied", 
-      {:article_id_list => reader_article_id_list_by_popular_article.keys, :approved => true, :applied => true})
-    .limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
+    @popular_articles = Article.where("articles.approved = :approved AND articles.applied = :applied", 
+      {:approved => true, :applied => true}).with_popular.limit(TOP_NEWS_SIZE_OF_RECOMMENDATION)
 
     @theme_turningpoint = Theme.where("code = :code", {:code => "turningpoint"}).first
     @theme_heartful = Theme.where("code = :code", {:code => "heartful"}).first

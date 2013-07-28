@@ -16,6 +16,8 @@ class Article < ActiveRecord::Base
   belongs_to :image
 
   has_many :paragraphs
+  has_many :article_plannings, :dependent => :destroy
+  has_many :plannings, :through => :article_plannings
 
   # validates :title, :presence => true
   # validates :theme_id, :presence => true
@@ -43,5 +45,16 @@ class Article < ActiveRecord::Base
 
   def write_by?(user)
     user && user.id == self.user_id
+  end
+
+  def self.with_popular
+    reader = Reader.arel_table
+    sql_for_count_article_id_by_popular = reader.project(reader[:article_id], reader[:article_id].count.as('count_article_id')).group(reader[:article_id]).to_sql
+    self.joins("inner join (#{sql_for_count_article_id_by_popular}) popular on articles.id = popular.article_id").reorder('popular.count_article_id DESC, articles.created_at DESC')
+  end
+
+  def self.with_planning(planning_id)
+    self.joins(:article_plannings).where('article_plannings.planning_id = :planning_id', {planning_id: planning_id})
+    # self.joins("inner join (SELECT \"readers\".\"article_id\", COUNT(\"readers\".\"article_id\") AS count_article_id FROM \"readers\"  GROUP BY \"readers\".\"article_id\") popular on id = popular.article_id").reorder('popular.count_article_id DESC, articles.created_at DESC')
   end
 end

@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'icheck/square/grey';
+
 .string-label {
   margin-top: 4px;
 }
@@ -285,4 +287,13 @@ img.info {
   text-decoration: none;
   // background: #999;
   background: #3e3e3e;
+}
+
+/**************************************************
+              jquery icheck
+***************************************************/
+label.icheck-me-inline {
+  position: relative;
+  top: -20px;
+  left: 30px;
 }

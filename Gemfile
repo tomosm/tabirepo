@@ -80,6 +80,8 @@ gem "lazy_high_charts"
 # gem "gruff"
 # gem "rmagick" 
 
+gem 'icheck-rails'
+
 # country select
 # gem "country-select"
 
