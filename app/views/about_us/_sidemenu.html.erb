@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs nav-stacked">
+  <% if active == "index" %>
+    <li class="active"><%= link_to '旅レポとは', about_us_path %></li>
+  <% else %>
+    <li><%= link_to '旅レポとは', about_us_path %></li>
+  <% end -%>
+  <% if active == "guidelines" %>
+    <li class="active"><%= link_to '記事投稿ガイドライン', about_us_guidelines_path %></li>
+  <% else %>
+    <li><%= link_to '記事投稿ガイドライン', about_us_guidelines_path %></li>
+  <% end -%>
+  </li>
+</ul>

@@ -1,8 +1,12 @@
 # encoding: utf-8
 
 class AboutUsController < ApplicationController
+
   def index
     @about_us = AboutUs.all(:order => "created_at DESC", :limit => 1)
+  end
+
+  def guidelines
   end
 
   def edit

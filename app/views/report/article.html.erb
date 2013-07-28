@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "report", :media => "all" %>
 <div class="row">
   <div id="sidebar" class="span3">
-    <%= render :partial => 'sidemenu' %>
+    <%= render :partial => 'sidemenu', :locals => {:active => "article"} %>
   </div>
   <div id="contents" class="span9">
     <div class="chart">

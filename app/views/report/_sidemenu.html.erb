@@ -2,6 +2,12 @@
   <!-- <li class="active"> -->
   <!-- <li><%= link_to 'アクセス数', report_visitor_path %></li> -->
   <!-- <li><%= link_to '日付別閲覧数', report_date_path %></li> -->
-  <li><%= link_to '記事別閲覧数', report_article_path %></li>
+  <!-- <li><%= link_to '記事別閲覧数', report_article_path %></li> -->
   <!-- <li><%= link_to 'ライター別閲覧数', report_writer_path %></li> -->
+
+  <% if active == "article" %>
+    <li class="active"><%= link_to '記事別閲覧数', report_article_path %></li>
+  <% else %>
+    <li><%= link_to '記事別閲覧数', report_article_path %></li>
+  <% end -%>
 </ul>

@@ -1,0 +1,9 @@
+<%= stylesheet_link_tag "about_us", :media => "all" %>
+<div class="row">
+  <div id="sidebar" class="span3">
+    <%= render :partial => 'sidemenu', :locals => {:active => "guidelines"} %>
+  </div>
+  <div id="contents" class="span9">
+    <p>H25.8.1記事投稿ガイドラインは<%= link_to "こちら", "/doc/post_guidelines.pdf" %>を参照</p>
+  </div>
+</div>

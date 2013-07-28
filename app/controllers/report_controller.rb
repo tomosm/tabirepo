@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class ReportController < ApplicationController
+  before_filter :check_admin_user
+
   layout 'admin'
 
   def visitor
