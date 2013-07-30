@@ -127,6 +127,14 @@ div.reading div.header h3 {
   padding-right: 10px;
 }
 
+div.reading div.outline h3 {
+  color: #C73F63;
+}
+
+div.reading div.paragraph h4 {
+  color: #E3A441;
+}
+
 div.image-container {
   margin-right: auto;
   margin-left: auto;
@@ -158,10 +166,6 @@ div.wordbreak p, div.wordbreak h3, div.wordbreak h4 {
 div.reading div.outline {
   // padding-top: 10px;
   padding-bottom: 10px;
-}
-
-div.reading div.outline h3 {
-  color: red;
 }
 
 div.reading p {

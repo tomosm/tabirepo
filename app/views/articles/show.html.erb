@@ -37,7 +37,7 @@
       <% if paragraph.image %>
         <div class="image-container small"><%=  image_tag(paragraph.image.file.url(:small), :class => "upload-file") %></div>
       <% else -%>
-        <div class="image-container small"><%= noimage_tag(:small, :class => "upload-file") %></div>
+        <!-- <div class="image-container small"><%= noimage_tag(:small, :class => "upload-file") %></div> -->
       <% end -%>
       <p><%= simple_format(sanitize(paragraph.sentence)) %></p>
     </div>
