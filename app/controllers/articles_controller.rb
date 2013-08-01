@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   before_filter protect_from_forgery, :except => [:fileupload, :fileupload_paragraph]
 
   # devise の認証filter
-  before_filter :authenticate_user!, :except => [:search, :show, :fileupload, :fileupload_paragraph, :writer]
+  before_filter :authenticate_user!, :except => [:search, :search_as_latest, :search_as_popular, :search_as_recommended, :search_as_shoveler, :search_as_related, :show, :fileupload, :fileupload_paragraph, :writer]
 
   require 'analytics/device_region'
   require 'analytics/article_logger_filter'
@@ -33,6 +33,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
+    @search_function = true
     find_codes_with_all_plannings
     # @articles = Article.where('approved = :approved', {:approved => true})
     @articles = Article.where('applied = :applied', {:applied => true})
@@ -61,6 +62,57 @@ class ArticlesController < ApplicationController
     render :layout => "search"
   end
 
+  def search_as_latest
+    @title = "最新の投稿一覧"
+    @articles = Article.where('applied = :applied AND approved = :approved', {:applied => true, :approved => true})
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+    render :layout => "search", :template => 'articles/search'
+  end
+
+  def search_as_popular
+    @title = "人気の記事一覧"
+    @articles = Article.where('applied = :applied AND approved = :approved', {:applied => true, :approved => true})
+    @articles = @articles.with_popular
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+    render :layout => "search", :template => 'articles/search'
+  end
+
+  def search_as_recommended
+    @title = "編集部おすすめ一覧"
+    @articles = Article.where('applied = :applied AND approved = :approved AND recommended = :recommended', {:applied => true, :approved => true, :recommended => true})
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+    render :layout => "search", :template => 'articles/search'
+  end
+
+  def search_as_shoveler
+    @title = "この記事を見た後に読んでいるのは！？一覧"
+    next_articles_ids = Reader.where('last_article_id = :last_article_id', {:last_article_id => params[:article_id]}).order("date DESC").pluck(:article_id)
+    @articles = Article.where('id IN (:articles_ids) AND applied = :applied AND approved = :approved', {:articles_ids => next_articles_ids, :applied => true, :approved => true}).limit(TOP_NEWS_SIZE)
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+    render :layout => "search", :template => 'articles/search'
+  end
+
+  def search_as_related
+    @title = "関連記事一覧"
+    @articles = Article.where('applied = :applied AND approved = :approved', {:applied => true, :approved => true})
+    if !params[:theme_id].blank?
+      @articles = @articles.where('theme_id = :theme_id', {:theme_id => params[:theme_id].to_i})
+      begin
+        theme = Theme.find(params[:theme_id].to_i)
+      rescue ActiveRecord::RecordNotFound
+        # nop.
+      end
+    end
+    if !params[:article_id].blank?
+      @articles = @articles.where('id != :article_id', {:article_id => params[:article_id].to_i})
+    else
+      @title = theme.value + "の記事一覧" if theme
+    end
+
+    @articles = @articles.page(params[:page]).per(SEARCH_ARTICLES_SIZE)
+    render :layout => "search", :template => 'articles/search'
+  end
+
   def writer
     begin
       @articles = Article.where('user_id = :user_id AND applied = :applied AND approved = :approved', {:user_id => params[:id], :applied => true, :approved => true}).page(params[:page]).per(SEARCH_ARTICLES_SIZE)
@@ -80,13 +132,13 @@ class ArticlesController < ApplicationController
       # @article = Article.where('id = :id', {:id => params[:id]}).joins(:user)
 
       @article = get_article_by_conditions()
-      @related_articles = Article.where('theme_id = :theme_id and approved = :approved and applied = :applied', {:theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
+      @related_articles = Article.where('id != :article_id AND theme_id = :theme_id and approved = :approved and applied = :applied', {:article_id => @article.id, :theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
       # @shoveler_articles = Article.where('theme_id = :theme_id and approved = :approved', {:theme_id => @article.theme_id, :approved => true}).limit(TOP_NEWS_SIZE)
 
       # @shoveler_articles = Article.joins("LEFT JOIN readers ON articles.id = readers.article_id").where('readers.last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").limit(TOP_NEWS_SIZE)
 
       next_articles_ids = Reader.where('last_article_id = :last_article_id', {:last_article_id => @article.id}).order("date DESC").pluck(:article_id)
-      @shoveler_articles = Article.where('id IN (:articles_ids) AND approved = :approved AND applied = :applied', {:articles_ids => next_articles_ids, :theme_id => @article.theme_id, :approved => true, :applied => true}).limit(TOP_NEWS_SIZE)
+      @shoveler_articles = Article.where('id IN (:articles_ids) AND applied = :applied AND approved = :approved', {:articles_ids => next_articles_ids, :applied => true, :approved => true}).limit(TOP_NEWS_SIZE)
     # @reader_user = Reader.joins(:article).group(:user_id).select("user_id")
     # reader_user_name = User.where("id IN (:id_list)", {:id_list => @reader_user.map{|user| user.user_id}.join(",")}).select("id, name").index_by(&:id)
 

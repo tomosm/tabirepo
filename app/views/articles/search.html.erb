@@ -2,9 +2,10 @@
 
 <div>
   <div id="sidebar" class="search-area horizontal">
-    <h4>記事検索</h4>
+    <h4><%= @title.blank? ? '記事検索' : @title %></h4>
 
 <!-- todo リストの左にスペースがあるので調整必要 -->
+    <% if @search_function === true %>
     <%= form_tag :search_articles, method: :get, :class => 'form-horizontal' do %>
       <%= text_field_tag :title, params[:title], :placeholder => "レポート名" %>
       <%= select_tag :theme_id, options_for_select(@themes.collect{|m| [m[0], m[1]]}, params[:theme_id]), :prompt => '記事のテーマ？' %>
@@ -29,7 +30,8 @@
       <div>
         <%= submit_tag "検索", :class => "btn" %>
       </div>
-    <% end %>
+    <% end -%>
+    <% end -%>
   </div>
   <div id="contents">
     <section class="contents">

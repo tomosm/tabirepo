@@ -20,7 +20,7 @@
     <%= render :partial => 'shared/articles/list', :locals => {:articles => @articles} %>
   </div>
   <div class="link">
-    <%= link_to "記事一覧はこちら", search_articles_path %>
+    <%= link_to "最新の投稿一覧はこちら", articles_search_latest_path %>
   </div>
 </section>
 
@@ -30,7 +30,7 @@
     <%= render :partial => 'shared/articles/list', :locals => {:articles => @popular_articles} %>
   </div>
   <div class="link">
-    <%= link_to "記事一覧はこちら", search_articles_path %>
+    <%= link_to "人気の記事一覧はこちら", articles_search_popular_path %>
   </div>
 </section>
 
@@ -40,6 +40,6 @@
     <%= render :partial => 'shared/articles/list', :locals => {:articles => @recommended_articles} %>
   </div>
   <div class="link">
-    <%= link_to "記事一覧はこちら", search_articles_path %>
+    <%= link_to "編集部おすすめ一覧はこちら", articles_search_recommended_path %>
   </div>
 </section>

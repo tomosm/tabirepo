@@ -103,7 +103,7 @@
           <%= render :partial => 'shared/articles/list', :locals => {:articles => @shoveler_articles} %>
         </div>
         <div class="link">
-          <%= link_to "記事一覧はこちら", search_articles_path %>
+          <%= link_to "この記事を見た後に読んでいるのは！？一覧はこちら", {:controller => "articles", :action => "search_as_shoveler", :article_id => @article.id} %>
         </div>
       </section>
 
@@ -113,7 +113,7 @@
           <%= render :partial => 'shared/articles/list', :locals => {:articles => @related_articles} %>
         </div>
         <div class="link">
-          <%= link_to "記事一覧はこちら", search_articles_path %>
+          <%= link_to "関連記事一覧はこちら", {:controller => "articles", :action => "search_as_related", :article_id => @article.id, :theme_id => @article.theme_id} %>
         </div>
       </section>
     </div>

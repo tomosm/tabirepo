@@ -34,10 +34,13 @@ TabiRepo::Application.routes.draw do
     collection do
       get :search
     end
-    # collection do
-      # get :writer
-    # end
   end
+  get "/articles/search/latest" => "articles#search_as_latest"
+  get "/articles/search/recommended" => "articles#search_as_recommended"
+  get "/articles/search/popular" => "articles#search_as_popular"
+  get "/articles/search/shoveler" => "articles#search_as_shoveler"
+  get "/articles/search/related" => "articles#search_as_related"
+
   get "/articles/writer/:id" => "articles#writer"
 
   put "/articles/:id/approve" => "articles#approve"
