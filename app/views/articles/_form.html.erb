@@ -64,6 +64,7 @@
     <%= f.select :age_id, @ages, :prompt => '年齢？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
 </div>
 
+<% if @plannings && @plannings.length > 0 %>
 <div class="control-group">
   <%= f.label '企画', :class => 'control-label'%>
     <div class="controls">
@@ -81,6 +82,7 @@
 <% end -%>
     </div>
 </div>
+<% end -%>
 
 <!-- 
 <div class="control-group">
