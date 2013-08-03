@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../vendor/aws-sdk-ruby/samples/samples_config')
+require File.expand_path(File.dirname(__FILE__) + '/samples_config')
 
 filename = "tabirepo" + Time.now.strftime('%Y%m%d%S%L') + ".dump.sql.gz"
 def dump_tabirepo_database(filename)
