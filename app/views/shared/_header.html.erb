@@ -6,7 +6,7 @@
 </a>
 -->
 <!-- Be sure to leave the brand out there if you want it shown -->
-<a class="brand" href="/"><%= image_tag 'common/logo.png', :size => '67x48', :alt => '旅レポ' %></a>
+<a class="brand" href="/"><%= image_tag 'common/logo.png', :size => '150x49', :alt => '旅レポ' %></a>
 
 <!-- Everything you want hidden at 940px or less, place within here -->
 <!-- <div class="nav-collapse collapse　navbar-responsive-collapse"> -->
@@ -52,6 +52,6 @@
   </form>
 -->
   <%= form_tag('/articles/new', :class => "navbar-search", :method => 'get') do %>
-    <% submit_tag("記事を投稿する", :class => "btn btn-success btn-small") %>
+    <% submit_tag("記事を投稿する", :class => "btn btn-success") %>
   <% end %>
 </ul>
