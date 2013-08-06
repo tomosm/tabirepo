@@ -235,11 +235,11 @@ article.article.photo div.history.disapproval {
 }
 
 article.article.photo.applied {
-  opacity:0.1;
-  filter: alpha(opacity=10);        /* ie lt 8 */
-  -ms-filter: "alpha(opacity=10)";  /* ie 8 */
-  -moz-opacity:0.1;                 /* FF lt 1.5, Netscape */
-  -khtml-opacity: 0.1;              /* Safari 1.x */
+  opacity:0.8;
+  filter: alpha(opacity=80);        /* ie lt 8 */
+  -ms-filter: "alpha(opacity=80)";  /* ie 8 */
+  -moz-opacity:0.8;                 /* FF lt 1.5, Netscape */
+  -khtml-opacity: 0.8;              /* Safari 1.x */
 }
 
 // article.article.photo.applied > .applied {
