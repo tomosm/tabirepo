@@ -371,7 +371,7 @@ class ArticlesController < ApplicationController
 
   def find_codes_with_all_plannings
     find_codes
-    @plannings = Planning.all.collect {|model| [model.name, model.id]}
+    @plannings = Planning.where('start <= :select_date', {:select_date => Date.today.to_s}).collect {|model| [model.name, model.id]}
   end
 
   def save_paragraphs(article_id, paragraphs)
