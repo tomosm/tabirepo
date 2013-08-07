@@ -10,7 +10,11 @@
 
 <div class="control-group">
   <div class="controls string-label">
-    <%=  image_tag(@profile.photo_profile) %>  
+    <% if @profile && @profile.photo_profile %>
+      <%=  image_tag(@profile.photo_profile) %>  
+    <% else %>
+      <span class="upload-file">NO IMAGE</span>
+    <% end -%>
   </div>
 </div>
 

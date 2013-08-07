@@ -67,16 +67,20 @@ class User < ActiveRecord::Base
   def photo_login
     if self.photo
       self.photo.file.url(:small)
-    else
+    elsif self.image_url
       self.image_url + "&type=square"
+    else
+      nil
     end
   end
 
   def photo_profile
     if self.photo
       self.photo.file.url(:medium)
-    else
+    elsif self.image_url
       self.image_url + "&type=large"
+    else
+      nil
     end
   end
 

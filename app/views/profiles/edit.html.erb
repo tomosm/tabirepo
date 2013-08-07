@@ -27,7 +27,7 @@
     <div>
       <div class="fine-uploader photouploader"></div>
       <div class="file-image image-container profile photo">
-        <% if @profile %>
+        <% if @profile && @profile.photo_profile %>
           <%=  image_tag(@profile.photo_profile, :class => "upload-file") %>  
         <% else %>
           <span class="upload-file">NO IMAGE</span>
