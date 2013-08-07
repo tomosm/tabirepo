@@ -30,9 +30,9 @@
 }
 
 .contents .article {
-  display: inline-block;  
-  *display: inline;  
-  *zoom: 1; 
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
   // width: 220px;
 
   // width: 180px;
@@ -199,7 +199,7 @@ article.article.photo {
 
 article.article.photo img.ribbon {
   position: absolute;
-  top: -5px; 
+  top: -5px;
   // max-width: 20px;
   max-height: 43px;
 }
@@ -292,7 +292,7 @@ img.info {
   padding: 20px 0;
   text-align: center;
   display: block;
-  -webkit-border-radius: 5px; 
+  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
@@ -309,4 +309,26 @@ label.icheck-me-inline {
   position: relative;
   top: -20px;
   left: 30px;
+}
+
+div.fine-uploader.imageuploader {
+  position: relative;
+}
+
+.help {
+  color: red;
+}
+.controls .uploader.help {
+  position: absolute;
+  top: 5px;
+  left: 120px;
+}
+
+.controls.situation.help {
+  margin-top:5px;
+  margin-bottom:10px;
+}
+
+.controls .addparagraph.help {
+  margin-left:5px;
 }

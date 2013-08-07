@@ -5,7 +5,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-  $("div.fine-uploader.imageuploader").imageUploader()
+  $("div.fine-uploader.imageuploader").imageUploader().append("<span class='uploader help'>ボタンをクリックしてメインの写真を投稿して下さい</span>")
 
   addFuncRemoveParagraph = ($selector) ->
     $selector.tooltip({title: "小見出し削除"}).click ->
@@ -17,7 +17,7 @@ $ ->
       else
         $paragraph.remove()
 
-  $("#add-paragraph").tooltip({title: "小見出し追加"}).click ->
+  $("#add-paragraph").tooltip({title: "小見出し、写真、本文を追加"}).click ->
     paragraphIndex = $("#paragraphs-block").children().length + 1
 
     attributesIndex = ""
@@ -33,7 +33,7 @@ $ ->
         <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
 </label>
       <div class="controls">
-        <input type="text" value="" size="30" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">  
+        <input type="text" value="" size="30" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">
       </div>
     </div>
     <div class="control-group">
@@ -41,25 +41,26 @@ $ ->
         投稿写真' + paragraphIndex + '</label>
       <div class="controls">
         <div>
-          <div class="fine-uploader imageuploader"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display: none;"><span>Drop files here to upload</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div>Click or Drop</div><input type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>Processing dropped files...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div>
+          <div class="fine-uploader imageuploader"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display: none;"><span>Drop files here to upload</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div>クリック</div><input type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>Processing dropped files...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div>
           <div class="file-image image-container photo">
               <span class="upload-file">NO IMAGE</span>
               <img style="display: none;" alt="NO IMAGE" src="" class="upload-file">
             <input id="article_paragraphs__image_id" type="hidden" name="article[paragraphs]['+attributesIndex+'][image_id]">          </div>
         </div>
       </div>
-    </div>    
+    </div>
     <div class="control-group">
       <label for="article_paragraphs__sentence" class="control-label">
         文章' + paragraphIndex +  '
 </label>      <div class="controls">
-        <textarea rows="10" placeholder="文章' + paragraphIndex +  '" name="article[paragraphs]['+attributesIndex+'][sentence]" id="article_paragraphs__sentence" cols="40" class="span7"></textarea>  
+        <textarea rows="10" placeholder="文章' + paragraphIndex +  '" name="article[paragraphs]['+attributesIndex+'][sentence]" id="article_paragraphs__sentence" cols="40" class="span7"></textarea>
       </div>
     </div></div>'
 
     $paragraph = $("#paragraphs-block").append(paragraphHTML)
     addFuncRemoveParagraph($paragraph.find("input.remove-paragraph"))
     $paragraph.find("div.fine-uploader.imageuploader").imageUploader()
+    .append("<span class='uploader help'>小見出し" + paragraphIndex + "用の写真を投稿できます(任意)</span>")
 
   addFuncRemoveParagraph($("input.remove-paragraph"))
 

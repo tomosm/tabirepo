@@ -21,7 +21,7 @@ $ ->
         # itemLimit: 1
       },
       text: {
-        uploadButton: 'Click or Drop'
+        uploadButton: 'クリック'
       }
     }).on('complete', (event, id, fileName, responseJSON) ->
       if (responseJSON.success)

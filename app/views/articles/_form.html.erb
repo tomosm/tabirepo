@@ -17,7 +17,7 @@
   <div class="controls">
     <div class="input-prepend">
       <!-- <span class="add-on"><i class="icon-pencil"></i></span> -->
-      <%= f.text_field :title, :placeholder => 'レポート名', :required => "required", :class => "span7" %>  
+      <%= f.text_field :title, :placeholder => 'レポート名', :required => "required", :class => "span7" %>
     </div>
   </div>
 </div>
@@ -30,14 +30,14 @@
       <div class="fine-uploader imageuploader"></div>
       <div class="file-image image-container photo">
         <% if @photo_url %>
-          <%=  image_tag(@photo_url, :class => "upload-file") %>  
+          <%=  image_tag(@photo_url, :class => "upload-file") %>
         <% else %>
           <span class="upload-file">NO IMAGE</span>
           <img class="upload-file" src="" alt="NO IMAGE" style="display: none;">
         <% end -%>
-        <%= f.hidden_field :image_id -%> 
+        <%= f.hidden_field :image_id -%>
         <%#= f.fields_for :image do |fimage| --%>
-          <%#= fimage.hidden_field :id --%>  
+          <%#= fimage.hidden_field :id --%>
         <%# end --%>
       </div>
     </div>
@@ -46,6 +46,7 @@
 
 <div class="control-group">
   <%= f.label '旅のシチュエーション', :class => 'control-label'%>
+  <div class="controls situation help">記事に当てはまるシチュエーションを下記からそれぞれ選択して下さい</div>
   <div class="controls theme">
     <%= f.select :theme_id, @themes, :prompt => '記事のテーマ？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls countries">
@@ -84,7 +85,7 @@
 </div>
 <% end -%>
 
-<!-- 
+<!--
 <div class="control-group">
   <%= f.label :plannings, '企画', :class => 'control-label'%>
     <div class="controls">
@@ -99,7 +100,7 @@
 <div class="control-group">
   <%= f.label :outline, '概要', :class => 'control-label'%>
   <div class="controls">
-    <%= f.text_area :outline, :placeholder => '概要', :rows => 6, :class => "span7", :required => "required" %>  
+    <%= f.text_area :outline, :placeholder => '概要', :rows => 6, :class => "span7", :required => "required" %>
   </div>
 </div>
 
@@ -113,7 +114,7 @@
         小見出し<%= i + 1 %>
       <% end -%>
       <div class="controls">
-        <%= fp.text_field :subtitle, :placeholder => '小見出し' + (i + 1).to_s, :class => "span7" %>  
+        <%= fp.text_field :subtitle, :placeholder => '小見出し' + (i + 1).to_s, :class => "span7" %>
       </div>
     </div>
     <div class="control-group">
@@ -126,12 +127,12 @@
           <div class="file-image image-container photo">
           <!-- <div class="photo"> -->
             <% if paragraph.image && paragraph.image.file %>
-              <%=  image_tag(paragraph.image.file.url(:medium), :class => "upload-file") %>  
+              <%=  image_tag(paragraph.image.file.url(:medium), :class => "upload-file") %>
             <% else %>
               <span class="upload-file">NO IMAGE</span>
               <img class="upload-file" src="" alt="NO IMAGE" style="display: none;">
             <% end -%>
-            <%= fp.hidden_field :image_id -%> 
+            <%= fp.hidden_field :image_id -%>
           </div>
         </div>
       </div>
@@ -141,7 +142,7 @@
         文章<%= i + 1 %>
       <% end -%>
       <div class="controls">
-        <%= fp.text_area :sentence, :placeholder => '文章' + (i + 1).to_s, :rows => 10, :class => "span7" %>  
+        <%= fp.text_area :sentence, :placeholder => '文章' + (i + 1).to_s, :rows => 10, :class => "span7" %>
       </div>
     </div>
     <% if paragraph.persisted? %>
@@ -155,7 +156,8 @@
 
 <div class="control-group">
   <div class="controls">
-    <input type="button" id="add-paragraph" value="+"/>
+    <input type="button" id="add-paragraph" value="小見出し・写真を追加"/>
+    <span class="addparagraph help">旅話の展開に応じて、小見出し、写真、本文を追加できます(任意)</span>
   </div>
 </div>
 
