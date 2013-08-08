@@ -155,6 +155,13 @@ class ArticlesController < ApplicationController
       if (current_user && !current_user.admin? && @article.user_id != current_user.id && !@article.approved?)
         redirect_to "/", notice: '記事は存在しません'
       else
+        @meta_ogp = {
+          :title => @article.title,
+          :description => @article.outline,
+          :url => article_path(@article.id),
+          :image => @article.image ? @article.image.file.url(:thumb) : ""
+        }
+
         respond_to do |format|
           format.html
           # format.json {render json:@article}

@@ -2,12 +2,12 @@
 <%= form_for @article, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
 
 <div class="reading">
+
   <div class="header clearfix">
        <h3 class="pull-left"><%= to_value(@article.theme) %></h3>
       <!-- %= t(@article.theme.type, :scope => 'theme.code') %-->
 
       <!-- todo 国？ -->
-
        <h6 class="pull-left">
         <%= to_tags_value(@article) %>
        </h6>
@@ -18,6 +18,10 @@
       </div>
   </div>
 
+<!--        <div class="pull-right">
+<iframe src="//www.facebook.com/plugins/like.php?locale=ja_JP&href=http%3A%2F%2Ftabi-repo.net/articles/4&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=494878583905202" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:103px; height:21px;" allowTransparency="true"></iframe>
+      </div>
+ -->
   <div class="image-container top">
       <% if @article.image %>
         <%#=  image_tag(@article.photo.url(:medium), :size => "640x480") --%>  
