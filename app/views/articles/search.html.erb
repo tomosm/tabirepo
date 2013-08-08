@@ -7,16 +7,16 @@
 <!-- todo リストの左にスペースがあるので調整必要 -->
     <% if @search_function === true %>
     <%= form_tag :search_articles, method: :get, :class => 'form-horizontal' do %>
-      <%= text_field_tag :title, params[:title], :placeholder => "レポート名" %>
-      <%= select_tag :theme_id, options_for_select(@themes.collect{|m| [m[0], m[1]]}, params[:theme_id]), :prompt => '記事のテーマ？' %>
-      <%= select_tag :country_id, options_for_select(@countries.collect{|m| [m[0], m[1]]}, params[:country_id]), :prompt => '国？' %>
-      <%= select_tag :vihicle_id, options_for_select(@vihicles.collect{|m| [m[0], m[1]]}, params[:vihicle_id]), :prompt => '移動手段？' %>
-      <%= select_tag :member_id, options_for_select(@members.collect{|m| [m[0], m[1]]}, params[:member_id]), :prompt => '人数？' %>
-      <%= select_tag :purpose_id, options_for_select(@purposes.collect{|m| [m[0], m[1]]}, params[:purpose_id]), :prompt => '目的？' %>
-      <%= select_tag :budget_id, options_for_select(@budgets.collect{|m| [m[0], m[1]]}, params[:budget_id]), :prompt => '予算？' %>
-      <%= select_tag :language_id, options_for_select(@languages.collect{|m| [m[0], m[1]]}, params[:language_id]), :prompt => '言語力？' %>
-      <%= select_tag :age_id, options_for_select(@ages.collect{|m| [m[0], m[1]]}, params[:age_id]), :prompt => '年齢？' %>
-      <%= select_tag :planning_id, options_for_select(@plannings.collect{|m| [m[0], m[1]]}, params[:planning_id]), :prompt => '企画？' %>
+      <div><%= text_field_tag :title, params[:title], :placeholder => "レポート名", :class => "title" %></div>
+      <%= select_tag :theme_id, options_for_select(@themes.collect{|m| [m[0], m[1]]}, params[:theme_id]), :prompt => '記事のテーマを選択して下さい' %>
+      <%= select_tag :country_id, options_for_select(@countries.collect{|m| [m[0], m[1]]}, params[:country_id]), :prompt => '国を選択して下さい' %>
+      <%= select_tag :vihicle_id, options_for_select(@vihicles.collect{|m| [m[0], m[1]]}, params[:vihicle_id]), :prompt => '移動手段を選択して下さい' %>
+      <%= select_tag :member_id, options_for_select(@members.collect{|m| [m[0], m[1]]}, params[:member_id]), :prompt => '人数を選択して下さい' %>
+      <%= select_tag :purpose_id, options_for_select(@purposes.collect{|m| [m[0], m[1]]}, params[:purpose_id]), :prompt => '目的を選択して下さい' %>
+      <%= select_tag :budget_id, options_for_select(@budgets.collect{|m| [m[0], m[1]]}, params[:budget_id]), :prompt => '予算を選択して下さい' %>
+      <%= select_tag :language_id, options_for_select(@languages.collect{|m| [m[0], m[1]]}, params[:language_id]), :prompt => '言語力を選択して下さい' %>
+      <%= select_tag :age_id, options_for_select(@ages.collect{|m| [m[0], m[1]]}, params[:age_id]), :prompt => '年齢を選択して下さい' %>
+      <%= select_tag :planning_id, options_for_select(@plannings.collect{|m| [m[0], m[1]]}, params[:planning_id]), :prompt => '企画を選択して下さい' %>
       <%# todo 余裕があれば 1 を定数化 %>
       <div class="clearfix" style="margin-top: 5px;">
         <div class="pull-left">

@@ -167,6 +167,7 @@ class ArticlesController < ApplicationController
     find_codes
     @article = Article.new
     @paragraphs = []
+    @paragraphs.push(Paragraph.new)
     @article.paragraphs = @paragraphs
     @article
   end

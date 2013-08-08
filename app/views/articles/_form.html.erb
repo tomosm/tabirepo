@@ -24,6 +24,7 @@
 
 <div class="control-group">
   <%= f.label '投稿写真', :class => 'control-label'%>
+  <div class="controls subtitle help">旅話のタイトルを入力して下さい</div>
   <div class="controls">
     <div>
       <%#= f.file_field :photo, :required => "required" --%>
@@ -46,23 +47,23 @@
 
 <div class="control-group">
   <%= f.label '旅のシチュエーション', :class => 'control-label'%>
-  <div class="controls situation help">記事に当てはまるシチュエーションを下記からそれぞれ選択して下さい</div>
+  <div class="controls subtitle help">記事に当てはまるシチュエーションを下記からそれぞれ選択して下さい</div>
   <div class="controls theme">
-    <%= f.select :theme_id, @themes, :prompt => '記事のテーマ？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :theme_id, @themes, :prompt => '記事のテーマを選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls countries">
-    <%= f.select :country_id, @countries, :prompt => '国？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :country_id, @countries, :prompt => '国を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls vihicles">
-    <%= f.select :vihicle_id, @vihicles, :prompt => '移動手段？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :vihicle_id, @vihicles, :prompt => '移動手段を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls members">
-    <%= f.select :member_id, @members, :prompt => '人数？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :member_id, @members, :prompt => '人数を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls purposes">
-    <%= f.select :purpose_id, @purposes, :prompt => '目的？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :purpose_id, @purposes, :prompt => '目的を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls budgets">
-    <%= f.select :budget_id, @budgets, :prompt => '予算？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :budget_id, @budgets, :prompt => '予算を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls languages">
-    <%= f.select :language_id, @languages, :prompt => '言語力？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :language_id, @languages, :prompt => '言語力を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
   <div class="controls ages">
-    <%= f.select :age_id, @ages, :prompt => '年齢？', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
+    <%= f.select :age_id, @ages, :prompt => '年齢を選択して下さい', :required => "required" %><%=  image_tag('common/icon_info.png', :class => "info") %></div>
 </div>
 
 <% if @plannings && @plannings.length > 0 %>
@@ -98,9 +99,10 @@
 </div> -->
 
 <div class="control-group">
-  <%= f.label :outline, '概要', :class => 'control-label'%>
+  <%= f.label :outline, '記事概要', :class => 'control-label'%>
+  <div class="controls subtitle help">投稿する旅話の概要(いつ、どこで、何をしていた時か)を入力します</div>
   <div class="controls">
-    <%= f.text_area :outline, :placeholder => '概要', :rows => 6, :class => "span7", :required => "required" %>
+    <%= f.text_area :outline, :placeholder => '記事概要', :rows => 6, :class => "span7", :required => "required" %>
   </div>
 </div>
 
@@ -110,11 +112,17 @@
   <%= f.fields_for :paragraphs, paragraph, :index => paragraph.id do |fp| %>
     <div class="control-group">
       <%= fp.label :subtitle, :class => 'control-label' do %>
-      <input type="button" class="remove-paragraph" value="-"/>
+        <% if i > 0 %>
+          <input type="button" class="remove-paragraph" value="-"/>
+        <% end -%>
         小見出し<%= i + 1 %>
       <% end -%>
       <div class="controls">
-        <%= fp.text_field :subtitle, :placeholder => '小見出し' + (i + 1).to_s, :class => "span7" %>
+        <% if i == 0 %>
+          <%= fp.text_field :subtitle, :placeholder => '旅話の始めの小見出しを入力します', :class => "span7", :required => "required" %>
+        <% else %>
+          <%= fp.text_field :subtitle, :placeholder => '旅話の' + (i + 1).to_s + 'つ目の小見出しを入力します', :class => "span7" %>
+        <% end -%>
       </div>
     </div>
     <div class="control-group">
@@ -142,7 +150,11 @@
         文章<%= i + 1 %>
       <% end -%>
       <div class="controls">
-        <%= fp.text_area :sentence, :placeholder => '文章' + (i + 1).to_s, :rows => 10, :class => "span7" %>
+        <% if i == 0 %>
+          <%= fp.text_area :sentence, :placeholder => '小見出し' + (i + 1).to_s +  'に続く旅話の本文を入力します', :rows => 10, :class => "span7", :required => "required" %>
+        <% else %>
+          <%= fp.text_area :sentence, :placeholder => '小見出し' + (i + 1).to_s +  'に続く旅話の本文を入力します', :rows => 10, :class => "span7" %>
+        <% end -%>
       </div>
     </div>
     <% if paragraph.persisted? %>

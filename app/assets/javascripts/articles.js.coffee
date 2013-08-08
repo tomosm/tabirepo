@@ -27,13 +27,18 @@ $ ->
       matches = textarea_id.match(/paragraphs_(.*)_sentence/i)
       if matches and matches.length == 2 and !isNaN(parseInt(matches[1]))
         attributesIndex = (parseInt(matches[1]) + 1)
+
+    placeholderForSubtitle = if paragraphIndex == 1 then '旅話の始めの小見出しを入力します' else ('旅話の' + paragraphIndex +  'つ目の小見出しを入力します')
+    removeElement = if paragraphIndex == 1 then '' else ('<input type="button" class="remove-paragraph" value="-"/>')
+    requiredAttr = if paragraphIndex == 1 then ' required="required" ' else ''
+
     paragraphHTML = '<div class="paragraph">
     <div class="control-group">
-      <label for="article_paragraphs__subtitle" class="control-label">
-        <input type="button" class="remove-paragraph" value="-"/>小見出し' + paragraphIndex +  '
+      <label for="article_paragraphs__subtitle" class="control-label">' +
+        removeElement + '小見出し' + paragraphIndex +  '
 </label>
       <div class="controls">
-        <input type="text" value="" size="30" placeholder="小見出し' + paragraphIndex +  '" name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">
+        <input type="text" value="" size="30" placeholder="' + placeholderForSubtitle +  '" ' + requiredAttr + 'name="article[paragraphs]['+ attributesIndex + '][subtitle]" id="article_paragraphs__subtitle" class="span7">
       </div>
     </div>
     <div class="control-group">
@@ -53,7 +58,7 @@ $ ->
       <label for="article_paragraphs__sentence" class="control-label">
         文章' + paragraphIndex +  '
 </label>      <div class="controls">
-        <textarea rows="10" placeholder="文章' + paragraphIndex +  '" name="article[paragraphs]['+attributesIndex+'][sentence]" id="article_paragraphs__sentence" cols="40" class="span7"></textarea>
+        <textarea rows="10" placeholder="小見出し' + paragraphIndex +  'に続く旅話の本文を入力します" name="article[paragraphs]['+attributesIndex+'][sentence]" id="article_paragraphs__sentence" cols="40" class="span7"' + requiredAttr + '></textarea>
       </div>
     </div></div>'
 

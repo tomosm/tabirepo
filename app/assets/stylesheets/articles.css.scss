@@ -273,6 +273,15 @@ img.info {
   cursor: pointer;
 }
 
+select {
+  width: 250px;
+}
+
+input.title {
+  width: 236px;
+  margin-bottom: 5px;
+}
+
 /**************************************************
               PAGE TOP
 ***************************************************/
@@ -315,6 +324,9 @@ div.fine-uploader.imageuploader {
   position: relative;
 }
 
+/**************************************************
+              ヘルプ文言
+***************************************************/
 .help {
   color: red;
 }
@@ -324,7 +336,7 @@ div.fine-uploader.imageuploader {
   left: 120px;
 }
 
-.controls.situation.help {
+.controls.subtitle.help {
   margin-top:5px;
   margin-bottom:10px;
 }
