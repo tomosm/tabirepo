@@ -62,7 +62,8 @@ $ ->
       </div>
     </div></div>'
 
-    $paragraph = $("#paragraphs-block").append(paragraphHTML)
+    $paragraph = $(paragraphHTML)
+    $("#paragraphs-block").append($paragraph)
     addFuncRemoveParagraph($paragraph.find("input.remove-paragraph"))
     $paragraph.find("div.fine-uploader.imageuploader").imageUploader()
     .append("<span class='uploader help'>小見出し" + paragraphIndex + "用の写真を投稿できます(任意)</span>")
