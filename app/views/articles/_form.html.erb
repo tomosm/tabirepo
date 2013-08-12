@@ -1,6 +1,14 @@
 <%= stylesheet_link_tag "articles", :media => "all" %>
 <%= form_for @article, :html => {:class => 'form-horizontal'} do |f| %>
 
+<div>
+  <% if f.object.new_record? %>
+    <h3 class="page-title">記事を投稿する</h3>
+  <% else -%>
+    <h3 class="page-title">記事を編集する</h3>
+  <% end -%>
+</div>
+
 <% if @article.errors.any? %>
   <div class="control-group">
     <div class="controls alert alert-block">

@@ -1,6 +1,10 @@
 <%= stylesheet_link_tag "profiles", :media => "all" %>
 <%= form_for @profile, :html => {:class => 'form-horizontal'}, :url => {:action => "edit"} do |f| %>
 
+<div>
+  <h3 id="profile-title">プロフィール</h3>
+</div>
+
 <div class="control-group">
   <%= label_tag(:name, '名前', :class => 'control-label')%>
   <div class="controls string-label break-string">

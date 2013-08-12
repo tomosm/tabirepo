@@ -1,6 +1,10 @@
 <%= stylesheet_link_tag "profiles", :media => "all" %>
 <%= form_for @profile, :html => {:class => 'form-horizontal'}, :url => {:controller => "profiles", :id => @profile.id, :action => "update"} do |f| %>
 
+<div>
+  <h3 id="profile-title">プロフィール</h3>
+</div>
+
 <% if @profile.errors.any? %>
   <div class="control-group">
     <div class="controls alert alert-block">
