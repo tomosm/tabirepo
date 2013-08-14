@@ -22,11 +22,10 @@
 
 <div class="control-group">
   <%= f.label :title, 'レポート名', :class => 'control-label'%>
-  <div class="controls subtitle help">旅話のタイトルを入力して下さい</div>
   <div class="controls">
     <div class="input-prepend">
       <!-- <span class="add-on"><i class="icon-pencil"></i></span> -->
-      <%= f.text_field :title, :placeholder => 'レポート名', :required => "required", :class => "span7" %>
+      <%= f.text_field :title, :placeholder => '旅話のタイトルを入力して下さい', :required => "required", :class => "span7" %>
     </div>
   </div>
 </div>
@@ -108,9 +107,8 @@
 
 <div class="control-group">
   <%= f.label :outline, '記事概要', :class => 'control-label'%>
-  <div class="controls subtitle help">投稿する旅話の概要(いつ、どこで、何をしていた時か)を入力します</div>
   <div class="controls">
-    <%= f.text_area :outline, :placeholder => '記事概要', :rows => 6, :class => "span7", :required => "required" %>
+    <%= f.text_area :outline, :placeholder => '投稿する旅話の概要(いつ、どこで、何をしていた時か)を入力します', :rows => 6, :class => "span7", :required => "required" %>
   </div>
 </div>
 
