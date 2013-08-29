@@ -7,6 +7,7 @@ TabiRepo::Application.routes.draw do
 
   get "/about_us/" => "about_us#index"
   get "/about_us/guidelines" => "about_us#guidelines"
+  get "/about_us/guidance" => "about_us#guidance"
   get "/about_us/edit" => "about_us#edit"
   post "/about_us/" => "about_us#update"
 
