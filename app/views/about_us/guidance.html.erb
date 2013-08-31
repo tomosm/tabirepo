@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag "about_us", :media => "all" %>
+
+<div class="row">
+  <div id="sidebar" class="span3">
+    <%= render :partial => 'sidemenu', :locals => {:active => "guidance"} %>
+  </div>
+  <div id="contents" class="span9">
+
+    <h4>●旅レポの使い方</h4>
+    <div class="cleafix">
+        <%= link_to "ライターになる方法", '/touroku.pdf' %>
+        <br/>
+        <br/>
+        <%= link_to "ログインする方法", '/login.pdf' %>
+        <br/>
+        <br/>
+        <%= link_to "記事を投稿する方法", '/toukou.pdf' %>
+        <br/>
+        <br/>
+    </div>
+  </div>
+</div>

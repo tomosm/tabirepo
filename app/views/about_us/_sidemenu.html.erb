@@ -4,6 +4,11 @@
   <% else %>
     <li><%= link_to '旅レポとは', about_us_path %></li>
   <% end -%>
+  <% if active == "guidance" %>
+    <li class="active"><%= link_to '旅レポの使い方', about_us_guidance_path %></li>
+  <% else %>
+    <li><%= link_to '旅レポの使い方', about_us_guidance_path %></li>
+  <% end -%>
   <% if active == "guidelines" %>
     <li class="active"><%= link_to '記事投稿ガイドライン', about_us_guidelines_path %></li>
   <% else %>
