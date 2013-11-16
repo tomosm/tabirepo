@@ -1,0 +1,26 @@
+
+<% articles.each_with_index do |article, i| %>
+  <!-- <article class="article photo"> -->
+  <div class="ui-block-a">
+
+  <li class="article" data-role="listview">
+      <%= link_to(article_path(article)) do %>
+        <header><%== htmlspace(to_value(article.country)) %>
+        </header>
+        <div>
+          <% if article && article.image %>
+            <%= image_tag(article.image.file.url(:thumb)) %>
+          <% else %>
+            <%= noimage_tag(:thumb) %>
+          <% end -%>
+        </div>
+        <h5>
+          <span class="icon-theme" style="color: <%= to_color(article.theme) %>;">●</span><%= to_value(article.theme) %>
+        </h5>
+        <footer><%= article.title %></footer>
+      <% end -%> 
+
+</li>
+
+</div>
+<% end -%> 
