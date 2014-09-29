@@ -94,10 +94,12 @@ config.serve_static_assets = true
     :authentication => :plain,
     # :user_name => 'tabirepo.analytics@gmail.com',
     # :password => 'PE9593Yk'
-    :user_name => 'support@tabi-repo.net',
-    :password => 'PE9593Yk'
+    :user_name => 'contact.tabirepo@gmail.com',
+    :password => 'aiqu0Jai'
+    # :user_name => 'support@tabi-repo.net',
+    # :password => 'PE9593Yk'
   }
 
   GA.tracker = "UA-41053119-1"
-  
+
 end

@@ -11,7 +11,7 @@ class Message < ActionMailer::Base
   def contact(contact)
     @contact = contact
     mail(
-      to:      'contact@tabi-repo.net',
+      to:      'contact.tabirepo@gmail.com',
       subject: 'お問い合わせ',
       from: @contact.email
     ) do |format|

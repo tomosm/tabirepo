@@ -55,8 +55,10 @@ TabiRepo::Application.configure do
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :user_name => 'support@tabi-repo.net',
-    :password => 'PE9593Yk'
+    :user_name => 'contact.tabirepo@gmail.com',
+    :password => 'aiqu0Jai'
+    # :user_name => 'support@tabi-repo.net',
+    # :password => 'PE9593Yk'
     # :user_name => 'tabirepo.analytics@gmail.com',
     # :password => 'PE9593Yk'
   }
