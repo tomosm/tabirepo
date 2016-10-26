@@ -244,4 +244,8 @@ Devise.setup do |config|
   # omniauth
   config.omniauth :facebook, "494878583905202", "4115e7d20afbf19c4b32d82486e256ab"
   # config.omniauth :facebook, "APP_ID", "APP_SECRET", :strategy_class => OmniAuth::Strategies::Facebook
+
+  # Suppress 'Devise.secret_key was not set. Please add the following to your Devise initializer:'
+  config.secret_key = '5ee13bbe44fca547778e0e8289dd3a67b7a7e1df7fb3c37833e48edd37d70dbfe24a33e2c818c7fd91b9a8b9cc41698ea47f3382023e63aed5baa6ddb6c0768d'
+
 end
