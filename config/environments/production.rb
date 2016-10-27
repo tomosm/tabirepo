@@ -76,28 +76,14 @@ config.serve_static_assets = true
   # 1. Ensure you have defined default url options in your environments files. Here
   #    is an example of default_url_options appropriate for a development environment
   #    in config/environments/development.rb:
-  config.action_mailer.default_url_options = { :host => 'tabi-repo.net' }
+  config.action_mailer.default_url_options = { :host => '' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    # :enable_starttls_auto => true,
-    # :address => 'smtp.live.com',
-    # # :address => 'smtp.gmail.com',
-    # :port => 587,
-    # # :port => 25,
-    # :authentication => :plain,
-    # :domain => 'tabi-repo.net',
-    # :user_name => 'support@tabi-repo.net',
-    # :password => '7NSAAEAA',
-    # :openssl_verify_mode => 'none' # Only use this option for a self-signed and/or wildcard certificate
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    # :user_name => 'tabirepo.analytics@gmail.com',
-    # :password => 'PE9593Yk'
-    :user_name => 'contact.tabirepo@gmail.com',
-    :password => 'aiqu0Jai'
-    # :user_name => 'support@tabi-repo.net',
-    # :password => 'PE9593Yk'
+    :user_name => '',
+    :password => ''
   }
 
   GA.tracker = "UA-41053119-1"

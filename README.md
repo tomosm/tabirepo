@@ -4,7 +4,7 @@
 旅レポ: TabiRepo
 =============
 
-[旅レポ: TabiRepo](https://github.com/tomosm/tabirepo)
+[旅レポ: TabiRepo](http://tabirepo.herokuapp.com)
 
 ## Description
 This was an unsuccessful web media launched in 2013 and is in the end of service.
@@ -17,8 +17,8 @@ This was an unsuccessful web media launched in 2013 and is in the end of service
 - SQLite or MySQL 5.5+
 
 ### Ruby
-Ruby Version 1.9+
-Ruby on Rails 3.2
+- Ruby Version 1.9+
+- Ruby on Rails 3.2
 
 ### Web Browser
 
@@ -29,16 +29,16 @@ Ruby on Rails 3.2
 
 ## Install
 ### Gems
-bundle install --path vendor/bundle
+- bundle install --path vendor/bundle
 
 ### DB load
-bundle exec rake db:create
-bundle exec rake db:schema:load
-bundle exec rake db:migrate
-bundle exec rake db:seed
+- bundle exec rake db:create
+- bundle exec rake db:schema:load
+- bundle exec rake db:migrate
+- bundle exec rake db:seed
 
 ### Start Rails App 
-bundle exec rails s
+- bundle exec rails s
 
 ## Licence
 
