@@ -68,6 +68,12 @@ module TabiRepo
     config.less.compress = true
     config.assets.compress = true
 
+    # Avoid the following error.
+    # Running: rake assets:precompile
+    # rake aborted!
+    # Can't connect to MySQL server on '127.0.0.1'
+    config.assets.initialize_on_precompile = false
+
     # paperclip
     # config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost", :fog_port => "3000"}
     # config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}
