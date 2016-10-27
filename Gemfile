@@ -5,7 +5,7 @@ gem 'rails', '3.2.12'
 gem 'sqlite3', :group => [:development, :test]
 group :production do
   gem 'thin'
-  gem 'mysql2'
+  gem 'mysql2', '0.3.21'
   gem 'google-analytics-rails'
 end
 

@@ -21,8 +21,8 @@ test:
 
 production:
   adapter: mysql2 
-  database: tabirepo_core
-  username: tabirepo
-  password: ped0urwQmpiz2lDghui[ 
-  host: 127.0.0.1
+  database: heroku_1bd1282b0730fe3
+  username: b3eb6c10703f45
+  password: 107561dc 
+  host: us-cdbr-iron-east-04.cleardb.net
   encoding: utf8

@@ -29,7 +29,7 @@ Ruby on Rails 3.2
 
 ## Install
 ### Gems
-bundle install --path vendor/bundler
+bundle install --path vendor/bundle
 
 ### DB load
 bundle exec rake db:create

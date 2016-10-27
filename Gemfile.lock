@@ -108,7 +108,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.4.5)
+    mysql2 (0.3.21)
     oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -214,7 +214,7 @@ DEPENDENCIES
   lazy_high_charts
   less-rails (= 2.3.3)
   less-rails-bootstrap (= 2.3.3)
-  mysql2
+  mysql2 (= 0.3.21)
   omniauth
   omniauth-facebook
   paperclip (= 4.3.7)
