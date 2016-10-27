@@ -1,24 +1,26 @@
-<!--[![Analytics](https://ga-beacon.appspot.com/UA-84540030-1/welcome-page)](https://github.com/tomosm/tabirepo)-->
+[![Analytics](https://ga-beacon.appspot.com/UA-84540030-9/welcome-page)](https://github.com/tomosm/tabirepo)
 
 
 旅レポ: TabiRepo
 =============
 
-[旅レポ: TabiRepo](http://tabirepo.herokuapp.com)
+[旅レポ: TabiRepo](https://tabirepo.herokuapp.com/)
 
 ## Description
 This was an unsuccessful web media launched in 2013 and is in the end of service.
 
 ## Demo
+https://tabirepo.herokuapp.com/
+![Demo](./public/demo/screen_capture1.png "Demo")
 
 ## Requirement
 ### Database
 
-- SQLite or MySQL 5.5+
+- SQLite 3 or MySQL 5.5+
 
-### Ruby
-- Ruby Version 1.9+
+### Ruby on Rails
 - Ruby on Rails 3.2
+- Ruby Version 1.9+
 
 ### Web Browser
 

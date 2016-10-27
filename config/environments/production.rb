@@ -86,6 +86,6 @@ config.serve_static_assets = true
     :password => ''
   }
 
-  GA.tracker = "UA-41053119-1"
+  GA.tracker = "UA-84540030-8"
 
 end

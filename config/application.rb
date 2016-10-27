@@ -68,7 +68,7 @@ module TabiRepo
     config.less.compress = true
     config.assets.compress = true
 
-    # Avoid the following error.
+    # Avoid the following error on Heroku.
     # Running: rake assets:precompile
     # rake aborted!
     # Can't connect to MySQL server on '127.0.0.1'
